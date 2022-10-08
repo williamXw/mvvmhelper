@@ -74,7 +74,7 @@
                         android:background="@null"
                         android:hint="Enter OTP"
                         android:inputType="number"
-                        android:maxLength="4"
+                        android:maxLength="6"
                         android:paddingStart="@dimen/dp.5"
                         android:paddingTop="@dimen/dp.16"
                         android:paddingBottom="@dimen/dp.20"

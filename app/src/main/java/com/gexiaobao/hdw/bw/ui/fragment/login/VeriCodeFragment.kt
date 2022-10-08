@@ -76,7 +76,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
 
     private fun changeBtnBg(etVerCode: AppCompatEditText) {
         if (mViewModel.isChecked.get()) {
-            if (etVerCode.length() == 4) {
+            if (etVerCode.length() == 6) {
                 mBind.btnContinueLogin.setBackgroundResource(R.drawable.round_btn_12_click)
             } else {
                 mBind.btnContinueLogin.setBackgroundResource(R.drawable.round_btn_12)
@@ -172,8 +172,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             EncryptUtil.encode("longitude") to 0,
             EncryptUtil.encode("marketId") to 10033,
             EncryptUtil.encode("noteToken") to noteToken,
-//            EncryptUtil.encode("otpCode") to mViewModel.deal.get(),
-            EncryptUtil.encode("otpCode") to 123456,
+            EncryptUtil.encode("otpCode") to mViewModel.deal.get(),
             EncryptUtil.encode("regGaid") to "",
         )
         val params = EncryptUtil.encode(JSONObject(map).toString())
@@ -183,7 +182,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
                 JSONObject(EncryptUtil.encryptBody(params)).toString()
             )
         when {
-            mViewModel.deal.get().length != 4 -> showDialogMessage("Enter your phone OTP")
+            mViewModel.deal.get().length != 6 -> showDialogMessage("Enter your phone OTP")
             !mBind.checkboxDeal.isChecked -> showDialogMessage("Please selected...")
             else -> {
                 mViewModel.loginCallBack(paramsBody)?.observe(this) {
@@ -247,14 +246,15 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             if (data != null) {
                 loginBean.g = data.getBoolean("11")
                 loginBean.id = data.getInt("1F12")
-                loginBean.blackCustomer = data.getBoolean("15030502191B1304231F12")
+                loginBean.blackCustomer = data.getBoolean("141A17151D35030502191B1304")
                 loginBean.customerUid = data.getString("15030502191B1304231F12")
                 loginBean.token = data.getString("02191D1318")
                 loginBean.googleTester = data.getBoolean("111919111A13221305021304")
                 loginBean.customerMobile = data.getString("15030502191B13043B19141F1A13")
             }
-//            startActivity<MainActivity>()
-//            activity?.finish()
+            LiveDataEvent.loginResult.value = loginBean
+            startActivity<MainActivity>()
+            activity?.finish()
         } else {
             showDialogMessage(msg)
             if (code != NetUrl.SUCCESS_CODE) {

@@ -1,5 +1,6 @@
 package com.gexiaobao.hdw.bw.app.ext
 
+import com.gexiaobao.hdw.bw.data.response.LoginInfoResponse
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 
 /**
@@ -11,5 +12,7 @@ object LiveDataEvent {
 
     //示例：登录成功发送通知
     val loginEvent = UnPeekLiveData<Boolean>()
+
+    val loginResult = UnPeekLiveData<LoginInfoResponse>()
 
 }
