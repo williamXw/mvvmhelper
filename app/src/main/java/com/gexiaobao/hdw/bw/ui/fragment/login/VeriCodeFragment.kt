@@ -19,6 +19,7 @@ import com.gexiaobao.hdw.bw.app.util.*
 import com.gexiaobao.hdw.bw.app.util.RxTextTool.getBuilder
 import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
+import com.gexiaobao.hdw.bw.data.response.LoginInfoResponse
 import com.gexiaobao.hdw.bw.databinding.FragmentVerCodeBinding
 import com.gexiaobao.hdw.bw.ui.activity.MainActivity
 import com.gexiaobao.hdw.bw.ui.viewmodel.LoginViewModel
@@ -240,11 +241,18 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
         }
         hideSoftKeyboard(activity)
         if (code == NetUrl.SUCCESS_CODE) {
+            LiveDataEvent.loginEvent.value = true //通知登录成功
+            val loginBean = LoginInfoResponse()
             val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
-            val hh = EncryptUtil.decode("11")
-            val ll = data.getBoolean("11")
-            val f = data.getInt("1F12")
-            val a = data.getBoolean("141A17151D35030502191B1304")
+            if (data != null) {
+                loginBean.g = data.getBoolean("11")
+                loginBean.id = data.getInt("1F12")
+                loginBean.blackCustomer = data.getBoolean("15030502191B1304231F12")
+                loginBean.customerUid = data.getString("15030502191B1304231F12")
+                loginBean.token = data.getString("02191D1318")
+                loginBean.googleTester = data.getBoolean("111919111A13221305021304")
+                loginBean.customerMobile = data.getString("15030502191B13043B19141F1A13")
+            }
 //            startActivity<MainActivity>()
 //            activity?.finish()
         } else {

@@ -4,9 +4,7 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.data.repository.UserRepository
-import com.gexiaobao.hdw.bw.data.response.CustomerOtpResponse
 import com.gexiaobao.hdw.bw.data.response.LoginInfoResponse
-import com.gexiaobao.hdw.bw.data.response.LoginRegisterReq
 import me.hgj.mvvmhelper.base.BaseViewModel
 import me.hgj.mvvmhelper.core.databinding.BooleanObservableField
 import me.hgj.mvvmhelper.core.databinding.StringObservableField
