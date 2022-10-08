@@ -177,7 +177,10 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
         )
         val params = EncryptUtil.encode(JSONObject(map).toString())
         val paramsBody =
-            RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), JSONObject(EncryptUtil.encryptBody(params)).toString())
+            RequestBody.create(
+                "application/json; charset=utf-8".toMediaTypeOrNull(),
+                JSONObject(EncryptUtil.encryptBody(params)).toString()
+            )
         when {
             mViewModel.deal.get().length != 4 -> showDialogMessage("Enter your phone OTP")
             !mBind.checkboxDeal.isChecked -> showDialogMessage("Please selected...")
@@ -207,7 +210,10 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
 
         val parmas = EncryptUtil.encode(JSONObject(map).toString())
         val paramsBody =
-            RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), JSONObject(EncryptUtil.encryptBody(parmas)).toString())
+            RequestBody.create(
+                "application/json; charset=utf-8".toMediaTypeOrNull(),
+                JSONObject(EncryptUtil.encryptBody(parmas)).toString()
+            )
         mViewModel.customerOtpCallBack(paramsBody)?.observe(this) {
             hideSoftKeyboard(activity)
             parseData(it)
@@ -235,11 +241,12 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
         hideSoftKeyboard(activity)
         if (code == NetUrl.SUCCESS_CODE) {
             val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
+            val hh = EncryptUtil.decode("11")
             val ll = data.getBoolean("11")
             val f = data.getInt("1F12")
             val a = data.getBoolean("141A17151D35030502191B1304")
-            startActivity<MainActivity>()
-            activity?.finish()
+//            startActivity<MainActivity>()
+//            activity?.finish()
         } else {
             showDialogMessage(msg)
             if (code != NetUrl.SUCCESS_CODE) {
