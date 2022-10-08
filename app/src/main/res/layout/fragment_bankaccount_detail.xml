@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.gexiaobao.hdw.bw.ui.viewmodel.IdentificationViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBgGray_EBEBEB"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp.44">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/con_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp.44"
+            tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/dp.22"
+                android:paddingRight="@dimen/dp.20"
+                android:src="@mipmap/icon_back_black"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@={viewmodel.title}"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/dp_10"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/dp_40">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginTop="@dimen/dp.25"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:text="Bank Name" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_name_Adahaar"
+                        style="@style/identification_text_content_style"
+                        android:hint="Bank Name"
+                        android:text="@={viewmodel.bankName}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Beneficiary Name" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_name_pan"
+                        style="@style/identification_text_content_style"
+                        android:hint="Match with addahar"
+                        android:text="@={viewmodel.matchWithAddahar}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="IFSC Code" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_pan_no"
+                        style="@style/identification_text_content_style"
+                        android:hint="Enter IFSC code"
+                        android:text="@={viewmodel.enterIFSCCode}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Account No." />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_aadhaar_no"
+                        style="@style/identification_text_content_style"
+                        android:hint="Enter A/C No."
+                        android:text="@={viewmodel.enterAcNo}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Re-enter Account No." />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_Date_of_birth"
+                        style="@style/identification_text_content_style"
+                        android:hint="Re-enter Account No."
+                        android:text="@={viewmodel.reEnterAcNo}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_no_match"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="The Account No. does not match."
+                        android:textColor="@color/colorText_E80000"
+                        android:textSize="@dimen/sp_11"
+                        android:visibility="@{viewmodel.matchVisible}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp.24"
+                        android:lineSpacingExtra="@dimen/dp_10"
+                        android:text="Warm tips:\n
+1.After certification approved, we will disbruse fund to your bank account.\n
+2.Please don't change bank account before repayment done.\n
+3.Please attach the saving account which under your own name."
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp_13" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dp.35"
+                        android:drawableLeft="@mipmap/icon_warm"
+                        android:drawablePadding="@dimen/dp.9"
+                        android:text="Please confirm all information is true"
+                        android:textColor="@color/colorText_FF7151"
+                        android:textSize="@dimen/sp_15" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_next"
+            style="@style/btn_bottom_style"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:layout_marginBottom="@dimen/dp.22"
+            android:text="Next" />
+    </LinearLayout>
+</layout>

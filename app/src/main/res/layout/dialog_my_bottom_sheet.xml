@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp.32"
+        android:gravity="center_horizontal"
+        android:text="Relationship"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_25" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_relation_contact"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp.12"
+        android:layout_marginBottom="@dimen/dp.20"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

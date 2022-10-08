@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.gexiaobao.hdw.bw.ui.viewmodel.AccountFragmentViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBgGray_EBEBEB"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp.64"
+            android:text="Hello!"
+            android:textColor="@color/colorBlack"
+            android:textSize="30sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp.5"
+            android:text="Welcome toTaurus Kredit"
+            android:textColor="@color/colorText_848484"
+            android:textSize="@dimen/sp_13" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp.20"
+                android:layout_marginTop="@dimen/dp.30"
+                android:layout_marginEnd="@dimen/dp.20"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/dp.25"
+                    android:background="@mipmap/bg_head"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_head"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/bg_head_no_login" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dp.8"
+                            android:text="Log in now"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_18" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_loan_records"
+                    style="@style/ll_account">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_loan_records" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tv_account"
+                        android:text="Loan Records" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_account_red_point"
+                        style="@style/iv_account_red_point" />
+
+                    <androidx.appcompat.widget.AppCompatImageView style="@style/iv_account_arrow_black_right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp.15"
+                    android:layout_marginBottom="@dimen/dp.13"
+                    android:background="@drawable/round_white_12"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/ll_account">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_reenterac_no" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/tv_account"
+                            android:text="authencation_page" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_account_page_red"
+                            style="@style/iv_account_red_point" />
+
+                        <androidx.appcompat.widget.AppCompatImageView style="@style/iv_account_arrow_black_right" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/ll_account">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_customer_care" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/tv_account"
+                            android:text="Customer Care" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_account_care_red"
+                            style="@style/iv_account_red_point" />
+
+                        <androidx.appcompat.widget.AppCompatImageView style="@style/iv_account_arrow_black_right" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat style="@style/ll_account">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_privacy_policy" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/tv_account"
+                            android:text="Loan Rrivacy" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_account_privacy_red"
+                            style="@style/iv_account_red_point" />
+
+                        <androidx.appcompat.widget.AppCompatImageView style="@style/iv_account_arrow_black_right" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <LinearLayout
+                        android:id="@+id/ll_delete_individual_data"
+                        style="@style/ll_account">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_delete_individual_data" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/tv_account"
+                            android:text="Delete Individual Data" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_ccount_data_red"
+                            style="@style/iv_account_red_point" />
+
+                        <androidx.appcompat.widget.AppCompatImageView style="@style/iv_account_arrow_black_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_account_about_us"
+                        style="@style/ll_account">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_about_us"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/tv_account"
+                            android:text="About Us" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_account_us_red"
+                            style="@style/iv_account_red_point" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+
+                            style="@style/iv_account_arrow_black_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_my_setting"
+                        style="@style/ll_account">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_my_setting" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/tv_account"
+                            android:text="My settings" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_account_my_red"
+                            style="@style/iv_account_red_point" />
+
+                        <androidx.appcompat.widget.AppCompatImageView style="@style/iv_account_arrow_black_right" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.gexiaobao.hdw.bw.ui.viewmodel.AccountFragmentViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBgGray_EBEBEB"
+        android:paddingTop="@dimen/dp.44">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/con_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp.44"
+            tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/dp.22"
+                android:paddingRight="@dimen/dp.20"
+                android:src="@mipmap/icon_back_black"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="My Information"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp.20"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@+id/btn_go_loan"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/con_title">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/bg_information"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="000"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_18" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.3"
+                            android:text="Loan Amount"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_11" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="day"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_18" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.3"
+                            android:text="Loan Period"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_11" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.05%"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_18" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.3"
+                            android:text="Interest"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_11" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/ll_my_infomation_style">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/iv_my_information_style"
+                        android:src="@mipmap/icon_authentication" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tv_my_information_style"
+                        android:text="Authentication" />
+
+                    <androidx.appcompat.widget.AppCompatImageView style="@style/iv_gou_my_information_style" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/ll_my_infomation_style">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/iv_my_information_style"
+                        android:src="@mipmap/icon_facial_verification" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tv_my_information_style"
+                        android:text="Facial Verification" />
+
+                    <androidx.appcompat.widget.AppCompatImageView style="@style/iv_gou_my_information_style" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/ll_my_infomation_style">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/iv_my_information_style"
+                        android:src="@mipmap/icon_emergency_contact" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tv_my_information_style"
+                        android:text="Emergency Contact" />
+
+                    <androidx.appcompat.widget.AppCompatImageView style="@style/iv_gou_my_information_style" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/ll_my_infomation_style">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/iv_my_information_style"
+                        android:src="@mipmap/icon_bank_account" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/tv_my_information_style"
+                        android:text="Bank Account" />
+
+                    <androidx.appcompat.widget.AppCompatImageView style="@style/iv_gou_my_information_style" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_go_loan"
+            style="@style/btn_bottom_style"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:background="@drawable/round_btn_12_click"
+            android:text="Get loan"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

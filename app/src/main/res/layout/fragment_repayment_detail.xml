@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBgGray_EBEBEB"
+        android:paddingTop="@dimen/dp.44">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/con_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp.44">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/dp.22"
+                android:paddingRight="@dimen/dp.20"
+                android:src="@mipmap/icon_back_black"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Repayment details"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/con_title">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_middle_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginTop="@dimen/dp.32"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_orange_half_12"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/dp.32">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Repay amount"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.12"
+                            android:text="6,200.00"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="33sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp.53"
+                            android:layout_marginTop="@dimen/dp.16"
+                            android:layout_marginEnd="@dimen/dp.53"
+                            android:layout_marginBottom="@dimen/dp.27"
+                            android:background="@drawable/round_12_white_stroke"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/dp.20"
+                            android:paddingTop="@dimen/dp.15"
+                            android:paddingBottom="@dimen/dp.15">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="@dimen/dp.20"
+                                android:layout_height="@dimen/dp.20"
+                                android:background="@mipmap/icon_dialog_logo" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_weight="1"
+                                android:text="ACEloan"
+                                android:textColor="@color/colorWhite" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginEnd="@dimen/dp.23"
+                                android:background="@drawable/round_white_15"
+                                android:paddingStart="@dimen/dp.18"
+                                android:paddingTop="@dimen/dp.7"
+                                android:paddingEnd="@dimen/dp.18"
+                                android:paddingBottom="@dimen/dp.7"
+                                android:text="Dued"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp_11" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_white_12_half"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/dp.15"
+                        android:paddingTop="@dimen/dp.23"
+                        android:paddingBottom="@dimen/dp.26">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Repayment Details"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_15" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.20"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp.15">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Loan Amount"
+                                android:textColor="@color/colorText_777777"
+                                android:textSize="@dimen/sp_15" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="6,000"
+                                android:textColor="@color/colorText_292F36" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.15"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp.15">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Repaid Date"
+                                android:textColor="@color/colorText_777777"
+                                android:textSize="@dimen/sp_15" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="June 17 2021"
+                                android:textColor="@color/colorText_292F36" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.15"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingEnd="@dimen/dp.15">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Overdue Amount"
+                                android:textColor="@color/colorText_777777"
+                                android:textSize="@dimen/sp_15" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="600"
+                                android:textColor="@color/colorText_292F36" />
+                        </LinearLayout>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_repayment"
+                    style="@style/btn_bottom_style"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginTop="@dimen/dp.35"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:text="Confirmed payment"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_middle_info" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_defer_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp.20"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/round_12_blue_stroke"
+                    android:text="Defer payment"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorText_008080"
+                    android:textSize="@dimen/sp_18"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_repayment" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginTop="@dimen/dp.30"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:layout_marginBottom="@dimen/dp_40"
+                    android:background="@drawable/round_dark_green_12"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/sp_20"
+                    android:paddingTop="@dimen/dp.22"
+                    android:paddingBottom="@dimen/dp.22"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_defer_payment">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Already repaid?"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_20" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp.9"
+                        android:layout_marginEnd="@dimen/dp.46"
+                        android:drawableRight="@mipmap/arrow_right_bg_white"
+                        android:text="Input UTR No. to update your loan."
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

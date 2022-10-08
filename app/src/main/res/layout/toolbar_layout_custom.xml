@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorTran"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/toolbarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="18dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/toolbarRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginEnd="@dimen/dp.20"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingTop="@dimen/dp.5"
+        android:paddingEnd="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp.5"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_14" />
+
+</FrameLayout>

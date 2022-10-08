@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="鸽小宝"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_marginEnd="@dimen/dp.20"
+                android:background="@drawable/round_btn_12"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingTop="@dimen/dp.5"
+                android:paddingEnd="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp.5"
+                android:text="设置"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp.30"
+            android:text="请选择组织"
+            android:textSize="@dimen/dp.12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp.1"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:background="@color/bg_light_gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_texture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp.20"
+            android:paddingTop="@dimen/dp.15"
+            android:paddingRight="@dimen/dp.20">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="线上测试俱乐部（勿加）"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_14" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp.8"
+                    android:text="线上测试俱乐部（勿加）"
+                    android:textColor="@color/colorBlackGry6"
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:src="@mipmap/facility_arrows_icon_norma" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

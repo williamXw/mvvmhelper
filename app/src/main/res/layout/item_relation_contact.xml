@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp.11">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_tv_12_gray"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp.20"
+        android:paddingTop="@dimen/dp.16"
+        android:paddingEnd="@dimen/dp.30"
+        android:paddingBottom="@dimen/dp.20"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_item_relation_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:text="Father/Mother"
+            android:textColor="@color/colorText_292F36"
+            android:textSize="@dimen/sp_18" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_item_relation_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_sel_black" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

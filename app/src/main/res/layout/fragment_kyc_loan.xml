@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.gexiaobao.hdw.bw.ui.viewmodel.LoanFragmentViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBgGray_EBEBEB"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp.64"
+            android:text="Loan"
+            android:textColor="@color/colorBlack"
+            android:textSize="30sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp.5"
+            android:text="Welcome toTaurus Kredit"
+            android:textColor="@color/colorText_848484"
+            android:textSize="@dimen/sp_13" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginTop="@dimen/dp.25"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:background="@drawable/round_white_12"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dp.15"
+                    android:paddingTop="@dimen/dp.15"
+                    android:paddingEnd="@dimen/dp.15"
+                    android:paddingBottom="@dimen/dp.20">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_orange_12"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dp.16"
+                        android:paddingTop="@dimen/dp.22"
+                        android:paddingEnd="@dimen/dp.23"
+                        android:paddingBottom="@dimen/dp.22">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Amount (Rs)"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_16" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableRight="@mipmap/arrow_forward"
+                            android:drawablePadding="@dimen/dp.20"
+                            android:gravity="right"
+                            android:text="50,000"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_26" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/round_dark_green_12"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dp.16"
+                        android:paddingTop="@dimen/dp.22"
+                        android:paddingEnd="@dimen/dp.23"
+                        android:paddingBottom="@dimen/dp.22">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Period (Day)"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_16" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableRight="@mipmap/arrow_forward"
+                            android:drawablePadding="@dimen/dp.20"
+                            android:gravity="right"
+                            android:text="91"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_26" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp.15"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Amount Received"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_13" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="1200"
+                            android:textColor="@color/colorBlack" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp.8"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="You repay"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_13" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="1900"
+                            android:textColor="@color/colorBlack" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp.8"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Repayment Date"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_13" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="2021-12-15"
+                            android:textColor="@color/colorBlack" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp.8"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Annual Interest Rate"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp_13" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="24%"
+                                android:textColor="@color/colorBlack" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="@dimen/dp.15"
+                            android:layout_marginBottom="@dimen/dp.15"
+                            android:background="@color/colorBlack" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/dp.8"
+                            android:text="Monthly repayment %1s,%2s=loan mount*2%%+loan amount/loan months"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_11" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp.20"
+                    android:background="@drawable/round_white_12"
+                    android:drawableRight="@mipmap/arrow_right_black"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/dp.18"
+                    android:text="X orders processing currently"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_15" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:layout_marginBottom="@dimen/dp.20"
+                    android:visibility="gone">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_loan_kyc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0.3"
+                        android:background="@drawable/round_black_12"
+                        android:visibility="gone">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_loan_kyc_lock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/icon_lock" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_loan_kyc_lock"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp.15"
+                            android:text="No application product available"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_15" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:layout_marginBottom="@dimen/dp.20"
+                    android:background="@drawable/round_white_12"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dp.28"
+                    android:paddingTop="@dimen/dp.8"
+                    android:paddingRight="@dimen/dp.20"
+                    android:paddingBottom="@dimen/dp.8">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_alarm_clock" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp.12"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_loan_kyc_time_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="03:00"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/dp.25"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp.3"
+                            android:text="99%Approve"
+                            android:textColor="@color/colorText_777777"
+                            android:textSize="@dimen/sp_11" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/btn_loan_now"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/round_btn_12_click"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/dp.26"
+                        android:paddingRight="@dimen/dp.26"
+                        android:text="Loan Now"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_15" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

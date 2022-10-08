@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4fbbff</color>
+    <color name="colorPrimaryDark">#51abff</color>
+    <color name="colorAccent">#099bfb</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorTran">#00000000</color>
+
+    <color name="colorBgGray_EBEBEB">#EBEBEB</color>
+    <color name="colorText_292F36">#292F36</color>
+    <color name="colorText_777777">#777777</color>
+    <color name="colorText_008080">#008080</color>
+    <color name="colorText_848484">#848484</color>
+    <color name="colorText_274D5A">#274D5A</color>
+    <color name="colorText_1B224B">#1B224B</color>
+    <color name="colorText_999999">#999999</color>
+    <color name="colorText_FF7151">#FF7151</color>
+    <color name="colorText_E80000">#E80000</color>
+    <color name="colorText_1F4E5D">#1F4E5D</color>
+    <color name="colorText_666666">#666666</color>
+
+    <color name="colorGreen">#62B75D</color>
+    <color name="colorBottomNavDefault">#505050</color>
+    <color name="colorGray_E">#EEEEEE</color>
+    <color name="colorBlackGry">#333333</color>
+    <color name="colorBlackGry6">#666666</color>
+    <color name="colorDivider">#ffd2d2d2</color>
+    <color name="colorRed">#c00811</color>
+    <color name="colorOrange">#FF7800</color>
+    <color name="colorPrimary_10">#550C6721</color>
+    <color name="colorPrimary_20">#5CBE73</color>
+    <color name="colorPrimary_30">#E0EEEE</color>
+
+    <color name="actionsheet_red">#FD4A2E</color>
+    <color name="arc_text1">#f9f9f9</color>
+    <color name="bg_light_gray">#f3f3f3</color>
+    <color name="logindarkblue">#379eff</color>
+    <color name="color_red">#F44336</color>
+    <color name="grayc4">#c4c4c4</color>
+    <color name="grayf9">#f9f9f9</color>
+    <color name="gray_gb">#dddddd</color>
+    <color name="colorGray">#333</color>
+
+</resources>

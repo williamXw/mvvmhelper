@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.gexiaobao.hdw.bw.ui.viewmodel.IdentificationViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBgGray_EBEBEB"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp.44">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/con_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp.44"
+            tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/dp.22"
+                android:paddingRight="@dimen/dp.20"
+                android:src="@mipmap/icon_back_black"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@={viewmodel.title}"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/dp_10"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/dp_40">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp.20"
+                    android:layout_marginTop="@dimen/dp.25"
+                    android:layout_marginEnd="@dimen/dp.20"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:text="Name（Aadhaar）" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_name_Adahaar"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.name}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Name（PAN）" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_name_pan"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.namePan}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Pan No." />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_pan_no"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.panNo}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Aadhaar No." />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_aadhaar_no"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.aadhaarNo}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Date Of Birth" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_Date_of_birth"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.dateOfBirth}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Gender" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_Gender"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.gender}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Pincode" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_Pincode"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.pincode}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="Email" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_Email"
+                        style="@style/identification_text_content_style"
+                        android:hint="Abc Def Ger"
+                        android:text="@={viewmodel.email}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/identification_text_title_style"
+                        android:layout_marginTop="@dimen/dp.12"
+                        android:text="ADDRESS" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_Address"
+                        style="@style/identification_text_content_style"
+                        android:hint="address"
+                        android:text="@={viewmodel.address}" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_continue"
+            style="@style/btn_bottom_style"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:layout_marginBottom="@dimen/dp.22"
+            android:text="Continue" />
+    </LinearLayout>
+</layout>

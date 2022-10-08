@@ -1,0 +1,4 @@
+rootProject.name='mvvmhelper'
+include ':app'
+include ':helper'
+include ':immersionbar'

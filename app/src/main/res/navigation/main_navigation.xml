@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navation"
+    app:startDestination="@id/main_fragment">
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.MainFragment"
+        tools:layout="LoanFragment">
+
+        <action
+            android:id="@+id/action_loan_to_indentification"
+            app:destination="@id/indentification_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_account_to_setting"
+            app:destination="@id/fragment_my_setting"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_account_to_about"
+            app:destination="@id/fragment_about_us"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_account_to_delete_data"
+            app:destination="@id/fragment_delete_individual_data"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_account_to_repayment_detail"
+            app:destination="@id/fragment_repayment_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_repayment_detail"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.repayment.RepaymentDetailsFragment"
+        android:label="fragment_repayment_detail"
+        tools:layout="@layout/fragment_repayment_detail"></fragment>
+
+    <fragment
+        android:id="@+id/fragment_about_us"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.account.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/fragment_delete_individual_data"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.account.DeleteIndividualDataFragment"
+        android:label="fragment_delete_individual_data"
+        tools:layout="@layout/fragment_deleteindividualdata" />
+
+    <fragment
+        android:id="@+id/fragment_my_setting"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.account.MySettingFragment"
+        android:label="fragment_my_setting"
+        tools:layout="@layout/fragment_setting_my">
+
+        <action
+            android:id="@+id/action_my_setting_to_my_information"
+            app:destination="@id/fragment_my_information"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_my_setting" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_my_information"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.account.MyInformationFragment"
+        android:label="fragment_my_information"
+        tools:layout="@layout/fragment_my_information">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/indentification_fragment"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.indentification.IdentificationFragment"
+        android:label="fragment_indentification"
+        tools:layout="@layout/fragment_indentification_card">
+
+        <action
+            android:id="@+id/action_inden_card_to_inden_no"
+            app:destination="@id/inden_no_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/indentification_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/inden_no_fragment"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.indentification.IdentificationNoFragment"
+        android:label="fragment_inden_no"
+        tools:layout="@layout/fragment_indentification_no">
+        <action
+            android:id="@+id/action_inden_no_to_inden_face"
+            app:destination="@id/facial_verification_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/indentification_fragment" />
+
+        <action
+            android:id="@+id/action_inden_no_to_inden_contacts"
+            app:destination="@id/emergency_contacts_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/inden_no_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/facial_verification_fragment"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.indentification.FacialVerificationFagment"
+        android:label="facial_verification_fragment"
+        tools:layout="@layout/fragment_facial_vertfication">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/emergency_contacts_fragment"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.indentification.EmergencyContactsFragment"
+        android:label="emergency_contacts_fragment"
+        tools:layout="@layout/fragment_emergency_contacts">
+
+
+        <action
+            android:id="@+id/action_contacts_to_bank"
+            app:destination="@id/fragment_bank_account_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/emergency_contacts_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_bank_account_detail"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.indentification.BankAccountDetailsFragment"
+        android:label="fragment_bank_account_detail"
+        tools:layout="@layout/fragment_bankaccount_detail">
+
+    </fragment>
+
+</navigation>
