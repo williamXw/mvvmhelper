@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
+import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.ext.hideSoftKeyboard
 import com.gexiaobao.hdw.bw.app.util.*
 import com.gexiaobao.hdw.bw.app.util.RxTextTool.getBuilder
@@ -124,6 +125,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     private fun getVerCode() {
+        LiveDataEvent.getOtp.value = false
         val androidId = context?.let { it1 -> DeviceUtil.getAndroidId(it1) }
         val appVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }
 
@@ -179,6 +181,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         }
         hideSoftKeyboard(activity)
         if (code == NetUrl.SUCCESS_CODE) {
+            LiveDataEvent.getOtp.value = true
             val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
             token = JSONObject(data.toString()).getString("1819021322191D1318")
             nav().navigateAction(R.id.action_mobile_to_code, Bundle().apply {

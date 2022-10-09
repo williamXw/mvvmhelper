@@ -158,6 +158,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
     }
 
     private fun loginToMain() {
+        LiveDataEvent.login.value = false
         val map = mapOf(
             EncryptUtil.encode("androidId") to mAndroidID,
             EncryptUtil.encode("appInstanceId") to "",
@@ -254,6 +255,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
                 KvUtils.encode(Constant.TOKEN, loginBean.token)
             }
             LiveDataEvent.loginResult.value = loginBean
+            LiveDataEvent.login.value = true
             startActivity<MainActivity>()
             activity?.finish()
         } else {

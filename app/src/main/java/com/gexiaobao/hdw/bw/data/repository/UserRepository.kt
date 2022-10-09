@@ -33,7 +33,7 @@ object UserRepository {
 
     /**退出登录*/
     fun logOut(): Await<Response> {
-        return RxHttp.postBody(EncryptUtil.encode(NetUrl.LOGIN_OUT))
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.LOGIN_OUT)).setBody("")
             .toOkResponse()
     }
 

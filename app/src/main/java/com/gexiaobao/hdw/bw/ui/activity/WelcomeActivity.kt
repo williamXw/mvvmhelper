@@ -2,9 +2,11 @@ package com.gexiaobao.hdw.bw.ui.activity
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.ext.countDownCoroutines
 import com.gexiaobao.hdw.bw.app.util.DeviceUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils

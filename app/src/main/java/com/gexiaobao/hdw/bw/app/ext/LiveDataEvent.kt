@@ -15,4 +15,7 @@ object LiveDataEvent {
 
     val loginResult = UnPeekLiveData<LoginInfoResponse>()
 
+    val login = UnPeekLiveData<Boolean>()
+    val getOtp = UnPeekLiveData<Boolean>()
+
 }
