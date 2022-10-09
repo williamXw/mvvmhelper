@@ -11,11 +11,12 @@ import me.hgj.mvvmhelper.util.XLog
  */
 class LogUtils private constructor() {
     companion object {
-        private const val DEFAULT_TAG = "MvvmHelper"
+        private const val DEFAULT_TAG = "Tauruskredit"
         private var isLog = true
         fun isLog(): Boolean {
             return isLog
         }
+
         fun setLog(isLog: Boolean) {
             Companion.isLog = isLog
             XLog.init(isLog)
@@ -25,7 +26,7 @@ class LogUtils private constructor() {
             if (!isLog || TextUtils.isEmpty(msg)) {
                 return
             }
-            Log.d(tag, msg?:"")
+            Log.d(tag, msg ?: "")
         }
 
         fun debugInfo(msg: String?) {
@@ -36,7 +37,7 @@ class LogUtils private constructor() {
             if (!isLog || TextUtils.isEmpty(msg)) {
                 return
             }
-            Log.w(tag, msg?:"")
+            Log.w(tag, msg ?: "")
         }
 
         fun warnInfo(msg: String?) {

@@ -27,7 +27,7 @@ import kotlin.system.exitProcess
  * Describe : 欢迎页
  */
 class WelcomeActivity : AppCompatActivity() {
-
+    private var isLogin = false
     private val binding: ActivityWelcomeBinding by lazy {
         ActivityWelcomeBinding.inflate(layoutInflater)
     }
@@ -43,6 +43,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun getDeviceId() {
+        isLogin = KvUtils.decodeBoolean(Constant.ISLOGIN)
         var deviceID = DeviceUtil.getAndroidId(appContext)
         KvUtils.encode(Constant.DEVICE_ID, deviceID)
     }
@@ -99,17 +100,15 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun startCountDownCoroutines() {
-//        val isInit = mmkv.decodeBool(GlobalConstant.IS_INIT)
         //开启倒计时3s
         job = countDownCoroutines(1, {
-//            binding.tvCount.text = "${it}s"//页面中的倒计时，不显示可以注掉
         }, {
-//            如果登陆过就直接跳转主页面 否则去登录
-//            if (!isInit) {
-            startActivity<LoginActivity>()
-//            } else {
-//            startActivity<MainActivity>()
-//            }
+//          如果登陆过就直接跳转主页面 否则去登录
+            if (!isLogin) {
+                startActivity<LoginActivity>()
+            } else {
+                startActivity<MainActivity>()
+            }
             finish()
         }, lifecycleScope)
     }

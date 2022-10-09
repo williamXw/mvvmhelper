@@ -158,7 +158,6 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
     }
 
     private fun loginToMain() {
-        LiveDataEvent.login.value = false
         val map = mapOf(
             EncryptUtil.encode("androidId") to mAndroidID,
             EncryptUtil.encode("appInstanceId") to "",
@@ -234,14 +233,11 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             Log.i("-------------->>>", mResponse)
             msg = JSONObject(mResponse).getString(RxConstants.MSG)
             code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
-        } else {
-            if (it != null) {
-                LogUtils.debugInfo(it.code.toString() + it.message)
-            }
         }
         hideSoftKeyboard(activity)
         if (code == NetUrl.SUCCESS_CODE) {
             LiveDataEvent.loginEvent.value = true //通知登录成功
+            KvUtils.encode(Constant.ISLOGIN, true)
             val loginBean = LoginInfoResponse()
             val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
             if (data != null) {
@@ -254,8 +250,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
                 loginBean.customerMobile = data.getString("15030502191B13043B19141F1A13")
                 KvUtils.encode(Constant.TOKEN, loginBean.token)
             }
-            LiveDataEvent.loginResult.value = loginBean
-            LiveDataEvent.login.value = true
+            LiveDataEvent.loginResult.value = loginBean//保存登录成功之后的用户信息
             startActivity<MainActivity>()
             activity?.finish()
         } else {
@@ -301,10 +296,10 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
 
     override fun onRequestSuccess() {
         super.onRequestSuccess()
-        mViewModel.loginResult.observe(this, Observer {
-            //请求成功  可以做保存信息等操作 ....
-            LiveDataEvent.loginEvent.value = true //通知登录成功
-        })
+//        mViewModel.loginResult.observe(this, Observer {
+//            //请求成功  可以做保存信息等操作 ....
+//            LiveDataEvent.loginEvent.value = true //通知登录成功
+//        })
     }
 
     override fun onRequestError(loadStatus: LoadStatusEntity) {

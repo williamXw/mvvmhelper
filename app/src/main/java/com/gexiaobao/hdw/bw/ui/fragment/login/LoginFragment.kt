@@ -125,7 +125,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     private fun getVerCode() {
-        LiveDataEvent.getOtp.value = false
         val androidId = context?.let { it1 -> DeviceUtil.getAndroidId(it1) }
         val appVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }
 
@@ -181,7 +180,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         }
         hideSoftKeyboard(activity)
         if (code == NetUrl.SUCCESS_CODE) {
-            LiveDataEvent.getOtp.value = true
             val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
             token = JSONObject(data.toString()).getString("1819021322191D1318")
             nav().navigateAction(R.id.action_mobile_to_code, Bundle().apply {

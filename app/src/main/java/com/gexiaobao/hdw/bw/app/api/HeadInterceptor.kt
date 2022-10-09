@@ -17,12 +17,11 @@ class HeadInterceptor : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        val login = LiveDataEvent.getOtp.value
-        val otp = LiveDataEvent.login.value
+        val isLogin = LiveDataEvent.loginEvent.value
         val token = KvUtils.decodeString(Constant.TOKEN)
         val deviceID = KvUtils.decodeString(Constant.DEVICE_ID)
         val builder = chain.request().newBuilder()
-        if (login == true && otp == true) {
+        if (isLogin == true || isLogin != null) {
             builder.addHeader(
                 "Cookie",
                 "650D00040100171A0415151A0410110D1A110A0E000B=${EncryptUtil.encode(token)}"

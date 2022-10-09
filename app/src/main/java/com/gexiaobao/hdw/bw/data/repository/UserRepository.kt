@@ -32,8 +32,8 @@ object UserRepository {
     }
 
     /**退出登录*/
-    fun logOut(): Await<Response> {
-        return RxHttp.postBody(EncryptUtil.encode(NetUrl.LOGIN_OUT)).setBody("")
+    fun logOut(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.LOGIN_OUT)).setBody(body)
             .toOkResponse()
     }
 

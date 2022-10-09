@@ -88,14 +88,13 @@
                     android:layout_marginTop="@dimen/dp.18"
                     android:text="Phone Number" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/et_contact_one"
                     style="@style/identification_text_content_style"
                     android:layout_marginTop="@dimen/dp.12"
                     android:drawableRight="@mipmap/arrow_right_gray"
                     android:hint="Select contact person"
                     android:inputType="number"
-                    android:maxLength="11"
                     android:text="@={viewmodel.mobile}" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -123,7 +122,7 @@
                     android:layout_marginTop="@dimen/dp.18"
                     android:text="Phone Number" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/et_contact_two"
                     style="@style/identification_text_content_style"
                     android:layout_marginTop="@dimen/dp.12"
@@ -131,7 +130,6 @@
                     android:drawableRight="@mipmap/arrow_right_gray"
                     android:hint="Select contact person"
                     android:inputType="number"
-                    android:maxLength="11"
                     android:text="@={viewmodel.mobile2}" />
 
             </LinearLayout>

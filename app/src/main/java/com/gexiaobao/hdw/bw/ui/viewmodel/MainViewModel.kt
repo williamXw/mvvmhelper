@@ -17,10 +17,10 @@ import okhttp3.Response
 class MainViewModel : BaseViewModel() {
 
     /**退出登录*/
-    fun logOutCallBack(): MutableLiveData<Response>? {
+    fun logOutCallBack(body: RequestBody): MutableLiveData<Response>? {
         return rxHttpRequestCallBack {
             onRequest = {
-                iAwaitLiveData?.value = UserRepository.logOut().await()
+                iAwaitLiveData?.value = UserRepository.logOut(body).await()
             }
             loadingType = LoadingType.LOADING_DIALOG
             loadingMessage = "请求中....."
