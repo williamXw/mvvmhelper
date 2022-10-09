@@ -12,10 +12,4 @@ object LiveDataEvent {
 
     //示例：登录成功发送通知
     val loginEvent = UnPeekLiveData<Boolean>()
-
-    val loginResult = UnPeekLiveData<LoginInfoResponse>()
-
-    val login = UnPeekLiveData<Boolean>()
-    val getOtp = UnPeekLiveData<Boolean>()
-
 }

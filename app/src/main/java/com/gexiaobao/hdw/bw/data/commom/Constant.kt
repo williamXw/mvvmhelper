@@ -16,4 +16,5 @@ object Constant {
     const val MOBILE_NUMBER = "mobile_number"
     const val NOTETOKEN = "notetoken"
     const val DEVICE_ID = "device_id"
+    const val LOGIN_DATA_BEAN = "login_data_bean"
 }

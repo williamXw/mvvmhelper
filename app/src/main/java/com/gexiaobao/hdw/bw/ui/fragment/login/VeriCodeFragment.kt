@@ -248,9 +248,10 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
                 loginBean.token = data.getString("02191D1318")
                 loginBean.googleTester = data.getBoolean("111919111A13221305021304")
                 loginBean.customerMobile = data.getString("15030502191B13043B19141F1A13")
-                KvUtils.encode(Constant.TOKEN, loginBean.token)
             }
-            LiveDataEvent.loginResult.value = loginBean//保存登录成功之后的用户信息
+            KvUtils.encode(Constant.TOKEN, loginBean.token)
+//            KvUtils.encode(Constant.LOGIN_DATA_BEAN, loginBean)
+            KvUtils.encode(Constant.LOGIN_DATA_BEAN, loginBean.customerUid)
             startActivity<MainActivity>()
             activity?.finish()
         } else {

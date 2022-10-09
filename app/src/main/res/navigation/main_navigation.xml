@@ -54,6 +54,15 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/main_fragment" />
+
+        <action
+            android:id="@+id/action_inden_no_to_inden_contacts"
+            app:destination="@id/emergency_contacts_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment" />
     </fragment>
 
     <fragment

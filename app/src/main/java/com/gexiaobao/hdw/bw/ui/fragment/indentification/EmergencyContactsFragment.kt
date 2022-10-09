@@ -12,8 +12,10 @@ import com.gexiaobao.hdw.bw.app.base.BaseFragment
 import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.util.*
 import com.gexiaobao.hdw.bw.comm.RxConstants
+import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.data.response.LoginInfoResponse
 import com.gexiaobao.hdw.bw.databinding.FragmentEmergencyContactsBinding
+import com.gexiaobao.hdw.bw.ui.activity.MainActivity
 import com.gexiaobao.hdw.bw.ui.dialog.BottomSheetDialog
 import com.gexiaobao.hdw.bw.ui.viewmodel.EmergencyContactsFragmentVM
 import me.hgj.mvvmhelper.ext.showDialogMessage
@@ -31,7 +33,7 @@ import rxhttp.wrapper.exception.ParseException
  */
 class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, FragmentEmergencyContactsBinding>() {
 
-    private lateinit var loginBean: LoginInfoResponse
+    private var customerID: String = ""
     private var contactName1: String = ""
     private var contactMobile1: String = ""
     private var contactName2: String = ""
@@ -40,7 +42,7 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
     override fun initView(savedInstanceState: Bundle?) {
         mBind.viewmodel = mViewModel
         mViewModel.title.set("Emergency Contacts")
-        loginBean = LiveDataEvent.loginResult.value as LoginInfoResponse
+        customerID = KvUtils.decodeString(Constant.LOGIN_DATA_BEAN)
     }
 
     override fun onBindViewClick() {
@@ -186,7 +188,7 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
                     EncryptUtil.encode("contact2Mobile") to contactMobile2,
                     EncryptUtil.encode("contact2Name") to contactName2,
                     EncryptUtil.encode("contact2Relation") to mViewModel.relation2.get(),
-                    EncryptUtil.encode("customerId") to "10033"
+                    EncryptUtil.encode("customerId") to customerID
                 )
                 val parmas = EncryptUtil.encode(JSONObject(map).toString())
                 val paramsBody =
