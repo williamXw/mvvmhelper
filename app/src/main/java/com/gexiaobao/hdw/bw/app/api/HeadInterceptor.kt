@@ -23,7 +23,7 @@ class HeadInterceptor : Interceptor {
             "Cookie",
             "650D00040100171A0415151A0410110D1A110A0E000B=${EncryptUtil.encode(token)}"
         )
-        builder.addHeader("Cookie", "2120332C26200C21=${EncryptUtil.encode(deviceID)}")
+        builder.addHeader( "Cookie", "2120332C26200C21=${EncryptUtil.encode(deviceID)}")
         builder.addHeader("djaskdjoiwlkjl33sd", "4")
         return chain.proceed(builder.build())
     }

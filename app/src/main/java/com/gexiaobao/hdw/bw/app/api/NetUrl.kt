@@ -18,8 +18,14 @@ object NetUrl {
     /**登录*/
     const val LOGIN = "/customer/loginOrRegByOtp"
 
+    /**退出登录*/
+    const val LOGIN_OUT = "/customer/logout"
+
     /**获取手机验证码接口*/
     const val CUSTOMER_OTP = "/customer/otp"
+
+    /**提交紧急联系人*/
+    const val CUSTOMER_EXTENSION_PUSH_URGENCY_CONTACT = "/customer/extension/pushUrgencyContact"
 
     //注册
     const val REGISTER = "user/register"

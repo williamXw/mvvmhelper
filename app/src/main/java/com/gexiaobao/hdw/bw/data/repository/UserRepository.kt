@@ -31,6 +31,18 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**退出登录*/
+    fun logOut(): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.LOGIN_OUT))
+            .toOkResponse()
+    }
+
+    /**提交紧急联系人*/
+    fun pushUrgencyContact(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_EXTENSION_PUSH_URGENCY_CONTACT)).setBody(body)
+            .toOkResponse()
+    }
+
     /**注册*/
     fun register(body: RegisterParams): Await<LoginInfoResponse> {
         return RxHttp.postBody(NetUrl.REGISTER).setBody(body).toResponse()

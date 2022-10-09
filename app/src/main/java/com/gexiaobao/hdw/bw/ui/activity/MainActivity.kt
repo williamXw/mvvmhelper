@@ -6,6 +6,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.base.BaseActivity
+import com.gexiaobao.hdw.bw.app.util.KvUtils
+import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.ActivityMainBinding
 import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,7 +41,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                         ToastUtils.show("再按一次退出程序")
                         exitTime = System.currentTimeMillis()
                     } else {
-                        finish()
+                        mViewModel.logOutCallBack()?.observe(this@MainActivity) {
+                            if (it.code == 200) {
+                                KvUtils.encode(Constant.TOKEN, "")
+                                finish()
+                            }
+                        }
+
                     }
                 }
             }

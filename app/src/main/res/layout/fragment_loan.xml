@@ -36,128 +36,143 @@
             android:textColor="@color/colorText_848484"
             android:textSize="@dimen/sp_13" />
 
-        <RelativeLayout
-            android:layout_width="275dp"
-            android:layout_height="286dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/dp.59"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp.26"
-            android:layout_marginEnd="@dimen/dp.41"
-            android:background="@mipmap/loan_bg">
+            android:layout_weight="1"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Loan Amount (Rs)"
-                    android:textColor="@color/colorText_274D5A"
-                    android:textSize="@dimen/sp_12" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="60,000"
-                    android:textColor="@color/colorText_274D5A"
-                    android:textSize="@dimen/sp_35"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="275dp"
+                    android:layout_height="286dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/dp.59"
+                    android:layout_marginEnd="@dimen/dp.41"
+                    android:background="@mipmap/loan_bg">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp.30"
-            android:layout_marginTop="@dimen/dp.25"
-            android:layout_marginEnd="@dimen/dp.30"
-            android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Loan Amount (Rs)"
+                            android:textColor="@color/colorText_274D5A"
+                            android:textSize="@dimen/sp_12" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/loan_money" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="60,000"
+                            android:textColor="@color/colorText_274D5A"
+                            android:textSize="@dimen/sp_35"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp.20"
-                    android:orientation="vertical">
+                    android:layout_marginStart="@dimen/dp.30"
+                    android:layout_marginTop="@dimen/dp.25"
+                    android:layout_marginEnd="@dimen/dp.30"
+                    android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text=" 57,960"
-                        android:textColor="@color/colorText_1B224B"
-                        android:textSize="@dimen/sp_18" />
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/loan_money" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp.20"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" 57,960"
+                                android:textColor="@color/colorText_1B224B"
+                                android:textSize="@dimen/sp_18" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Transfer to Bank"
+                                android:textColor="@color/colorText_1B224B"
+                                android:textSize="@dimen/sp_11" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Transfer to Bank"
-                        android:textColor="@color/colorText_1B224B"
-                        android:textSize="@dimen/sp_11" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="@dimen/dp.25"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/loan_period" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp.20"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="months"
+                                android:textColor="@color/colorText_1B224B"
+                                android:textSize="@dimen/sp_18" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Period"
+                                android:textColor="@color/colorText_1B224B"
+                                android:textSize="@dimen/sp_11" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/dp.25"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/loan_period" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp.20"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="months"
-                        android:textColor="@color/colorText_1B224B"
-                        android:textSize="@dimen/sp_18" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Period"
-                        android:textColor="@color/colorText_1B224B"
-                        android:textSize="@dimen/sp_11" />
-
-                </LinearLayout>
+                    android:layout_marginStart="@dimen/dp.30"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp.30" />
 
             </LinearLayout>
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp.30"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp.30" />
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/lan_request"

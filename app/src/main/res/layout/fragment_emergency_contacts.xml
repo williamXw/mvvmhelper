@@ -94,6 +94,8 @@
                     android:layout_marginTop="@dimen/dp.12"
                     android:drawableRight="@mipmap/arrow_right_gray"
                     android:hint="Select contact person"
+                    android:inputType="number"
+                    android:maxLength="11"
                     android:text="@={viewmodel.mobile}" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -128,6 +130,8 @@
                     android:layout_marginBottom="@dimen/dp.30"
                     android:drawableRight="@mipmap/arrow_right_gray"
                     android:hint="Select contact person"
+                    android:inputType="number"
+                    android:maxLength="11"
                     android:text="@={viewmodel.mobile2}" />
 
             </LinearLayout>
