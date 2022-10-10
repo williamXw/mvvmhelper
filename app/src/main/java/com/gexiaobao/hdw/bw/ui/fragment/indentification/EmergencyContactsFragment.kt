@@ -33,7 +33,7 @@ import rxhttp.wrapper.exception.ParseException
  */
 class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, FragmentEmergencyContactsBinding>() {
 
-//    private var customerID: String = ""
+//    private var customerID = 0
     private var contactName1: String = ""
     private var contactMobile1: String = ""
     private var contactName2: String = ""
@@ -42,7 +42,7 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
     override fun initView(savedInstanceState: Bundle?) {
         mBind.viewmodel = mViewModel
         mViewModel.title.set("Emergency Contacts")
-//        customerID = KvUtils.decodeString(Constant.CUSTOMER_ID)
+//        customerID = KvUtils.decodeInt(Constant.CUSTOMER_ID)!!
     }
 
     override fun onBindViewClick() {

@@ -4,13 +4,7 @@ import android.app.Application
 import com.effective.android.anchors.AnchorsManager
 import com.effective.android.anchors.Project
 import com.gexiaobao.hdw.bw.BuildConfig
-import com.gexiaobao.hdw.bw.app.ext.mmkv
-import com.gexiaobao.hdw.bw.app.util.DeviceUtil
-import com.gexiaobao.hdw.bw.app.util.KvUtils
-import com.tencent.bugly.crashreport.CrashReport.getDeviceID
-import com.tencent.mmkv.MMKV
 import me.hgj.mvvmhelper.base.MvvmHelper
-import me.hgj.mvvmhelper.base.appContext
 import me.hgj.mvvmhelper.ext.currentProcessName
 
 /**
@@ -31,7 +25,6 @@ class App : Application() {
             // 其他进程初始化
             processName?.let { onOtherProcessInit(it) }
         }
-        MMKV.initialize(this)
     }
 
     /**

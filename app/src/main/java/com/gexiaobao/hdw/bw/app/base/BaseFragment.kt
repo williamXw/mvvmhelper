@@ -29,9 +29,9 @@ import rxhttp.wrapper.exception.ParseException
  */
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseDbFragment<VM, DB>() {
 
-    val androidId = context?.let { it1 -> DeviceUtil.getAndroidId(it1) }
-    val appVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }
-    val customerID = KvUtils.decodeString(Constant.CUSTOMER_ID)
+    var androidId = ""
+    var appVersion = ""
+    var customerID = 0
 
     var job: Job? = null
 
@@ -41,7 +41,9 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseDbFr
      * Fragment执行onViewCreated后触发
      */
     override fun initData() {
-
+        androidId = context?.let { it1 -> DeviceUtil.getAndroidId(it1) }.toString()
+        appVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }.toString()
+        customerID = KvUtils.decodeInt(Constant.CUSTOMER_ID)!!
     }
 
     fun parseDataNoResult(it: Response?): Boolean {

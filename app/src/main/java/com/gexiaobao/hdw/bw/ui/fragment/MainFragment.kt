@@ -25,7 +25,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     private val rePaymentFragmentPage = RePaymentFragment()
     private val accountFragmentPage = AccountFragment()
     private val loanKYCFragment = LoanKYCFragment()
-    private var isKYC: Boolean = true
+    private var isKYC: Boolean = false
 
     override fun initView(savedInstanceState: Bundle?) {
         mBind.mainViewpager.addOnPageChangeListener(viewPagerListener)

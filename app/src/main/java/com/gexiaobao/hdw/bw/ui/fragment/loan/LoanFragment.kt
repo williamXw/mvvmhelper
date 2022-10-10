@@ -31,8 +31,8 @@ class LoanFragment : BaseFragment<LoanFragmentViewModel, FragmentLoanBinding>() 
         setOnclickNoRepeat(mBind.lanRequest) {
             when (it) {
                 mBind.lanRequest -> {
-//                    nav().navigateAction(R.id.action_loan_to_indentification)
-                    nav().navigateAction(R.id.action_inden_no_to_inden_contacts)
+                    nav().navigateAction(R.id.action_loan_to_indentification)
+//                    nav().navigateAction(R.id.action_inden_no_to_inden_contacts)
                 }
             }
         }

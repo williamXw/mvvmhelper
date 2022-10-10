@@ -193,7 +193,6 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
                             loginBean.customerMobile = data.getString("15030502191B13043B19141F1A13")
                         }
                         KvUtils.encode(Constant.TOKEN, loginBean.token)
-//                      KvUtils.encode(Constant.LOGIN_DATA_BEAN, loginBean)
                         KvUtils.encode(Constant.CUSTOMER_ID, loginBean.id)
                         startActivity<MainActivity>()
                         activity?.finish()
