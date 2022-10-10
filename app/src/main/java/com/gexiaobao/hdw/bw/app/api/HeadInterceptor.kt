@@ -1,6 +1,5 @@
 package com.gexiaobao.hdw.bw.app.api
 
-import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils
 import com.gexiaobao.hdw.bw.data.commom.Constant
@@ -17,11 +16,11 @@ class HeadInterceptor : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        val isLogin = LiveDataEvent.loginEvent.value
+        val isLogin = KvUtils.decodeBoolean(Constant.ISLOGIN)
         val token = KvUtils.decodeString(Constant.TOKEN)
         val deviceID = KvUtils.decodeString(Constant.DEVICE_ID)
         val builder = chain.request().newBuilder()
-        if (isLogin == true || isLogin != null) {
+        if (isLogin) {
             builder.addHeader(
                 "Cookie",
                 "650D00040100171A0415151A0410110D1A110A0E000B=${EncryptUtil.encode(token)}"

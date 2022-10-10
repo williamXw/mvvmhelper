@@ -7,6 +7,7 @@ package com.gexiaobao.hdw.bw.data.commom
  */
 object Constant {
 
+    const val MARKET_ID = "10033"
     const val TOKEN = "token"
     const val IS_CHECKED_PASSWORD = "is_checked_password"
     const val USER_NAME = "user_name"
@@ -16,5 +17,5 @@ object Constant {
     const val MOBILE_NUMBER = "mobile_number"
     const val NOTETOKEN = "notetoken"
     const val DEVICE_ID = "device_id"
-    const val LOGIN_DATA_BEAN = "login_data_bean"
+    const val CUSTOMER_ID = "customer_id"
 }

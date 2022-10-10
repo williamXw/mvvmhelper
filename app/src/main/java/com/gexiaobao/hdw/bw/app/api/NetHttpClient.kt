@@ -20,7 +20,7 @@ object NetHttpClient {
         val sslParams = HttpsUtils.getSslSocketFactory()
         return OkHttpClient.Builder()
             //使用CookieStore对象磁盘缓存,自动管理cookie 玩安卓自动登录验证
-            .cookieJar(CookieStore(File(appContext.externalCacheDir, "RxHttpCookie")))
+//            .cookieJar(CookieStore(File(appContext.externalCacheDir, "RxHttpCookie")))
             .connectTimeout(15, TimeUnit.SECONDS)//读取连接超时时间 15秒
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)

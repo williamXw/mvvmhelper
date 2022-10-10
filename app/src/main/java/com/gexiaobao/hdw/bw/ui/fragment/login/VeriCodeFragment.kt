@@ -42,8 +42,6 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
 
     private var mobileNum = ""
     private var noteToken = ""
-    private var mAndroidID = ""
-    private var mAppVersion = ""
 
     override fun initView(savedInstanceState: Bundle?) {
         ImmersionBar.with(this)
@@ -55,8 +53,8 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             mobileNum = it.getString(Constant.MOBILE_NUMBER)!!
             noteToken = it.getString(Constant.NOTETOKEN)!!
         }
-        mAndroidID = context?.let { DeviceUtil.getAndroidId(it) }.toString()
-        mAppVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }.toString()
+//        mAndroidID = context?.let { DeviceUtil.getAndroidId(it) }.toString()
+//        mAppVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }.toString()
     }
 
     override fun initData() {
@@ -159,12 +157,12 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
 
     private fun loginToMain() {
         val map = mapOf(
-            EncryptUtil.encode("androidId") to mAndroidID,
+            EncryptUtil.encode("androidId") to androidId,
             EncryptUtil.encode("appInstanceId") to "",
             EncryptUtil.encode("appVersion") to "1.1.0",
             EncryptUtil.encode("customerId") to 0,
             EncryptUtil.encode("customerMobile") to mobileNum,
-            EncryptUtil.encode("deviceId") to mAndroidID,
+            EncryptUtil.encode("deviceId") to androidId,
             EncryptUtil.encode("deviceType") to DeviceUtil.model,
             EncryptUtil.encode("fcmToken") to "",
             EncryptUtil.encode("ip") to "",
@@ -196,8 +194,8 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
 
     private fun reSendVerCode() {
         val map = mapOf(
-            EncryptUtil.encode("androidId") to mAndroidID,
-            EncryptUtil.encode("appVersion") to mAppVersion,
+            EncryptUtil.encode("androidId") to androidId,
+            EncryptUtil.encode("appVersion") to appVersion,
             EncryptUtil.encode("customerAge") to "",
             EncryptUtil.encode("customerId") to 0,
             EncryptUtil.encode("customerMobile") to mViewModel.mobileNum.get(),
@@ -251,7 +249,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             }
             KvUtils.encode(Constant.TOKEN, loginBean.token)
 //            KvUtils.encode(Constant.LOGIN_DATA_BEAN, loginBean)
-            KvUtils.encode(Constant.LOGIN_DATA_BEAN, loginBean.customerUid)
+            KvUtils.encode(Constant.CUSTOMER_ID, loginBean.id)
             startActivity<MainActivity>()
             activity?.finish()
         } else {

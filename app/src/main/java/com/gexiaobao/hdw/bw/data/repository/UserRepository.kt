@@ -43,6 +43,12 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**获取首页需要展示的借贷相关信息*/
+    fun fetchHomeInfo(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_HOME_FETCH_HOME_INFO)).setBody(body)
+            .toOkResponse()
+    }
+
     /**注册*/
     fun register(body: RegisterParams): Await<LoginInfoResponse> {
         return RxHttp.postBody(NetUrl.REGISTER).setBody(body).toResponse()

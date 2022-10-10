@@ -27,6 +27,9 @@ object NetUrl {
     /**提交紧急联系人*/
     const val CUSTOMER_EXTENSION_PUSH_URGENCY_CONTACT = "/customer/extension/pushUrgencyContact"
 
+    /**获取首页需要展示的借贷相关信息*/
+    const val CORE_HOME_FETCH_HOME_INFO = "/core/home/fetchHomeInfo"
+
     //注册
     const val REGISTER = "user/register"
 

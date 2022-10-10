@@ -125,9 +125,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     private fun getVerCode() {
-        val androidId = context?.let { it1 -> DeviceUtil.getAndroidId(it1) }
-        val appVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }
-
         val map = mapOf(
             EncryptUtil.encode("androidId") to androidId,
             EncryptUtil.encode("appVersion") to appVersion,

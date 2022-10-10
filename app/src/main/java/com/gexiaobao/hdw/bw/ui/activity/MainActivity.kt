@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.base.BaseActivity
@@ -12,20 +11,16 @@ import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils
 import com.gexiaobao.hdw.bw.app.util.RxToast
-import com.gexiaobao.hdw.bw.app.util.get
 import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.ActivityMainBinding
 import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.hjq.toast.ToastUtils
 import me.hgj.mvvmhelper.ext.showDialogMessage
-import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import rxhttp.wrapper.exception.ParseException
+
 
 /**
  * created by : huxiaowei
@@ -37,10 +32,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     var exitTime = 0L
 
     override fun initView(savedInstanceState: Bundle?) {
-
-//        val navController = Navigation.findNavController(this, R.id.nav_host)
-//        val navigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
-//        NavigationUI.setupWithNavController(navigationView, navController)
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -54,12 +45,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                         RxToast.showToast("Press again to exit the program")
                         exitTime = System.currentTimeMillis()
                     } else {
-                        val map = mapOf("" to "")
+                        val map = mapOf<String, String>()
                         var parmas = EncryptUtil.encode(JSONObject(map).toString())
                         val paramsBody = RequestBody.create(
                             "application/json; charset=utf-8".toMediaTypeOrNull(),
                             JSONObject(EncryptUtil.encryptBody(parmas)).toString()
                         )
+
                         mViewModel.logOutCallBack(paramsBody)?.observe(this@MainActivity) {
                             if (it.code == 200) {
                                 var code = -1
@@ -91,5 +83,4 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             }
         })
     }
-
 }

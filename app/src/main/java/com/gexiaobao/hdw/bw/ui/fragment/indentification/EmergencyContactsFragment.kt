@@ -33,7 +33,7 @@ import rxhttp.wrapper.exception.ParseException
  */
 class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, FragmentEmergencyContactsBinding>() {
 
-    private var customerID: String = ""
+//    private var customerID: String = ""
     private var contactName1: String = ""
     private var contactMobile1: String = ""
     private var contactName2: String = ""
@@ -42,7 +42,7 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
     override fun initView(savedInstanceState: Bundle?) {
         mBind.viewmodel = mViewModel
         mViewModel.title.set("Emergency Contacts")
-        customerID = KvUtils.decodeString(Constant.LOGIN_DATA_BEAN)
+//        customerID = KvUtils.decodeString(Constant.CUSTOMER_ID)
     }
 
     override fun onBindViewClick() {
@@ -74,47 +74,49 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
     private fun getContactInfo(type: Int) {
         val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
         startActivityForResult(intent) { it ->
-            val contactData: Uri? = it?.data
-            val cursor: Cursor? = contactData?.let { it1 ->
-                activity?.contentResolver?.query(
-                    it1, null, null, null, null
-                )
-            }
-            val phoneMap: Map<String, String> = getContactPhone(cursor)
-            if (!cursor?.isClosed!!) {
-                cursor?.close()
-            }
-            if (null != phoneMap && phoneMap.isNotEmpty()) {
-                val keySet = phoneMap.keys
-                val keyNo = phoneMap.values
-                if (null != keySet && keySet.isNotEmpty()) {
-                    val keys: Array<Any> = keySet.toTypedArray()
+            if (it != null) {
+                val contactData: Uri? = it.data
+                val cursor: Cursor? = contactData?.let { it1 ->
+                    activity?.contentResolver?.query(
+                        it1, null, null, null, null
+                    )
+                }
+                val phoneMap: Map<String, String> = getContactPhone(cursor)
+                if (!cursor?.isClosed!!) {
+                    cursor?.close()
+                }
+                if (null != phoneMap && phoneMap.isNotEmpty()) {
+                    val keySet = phoneMap.keys
+                    val keyNo = phoneMap.values
+                    if (null != keySet && keySet.isNotEmpty()) {
+                        val keys: Array<Any> = keySet.toTypedArray()
+                        when (type) {
+                            1 -> {
+                                contactName1 = keys[0] as String
+                            }
+                            2 -> {
+                                contactName2 = keys[0] as String
+                            }
+                        }
+                    }
+                    if (null != keyNo && keyNo.isNotEmpty()) {
+                        val keys: Array<Any> = keyNo.toTypedArray()
+                        when (type) {
+                            1 -> {
+                                contactMobile1 = keys[0] as String
+                            }
+                            2 -> {
+                                contactMobile2 = keys[0] as String
+                            }
+                        }
+                    }
                     when (type) {
                         1 -> {
-                            contactName1 = keys[0] as String
+                            mViewModel.mobile.set("$contactName1: $contactMobile1")
                         }
                         2 -> {
-                            contactName2 = keys[0] as String
+                            mViewModel.mobile2.set("$contactName2: $contactMobile2")
                         }
-                    }
-                }
-                if (null != keyNo && keyNo.isNotEmpty()) {
-                    val keys: Array<Any> = keyNo.toTypedArray()
-                    when (type) {
-                        1 -> {
-                            contactMobile1 = keys[0] as String
-                        }
-                        2 -> {
-                            contactMobile2 = keys[0] as String
-                        }
-                    }
-                }
-                when (type) {
-                    1 -> {
-                        mViewModel.mobile.set("$contactName1: $contactMobile1")
-                    }
-                    2 -> {
-                        mViewModel.mobile2.set("$contactName2: $contactMobile2")
                     }
                 }
             }

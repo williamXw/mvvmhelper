@@ -76,6 +76,9 @@ dependencies {
     implementation "com.github.zhpanvip:BannerViewPager:3.5.4"
 
     implementation project(path: ':helper')
+
+    implementation 'com.squareup.okio:okio:1.12.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation "com.github.liujingxing.rxhttp:rxhttp:2.9.3"
     ksp "com.github.liujingxing.rxhttp:rxhttp-compiler:2.9.3"
 

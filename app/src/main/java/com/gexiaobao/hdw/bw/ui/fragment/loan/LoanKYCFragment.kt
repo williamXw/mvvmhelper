@@ -5,11 +5,17 @@ import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
 import com.gexiaobao.hdw.bw.app.dialog.RxDialogSure
 import com.gexiaobao.hdw.bw.app.dialog.RxLoanDialogSure
+import com.gexiaobao.hdw.bw.app.util.EncryptUtil
+import com.gexiaobao.hdw.bw.app.util.KvUtils
 import com.gexiaobao.hdw.bw.app.util.RxToast
 import com.gexiaobao.hdw.bw.app.util.setOnclickNoRepeat
+import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.FragmentKycLoanBinding
 import com.gexiaobao.hdw.bw.ui.view.PeterTimeCountRefresh
 import com.gexiaobao.hdw.bw.ui.viewmodel.LoanFragmentViewModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import org.json.JSONObject
 import java.text.DecimalFormat
 
 /**
@@ -23,6 +29,21 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
 
     override fun initView(savedInstanceState: Bundle?) {
         mBind.viewmodel = mViewModel
+        fetchHomeInfo()
+    }
+
+    private fun fetchHomeInfo() {
+        val map = mapOf(
+            EncryptUtil.encode("appVersion") to appVersion,
+            EncryptUtil.encode("customerId") to customerID,
+            EncryptUtil.encode("marketId") to Constant.MARKET_ID
+        )
+        val parmas = EncryptUtil.encode(JSONObject(map).toString())
+        val paramsBody =
+            RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), JSONObject(EncryptUtil.encryptBody(parmas)).toString())
+        mViewModel.fetchHomeInfo(paramsBody)?.observe(this) {
+            parseDataNoResult(it)
+        }
     }
 
     override fun onResume() {
@@ -35,8 +56,8 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
         setOnclickNoRepeat(mBind.btnLoanNow) {
             when (it) {
                 mBind.btnLoanNow -> {
-//                    showLoanSureDialog()
-                    timeCountThree()
+                    showLoanSureDialog()
+//                    timeCountThree()
                 }
             }
         }
