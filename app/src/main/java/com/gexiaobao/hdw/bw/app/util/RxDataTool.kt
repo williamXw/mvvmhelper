@@ -56,7 +56,7 @@ class RxDataTool {
         /**
          * 金额 格式化
          */
-        private val AMOUNT_FORMAT = DecimalFormat("###,###,###,##0.00")
+        private val AMOUNT_FORMAT = DecimalFormat("###,###,###,##0")
 
         /**
          * 判断字符串是否为空 为空即true
@@ -66,7 +66,7 @@ class RxDataTool {
          */
         @JvmStatic
         fun isNullString(str: String?): Boolean {
-            return str == null || str.length == 0 || "null" == str
+            return str == null || str.isEmpty() || "null" == str
         }
 
         /**

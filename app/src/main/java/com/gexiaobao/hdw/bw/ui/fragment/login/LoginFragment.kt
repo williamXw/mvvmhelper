@@ -1,39 +1,30 @@
 package com.gexiaobao.hdw.bw.ui.fragment.login
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.addTextChangedListener
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
-import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
-import com.gexiaobao.hdw.bw.app.ext.hideSoftKeyboard
-import com.gexiaobao.hdw.bw.app.util.*
+import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.RxTextTool.getBuilder
+import com.gexiaobao.hdw.bw.app.util.nav
+import com.gexiaobao.hdw.bw.app.util.navigateAction
+import com.gexiaobao.hdw.bw.app.util.setOnclickNoRepeat
 import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
-import com.gexiaobao.hdw.bw.data.response.ApiResponse
 import com.gexiaobao.hdw.bw.databinding.FragmentLoginBinding
 import com.gexiaobao.hdw.bw.ui.viewmodel.LoginViewModel
 import com.gyf.immersionbar.ImmersionBar
 import me.hgj.mvvmhelper.ext.showDialogMessage
-import me.hgj.mvvmhelper.ext.toJsonStr
 import me.hgj.mvvmhelper.net.LoadStatusEntity
-import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import okhttp3.Response
-import okhttp3.internal.wait
 import org.json.JSONObject
-import rxhttp.wrapper.exception.ParseException
-import rxhttp.wrapper.param.RxHttp
-import rxhttp.wrapper.utils.convert
 
 /**
  * created by : huxiaowei
@@ -153,41 +144,17 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             !mViewModel.isChecked.get() -> showDialogMessage("Please selected...")
             else -> {
                 mViewModel.customerOtpCallBack(paramsBody)?.observe(this) {
-                    parseData(it)
+                    val mResponse = parseData2(it)
+                    if (mResponse.isNotEmpty()) {
+                        val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
+                        val token = JSONObject(data.toString()).getString("1819021322191D1318")
+                        nav().navigateAction(R.id.action_mobile_to_code, Bundle().apply {
+                            putString(Constant.MOBILE_NUMBER, mViewModel.mobileNum.get())
+                            putString(Constant.NOTETOKEN, token)
+                        })
+                    }
                 }
             }
-        }
-    }
-
-    private fun parseData(it: Response) {
-        var code = -1
-        var msg = ""
-        var token = ""
-        var mResponse = ""
-        if (it.code == 200) {
-            val dataBody = JSONObject(it.body!!.string())
-            val firstKey = JSONObject(dataBody.toString()).get(RxConstants.KEY).toString()
-            val secondKey = JSONObject(firstKey).get(RxConstants.KEY).toString()
-            val thirdKey = JSONObject(secondKey).get(RxConstants.KEY).toString()
-            mResponse = EncryptUtil.decode(thirdKey)
-            msg = JSONObject(mResponse).getString(RxConstants.MSG)
-            code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
-        } else {
-            LogUtils.debugInfo(it.code.toString() + it.message)
-        }
-        hideSoftKeyboard(activity)
-        if (code == NetUrl.SUCCESS_CODE) {
-            val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
-            token = JSONObject(data.toString()).getString("1819021322191D1318")
-            nav().navigateAction(R.id.action_mobile_to_code, Bundle().apply {
-                putString(Constant.MOBILE_NUMBER, mViewModel.mobileNum.get())
-                putString(Constant.NOTETOKEN, token)
-            })
-        } else {
-            if (code != NetUrl.SUCCESS_CODE) {
-                throw ParseException(code.toString(), msg, it)
-            }
-            showDialogMessage(msg)
         }
     }
 

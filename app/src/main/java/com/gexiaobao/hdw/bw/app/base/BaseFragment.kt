@@ -73,6 +73,33 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseDbFr
         return false
     }
 
+    fun parseData2(it: Response?): String {
+        if (it!!.code == 200) {
+            val dataBody = JSONObject(it.body!!.string())
+            val firstKey = JSONObject(dataBody.toString()).get(RxConstants.KEY).toString()
+            val secondKey = JSONObject(firstKey).get(RxConstants.KEY).toString()
+            var thirdKey = JSONObject(secondKey).get(RxConstants.KEY).toString()
+            val mResponse = EncryptUtil.decode(thirdKey)
+            Log.i("-------------->>>", mResponse)
+            val msg = JSONObject(mResponse).getString(RxConstants.MSG)
+            val code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
+            if (code == NetUrl.SUCCESS_CODE) {
+                return mResponse
+            } else {
+                showDialogMessage(msg)
+                if (code != NetUrl.SUCCESS_CODE) {
+                    throw ParseException(code.toString(), msg, it)
+                }
+            }
+        } else {
+            if (it != null) {
+                LogUtils.debugInfo(it.code.toString() + it.message)
+                throw ParseException(it.code.toString(), it.message, it)
+            }
+        }
+        return ""
+    }
+
     override fun onPause() {
         super.onPause()
         hideSoftKeyboard(activity)

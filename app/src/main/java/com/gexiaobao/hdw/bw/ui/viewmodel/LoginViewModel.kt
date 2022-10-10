@@ -38,25 +38,6 @@ class LoginViewModel : BaseViewModel() {
         }
     }
 
-//    var changeBtnBg = object : ObservableInt(mobileNum, isChecked) {
-//        override fun get(): Int {
-//            return if (mobileNum.get().startsWith("0")) {
-//                if (mobileNum.get().length == 11 && isChecked.get()) {
-//                    R.drawable.round_btn_12_click
-//                } else {
-//                    R.drawable.round_btn_12
-//                }
-//            } else {
-//                if (mobileNum.get().length == 10 && isChecked.get()) {
-//                    R.drawable.round_btn_12_click
-//                } else {
-//                    R.drawable.round_btn_12
-//                }
-//            }
-//        }
-//    }
-
-
     /**获取验证码*/
     fun customerOtpCallBack(body: RequestBody): MutableLiveData<Response>? {
         return rxHttpRequestCallBack {

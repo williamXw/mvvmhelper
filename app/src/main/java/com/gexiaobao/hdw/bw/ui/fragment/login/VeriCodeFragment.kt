@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.Observer
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
@@ -26,12 +24,9 @@ import com.gexiaobao.hdw.bw.ui.viewmodel.LoginViewModel
 import com.gyf.immersionbar.ImmersionBar
 import me.hgj.mvvmhelper.ext.showDialogMessage
 import me.hgj.mvvmhelper.net.LoadStatusEntity
-import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import okhttp3.Response
 import org.json.JSONObject
-import rxhttp.wrapper.exception.ParseException
 
 /**
  * created by : huxiaowei
@@ -53,8 +48,6 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             mobileNum = it.getString(Constant.MOBILE_NUMBER)!!
             noteToken = it.getString(Constant.NOTETOKEN)!!
         }
-//        mAndroidID = context?.let { DeviceUtil.getAndroidId(it) }.toString()
-//        mAppVersion = activity?.let { it1 -> DeviceUtil.getVersionCode(it1) }.toString()
     }
 
     override fun initData() {
@@ -184,8 +177,26 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             !mBind.checkboxDeal.isChecked -> showDialogMessage("Please selected...")
             else -> {
                 mViewModel.loginCallBack(paramsBody)?.observe(this) {
-                    if (it.code == 200) {
-                        parseLoginData(it)
+                    val mResponse = parseData2(it)
+                    if (mResponse.isNotEmpty()) {
+                        LiveDataEvent.loginEvent.value = true //通知登录成功
+                        KvUtils.encode(Constant.ISLOGIN, true)
+                        val loginBean = LoginInfoResponse()
+                        val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
+                        if (data != null) {
+                            loginBean.g = data.getBoolean("11")
+                            loginBean.id = data.getInt("1F12")
+                            loginBean.blackCustomer = data.getBoolean("141A17151D35030502191B1304")
+                            loginBean.customerUid = data.getString("15030502191B1304231F12")
+                            loginBean.token = data.getString("02191D1318")
+                            loginBean.googleTester = data.getBoolean("111919111A13221305021304")
+                            loginBean.customerMobile = data.getString("15030502191B13043B19141F1A13")
+                        }
+                        KvUtils.encode(Constant.TOKEN, loginBean.token)
+//                      KvUtils.encode(Constant.LOGIN_DATA_BEAN, loginBean)
+                        KvUtils.encode(Constant.CUSTOMER_ID, loginBean.id)
+                        startActivity<MainActivity>()
+                        activity?.finish()
                     }
                 }
             }
@@ -214,91 +225,13 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             )
         mViewModel.customerOtpCallBack(paramsBody)?.observe(this) {
             hideSoftKeyboard(activity)
-            parseData(it)
-        }
-    }
-
-    private fun parseLoginData(it: Response?) {
-        var code = -1
-        var msg = ""
-        var mResponse = ""
-        if (it!!.code == 200) {
-            val dataBody = JSONObject(it.body!!.string())
-            val firstKey = JSONObject(dataBody.toString()).get(RxConstants.KEY).toString()
-            val secondKey = JSONObject(firstKey).get(RxConstants.KEY).toString()
-            var thirdKey = JSONObject(secondKey).get(RxConstants.KEY).toString()
-            mResponse = EncryptUtil.decode(thirdKey)
-            Log.i("-------------->>>", mResponse)
-            msg = JSONObject(mResponse).getString(RxConstants.MSG)
-            code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
-        }
-        hideSoftKeyboard(activity)
-        if (code == NetUrl.SUCCESS_CODE) {
-            LiveDataEvent.loginEvent.value = true //通知登录成功
-            KvUtils.encode(Constant.ISLOGIN, true)
-            val loginBean = LoginInfoResponse()
-            val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
-            if (data != null) {
-                loginBean.g = data.getBoolean("11")
-                loginBean.id = data.getInt("1F12")
-                loginBean.blackCustomer = data.getBoolean("141A17151D35030502191B1304")
-                loginBean.customerUid = data.getString("15030502191B1304231F12")
-                loginBean.token = data.getString("02191D1318")
-                loginBean.googleTester = data.getBoolean("111919111A13221305021304")
-                loginBean.customerMobile = data.getString("15030502191B13043B19141F1A13")
-            }
-            KvUtils.encode(Constant.TOKEN, loginBean.token)
-//            KvUtils.encode(Constant.LOGIN_DATA_BEAN, loginBean)
-            KvUtils.encode(Constant.CUSTOMER_ID, loginBean.id)
-            startActivity<MainActivity>()
-            activity?.finish()
-        } else {
-            showDialogMessage(msg)
-            if (code != NetUrl.SUCCESS_CODE) {
-                throw ParseException(code.toString(), msg, it)
+            val mResult = parseData2(it)
+            if (mResult.isNotEmpty()) {
+                val data = JSONObject(mResult).getJSONObject(RxConstants.DATA)
+                val token = JSONObject(data.toString()).getString("1819021322191D1318")
+                noteToken = token
             }
         }
-    }
-
-
-    private fun parseData(it: Response?) {
-        var code = -1
-        var msg = ""
-        var token = ""
-        var mResponse = ""
-        if (it!!.code == 200) {
-            val dataBody = JSONObject(it.body!!.string())
-            val firstKey = JSONObject(dataBody.toString()).get(RxConstants.KEY).toString()
-            val secondKey = JSONObject(firstKey).get(RxConstants.KEY).toString()
-            var thirdKey = JSONObject(secondKey).get(RxConstants.KEY).toString()
-            mResponse = EncryptUtil.decode(thirdKey)
-            msg = JSONObject(mResponse).getString(RxConstants.MSG)
-            code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
-        } else {
-            if (it != null) {
-                LogUtils.debugInfo(it.code.toString() + it.message)
-            }
-        }
-        hideSoftKeyboard(activity)
-        if (code == NetUrl.SUCCESS_CODE) {
-            val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
-            token = JSONObject(data.toString()).getString("1819021322191D1318")
-            noteToken = token
-        } else {
-            showDialogMessage(msg)
-            if (code != NetUrl.SUCCESS_CODE) {
-                throw ParseException(code.toString(), msg, it)
-            }
-        }
-
-    }
-
-    override fun onRequestSuccess() {
-        super.onRequestSuccess()
-//        mViewModel.loginResult.observe(this, Observer {
-//            //请求成功  可以做保存信息等操作 ....
-//            LiveDataEvent.loginEvent.value = true //通知登录成功
-//        })
     }
 
     override fun onRequestError(loadStatus: LoadStatusEntity) {
