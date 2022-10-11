@@ -30,11 +30,8 @@ object NetUrl {
     /**获取首页需要展示的借贷相关信息*/
     const val CORE_HOME_FETCH_HOME_INFO = "/core/home/fetchHomeInfo"
 
-    //注册
-    const val REGISTER = "user/register"
-
-    //重置密码
-    const val RESET_PASSWORD = "user/changePwd"
+    /**获取银行列表*/
+    const val CUSTOMER_BANK_FETCH_BANKS = "/customer/bank/fetchBanks"
 
 
 }

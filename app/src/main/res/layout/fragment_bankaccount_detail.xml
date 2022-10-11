@@ -72,7 +72,7 @@
                         style="@style/identification_text_title_style"
                         android:text="Bank Name" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/et_name_Adahaar"
                         style="@style/identification_text_content_style"
                         android:hint="Bank Name"

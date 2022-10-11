@@ -2,8 +2,15 @@ package com.gexiaobao.hdw.bw.ui.viewmodel
 
 import android.view.View
 import androidx.databinding.ObservableInt
+import androidx.lifecycle.MutableLiveData
+import com.gexiaobao.hdw.bw.app.api.NetUrl
+import com.gexiaobao.hdw.bw.data.repository.UserRepository
 import me.hgj.mvvmhelper.base.BaseViewModel
 import me.hgj.mvvmhelper.core.databinding.StringObservableField
+import me.hgj.mvvmhelper.ext.rxHttpRequestCallBack
+import me.hgj.mvvmhelper.net.LoadingType
+import okhttp3.RequestBody
+import okhttp3.Response
 
 /**
  *  author : huxiaowei
@@ -38,6 +45,18 @@ class IdentificationViewModel : BaseViewModel() {
             } else {
                 View.VISIBLE
             }
+        }
+    }
+
+    /**获取银行列表*/
+    fun fetchBanks(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.fetchBanks(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+//            loadingMessage = "请求中....."
+            requestCode = NetUrl.CUSTOMER_BANK_FETCH_BANKS
         }
     }
 

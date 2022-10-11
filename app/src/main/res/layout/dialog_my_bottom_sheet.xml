@@ -7,19 +7,21 @@
     android:padding="10dp">
 
     <TextView
+        android:id="@+id/tv_bottom_sheet_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp.32"
         android:gravity="center_horizontal"
-        android:text="Relationship"
+        android:text=""
         android:textColor="@android:color/black"
         android:textSize="@dimen/sp_25" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_relation_contact"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp.12"
         android:layout_marginBottom="@dimen/dp.20"
-        android:layout_height="match_parent" />
+        android:paddingBottom="@dimen/dp.20" />
 
 </LinearLayout>

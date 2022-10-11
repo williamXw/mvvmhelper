@@ -49,23 +49,11 @@ object UserRepository {
             .toOkResponse()
     }
 
-    /**注册*/
-    fun register(body: RegisterParams): Await<LoginInfoResponse> {
-        return RxHttp.postBody(NetUrl.REGISTER).setBody(body).toResponse()
+    /**获取银行列表*/
+    fun fetchBanks(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_BANK_FETCH_BANKS)).setBody(body)
+            .toOkResponse()
     }
-
-    /**重置密码*/
-    fun reSetPwd(body: ResetPwdParams): Await<Any> {
-        return RxHttp.patchBody(NetUrl.RESET_PASSWORD).setBody(body).toResponse()
-    }
-
-//    /**
-//     * 获取列表信息
-//     */
-//    fun getList(pageIndex: Int): Await<ApiPagerResponse<Any>> {
-//        return RxHttp.get(NetUrl.HOME_LIST, pageIndex)
-//            .toResponse()
-//    }
 
 }
 

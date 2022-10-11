@@ -16,7 +16,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 }
-```
+
 
 - **1.2 在app's build.gradle中添加依赖**
 

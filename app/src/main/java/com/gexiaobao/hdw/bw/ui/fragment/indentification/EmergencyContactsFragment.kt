@@ -5,35 +5,26 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
 import com.gexiaobao.hdw.bw.R
-import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
-import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.util.*
 import com.gexiaobao.hdw.bw.comm.RxConstants
-import com.gexiaobao.hdw.bw.data.commom.Constant
-import com.gexiaobao.hdw.bw.data.response.LoginInfoResponse
 import com.gexiaobao.hdw.bw.databinding.FragmentEmergencyContactsBinding
-import com.gexiaobao.hdw.bw.ui.activity.MainActivity
-import com.gexiaobao.hdw.bw.ui.dialog.BottomSheetDialog
+import com.gexiaobao.hdw.bw.ui.dialog.BottomSheetListDialog
 import com.gexiaobao.hdw.bw.ui.viewmodel.EmergencyContactsFragmentVM
 import me.hgj.mvvmhelper.ext.showDialogMessage
-import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import okhttp3.Response
 import org.json.JSONObject
-import rxhttp.wrapper.exception.ParseException
 
 /**
  *  author : huxiaowei
  *  date : 2022/9/27 22:55
  *  description :紧急联系人
  */
-class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, FragmentEmergencyContactsBinding>() {
+class EmergencyContactsFragment :
+    BaseFragment<EmergencyContactsFragmentVM, FragmentEmergencyContactsBinding>() {
 
-//    private var customerID = 0
     private var contactName1: String = ""
     private var contactMobile1: String = ""
     private var contactName2: String = ""
@@ -42,12 +33,18 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
     override fun initView(savedInstanceState: Bundle?) {
         mBind.viewmodel = mViewModel
         mViewModel.title.set("Emergency Contacts")
-//        customerID = KvUtils.decodeInt(Constant.CUSTOMER_ID)!!
     }
 
     override fun onBindViewClick() {
         super.onBindViewClick()
-        setOnclickNoRepeat(mBind.ivBack, mBind.btnNext, mBind.etRelationOne, mBind.etRelationTwo, mBind.etContactOne, mBind.etContactTwo) {
+        setOnclickNoRepeat(
+            mBind.ivBack,
+            mBind.btnNext,
+            mBind.etRelationOne,
+            mBind.etRelationTwo,
+            mBind.etContactOne,
+            mBind.etContactTwo
+        ) {
             when (it) {
                 mBind.ivBack -> {
                     nav().navigateUp()
@@ -177,6 +174,7 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
     }
 
     private fun submit() {
+        nav().navigateAction(R.id.action_contacts_to_bank)
         when {
             mViewModel.relation.get().isEmpty() -> showDialogMessage("please....")
             mViewModel.mobile.get().isEmpty() -> showDialogMessage("please....")
@@ -184,59 +182,38 @@ class EmergencyContactsFragment : BaseFragment<EmergencyContactsFragmentVM, Frag
             mViewModel.mobile2.get().isEmpty() -> showDialogMessage("please....")
             else -> {
                 val map = mapOf(
-                    EncryptUtil.encode("contact1Mobile") to contactMobile1,
+                    EncryptUtil.encode("contact1Mobile") to "1234567890",
                     EncryptUtil.encode("contact1Name") to contactName1,
                     EncryptUtil.encode("contact1Relation") to mViewModel.relation.get(),
-                    EncryptUtil.encode("contact2Mobile") to contactMobile2,
+                    EncryptUtil.encode("contact2Mobile") to "1234567890",
                     EncryptUtil.encode("contact2Name") to contactName2,
                     EncryptUtil.encode("contact2Relation") to mViewModel.relation2.get(),
                     EncryptUtil.encode("customerId") to customerID
                 )
                 val parmas = EncryptUtil.encode(JSONObject(map).toString())
                 val paramsBody =
-                    RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), JSONObject(EncryptUtil.encryptBody(parmas)).toString())
+                    RequestBody.create(
+                        "application/json; charset=utf-8".toMediaTypeOrNull(),
+                        JSONObject(EncryptUtil.encryptBody(parmas)).toString()
+                    )
                 mViewModel.pushUrgencyContactCallBack(paramsBody)?.observe(this) {
-                    parseData(it)
+                    val mResponse = parseData2(it)
+                    if (mResponse.isNotEmpty()) {
+                        val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA) as Boolean
+                        if (data) {
+                            nav().navigateAction(R.id.action_contacts_to_bank)
+                            RxToast.showToast("successful")
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun parseData(it: Response?) {
-        var code = -1
-        var msg = ""
-        var mResponse = ""
-        if (it!!.code == 200) {
-            val dataBody = JSONObject(it.body!!.string())
-            val firstKey = JSONObject(dataBody.toString()).get(RxConstants.KEY).toString()
-            val secondKey = JSONObject(firstKey).get(RxConstants.KEY).toString()
-            var thirdKey = JSONObject(secondKey).get(RxConstants.KEY).toString()
-            mResponse = EncryptUtil.decode(thirdKey)
-            Log.i("-------------->>>", mResponse)
-            msg = JSONObject(mResponse).getString(RxConstants.MSG)
-            code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
-        } else {
-            if (it != null) {
-                LogUtils.debugInfo(it.code.toString() + it.message)
-            }
-        }
-        if (code == NetUrl.SUCCESS_CODE) {
-            val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA) as Boolean
-            if (data) {
-                nav().navigateAction(R.id.action_contacts_to_bank)
-                RxToast.showToast("successful")
-            }
-        } else {
-            showDialogMessage(msg)
-            if (code != NetUrl.SUCCESS_CODE) {
-                throw ParseException(code.toString(), msg, it)
-            }
-        }
-    }
-
     private fun showDialog(type: Int) {
-        val dialog = BottomSheetDialog()
-        dialog.setOnItemClickListener(object : BottomSheetDialog.OnItemClickRe {
+        val mDataList = listOf("Father/Mother", "Husband/Wife", "Son/Daughter", "Friend")
+        val dialog = BottomSheetListDialog(mDataList, "Relationship")
+        dialog.setOnItemClickListener(object : BottomSheetListDialog.OnItemClickRe {
             override fun setOnItemClickListener(content: String) {
                 when (type) {
                     1 -> {
