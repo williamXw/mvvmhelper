@@ -10,7 +10,7 @@
         android:id="@+id/tv_bottom_sheet_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp.32"
+        android:layout_marginTop="@dimen/dp.25"
         android:gravity="center_horizontal"
         android:text=""
         android:textColor="@android:color/black"

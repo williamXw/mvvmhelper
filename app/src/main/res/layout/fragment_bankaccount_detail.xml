@@ -87,7 +87,7 @@
                         android:id="@+id/et_name_pan"
                         style="@style/identification_text_content_style"
                         android:hint="Match with addahar"
-                        android:text="@={viewmodel.matchWithAddahar}" />
+                        android:text="@={viewmodel.beneficiaryName}" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/identification_text_title_style"
@@ -106,7 +106,7 @@
                         android:text="Account No." />
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_aadhaar_no"
+                        android:id="@+id/et_account_no"
                         style="@style/identification_text_content_style"
                         android:hint="Enter A/C No."
                         android:text="@={viewmodel.enterAcNo}" />
@@ -117,9 +117,11 @@
                         android:text="Re-enter Account No." />
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_Date_of_birth"
+                        android:id="@+id/et_reenter_account_no"
                         style="@style/identification_text_content_style"
                         android:hint="Re-enter Account No."
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:text="@={viewmodel.reEnterAcNo}" />
 
                     <androidx.appcompat.widget.AppCompatTextView

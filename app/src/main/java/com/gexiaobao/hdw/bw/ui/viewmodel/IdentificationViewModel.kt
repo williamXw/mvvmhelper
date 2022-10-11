@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.data.repository.UserRepository
 import me.hgj.mvvmhelper.base.BaseViewModel
+import me.hgj.mvvmhelper.core.databinding.BooleanObservableField
 import me.hgj.mvvmhelper.core.databinding.StringObservableField
 import me.hgj.mvvmhelper.ext.rxHttpRequestCallBack
 import me.hgj.mvvmhelper.net.LoadingType
@@ -31,11 +32,12 @@ class IdentificationViewModel : BaseViewModel() {
     var address = StringObservableField()
 
 
-    var bankName = StringObservableField()
-    var matchWithAddahar = StringObservableField()
-    var enterIFSCCode = StringObservableField()
+    var bankName = StringObservableField()//银行名
+    var beneficiaryName = StringObservableField()//收款人姓名
+    var enterIFSCCode = StringObservableField()//
     var enterAcNo = StringObservableField()
     var reEnterAcNo = StringObservableField()
+    var isMatch = BooleanObservableField()
 
     //用户名清除按钮是否显示
     var matchVisible = object : ObservableInt(enterAcNo, reEnterAcNo) {
