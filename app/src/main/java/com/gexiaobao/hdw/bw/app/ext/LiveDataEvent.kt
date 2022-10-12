@@ -12,4 +12,8 @@ object LiveDataEvent {
 
     //示例：登录成功发送通知
     val loginEvent = UnPeekLiveData<Boolean>()
+
+    /** 通知认证成功*/
+//    val kycSucceeded = UnPeekLiveData<Boolean>()
+
 }

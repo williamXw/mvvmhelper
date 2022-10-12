@@ -18,4 +18,5 @@ object Constant {
     const val NOTETOKEN = "notetoken"
     const val DEVICE_ID = "device_id"
     const val CUSTOMER_ID = "customer_id"
+    const val IS_AUTHENTICATION_SUCCEED = "isAuthenticationSucceed"
 }

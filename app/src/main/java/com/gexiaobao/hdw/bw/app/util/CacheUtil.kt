@@ -1,9 +1,9 @@
 package com.gexiaobao.hdw.bw.app.util
 
 import android.text.TextUtils
+import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.data.response.UserInfo
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.tencent.mmkv.MMKV
 
 object CacheUtil {
@@ -65,6 +65,20 @@ object CacheUtil {
     fun setFirst(first: Boolean): Boolean {
         val kv = MMKV.mmkvWithID("app")
         return kv.encode("first", first)
+    }
+
+    /**
+     * 是否认证成功
+     */
+    fun isAuthenticationSucceed(): Boolean {
+        return KvUtils.decodeBooleanTure(Constant.IS_AUTHENTICATION_SUCCEED, false)
+    }
+
+    /**
+     * 是否认证成功
+     */
+    fun setAuthenticationSucceed(isTrue: Boolean) {
+        KvUtils.encode(Constant.IS_AUTHENTICATION_SUCCEED, isTrue)
     }
 
 }

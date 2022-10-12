@@ -235,6 +235,15 @@
         android:label="fragment_bank_account_detail"
         tools:layout="@layout/fragment_bankaccount_detail">
 
+<!--        <action-->
+<!--            android:id="@+id/action_bank_account_to_loan_kyc"-->
+<!--            app:destination="@id/fragment_about_us"-->
+<!--            app:enterAnim="@anim/slide_in_right"-->
+<!--            app:exitAnim="@anim/slide_out_left"-->
+<!--            app:popEnterAnim="@anim/slide_in_left"-->
+<!--            app:popExitAnim="@anim/slide_out_right"-->
+<!--            app:popUpTo="@id/emergency_contacts_fragment" />-->
+
     </fragment>
 
     <action

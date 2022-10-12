@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
+import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
+import com.gexiaobao.hdw.bw.app.util.CacheUtil
 import com.gexiaobao.hdw.bw.databinding.FragmentMainBinding
 import com.gexiaobao.hdw.bw.ui.fragment.loan.LoanFragment
 import com.gexiaobao.hdw.bw.ui.fragment.account.AccountFragment
@@ -29,6 +31,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         mBind.mainViewpager.addOnPageChangeListener(viewPagerListener)
+        isKYC = CacheUtil.isAuthenticationSucceed()
         val fragmentManager = activity?.supportFragmentManager
         val fragmentPagerAdapter = object : FragmentPagerAdapter(fragmentManager!!) {
             override fun getCount(): Int {

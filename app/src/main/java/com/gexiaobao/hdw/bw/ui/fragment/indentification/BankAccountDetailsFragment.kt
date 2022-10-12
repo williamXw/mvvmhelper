@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.core.widget.addTextChangedListener
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
-import com.gexiaobao.hdw.bw.app.util.EncryptUtil
-import com.gexiaobao.hdw.bw.app.util.RxToast
-import com.gexiaobao.hdw.bw.app.util.nav
-import com.gexiaobao.hdw.bw.app.util.setOnclickNoRepeat
+import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
+import com.gexiaobao.hdw.bw.app.util.*
 import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.FragmentBankaccountDetailBinding
+import com.gexiaobao.hdw.bw.ui.activity.MainActivity
 import com.gexiaobao.hdw.bw.ui.dialog.BottomSheetListDialog
 import com.gexiaobao.hdw.bw.ui.viewmodel.IdentificationViewModel
 import me.hgj.mvvmhelper.ext.showDialogMessage
@@ -35,6 +34,16 @@ class BankAccountDetailsFragment :
 
     override fun initData() {
         super.initData()
+
+        mBind.etAccountNo.addTextChangedListener {
+            if (mViewModel.enterAcNo.get() != mViewModel.reEnterAcNo.get() && mViewModel.reEnterAcNo.get().isNotEmpty()) {
+                mBind.etAccountNo.background = resources.getDrawable(R.drawable.round_red_12)
+                mBind.etReenterAccountNo.background = resources.getDrawable(R.drawable.round_red_12)
+            } else {
+                mBind.etAccountNo.background = resources.getDrawable(R.drawable.round_white_12)
+                mBind.etReenterAccountNo.background = resources.getDrawable(R.drawable.round_white_12)
+            }
+        }
 
         mBind.etReenterAccountNo.addTextChangedListener {
             mViewModel.reEnterAcNo.set(it.toString())
@@ -100,6 +109,8 @@ class BankAccountDetailsFragment :
                         val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
                         val result = data.getBoolean("041305031A02")
                         if (result) {
+                            startActivity<MainActivity>()
+                            CacheUtil.setAuthenticationSucceed(true) //保存认证成功
                         }
                     }
                 }
