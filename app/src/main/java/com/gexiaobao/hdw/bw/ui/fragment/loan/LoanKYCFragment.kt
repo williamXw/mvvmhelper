@@ -50,8 +50,6 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
         val view = LayoutInflater.from(context).inflate(R.layout.head_product_view, null)
         mBind.rvLoanKyc.addHeaderView(view)
 
-//        mBind.rvLoanKyc.layoutManager = LinearLayoutManager(context)
-//        mBind.rvLoanKyc.adapter = productAdapter
         //初始化 SwipeRefreshLayout
         mBind.swipeRefresh.init {
             //触发刷新监听时请求数据
