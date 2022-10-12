@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.ext.hideSoftKeyboard
+import com.gexiaobao.hdw.bw.app.ext.jumpByLogin
 import com.gexiaobao.hdw.bw.app.util.*
 import com.gexiaobao.hdw.bw.app.widget.CustomToolBar
 import com.gexiaobao.hdw.bw.comm.RxConstants
@@ -87,6 +88,8 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseDbFr
             val code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
             if (code == NetUrl.SUCCESS_CODE) {
                 return mResponse
+            } else if (code == NetUrl.LOGIN_OUT_CODE) {
+                nav().jumpByLogin { }
             } else {
                 showDialogMessage(msg)
                 if (code != NetUrl.SUCCESS_CODE) {

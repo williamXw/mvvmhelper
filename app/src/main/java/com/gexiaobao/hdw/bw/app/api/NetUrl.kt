@@ -12,6 +12,8 @@ object NetUrl {
     // 服务器请求成功的 Code值
     const val SUCCESS_CODE = 0
 
+    const val LOGIN_OUT_CODE = 1000
+
     @DefaultDomain //设置为默认域名
     const val DEV_URL = "http://115.238.46.58:20222"
 
@@ -35,6 +37,9 @@ object NetUrl {
 
     /**认证并绑定银行卡*/
     const val CUSTOMER_BANK_CUSTOMER_BIND_BANKCARD = "/customer/bank/customerBindBankCard"
+
+    /**获取首页产品列表*/
+    const val CORE_PRODUCT_FETCH_PRODUCTS = "/core/product/fetchProducts"
 
 
 }

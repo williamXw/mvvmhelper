@@ -61,5 +61,11 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**获取首页产品列表*/
+    fun fetchProducts(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_PRODUCT_FETCH_PRODUCTS)).setBody(body)
+            .toOkResponse()
+    }
+
 }
 

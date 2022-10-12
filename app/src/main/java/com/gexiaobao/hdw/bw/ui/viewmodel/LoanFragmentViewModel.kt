@@ -34,4 +34,15 @@ class LoanFragmentViewModel : BaseViewModel() {
             loadingMessage = "请求中....."
         }
     }
+
+    /**验证码登录*/
+    fun fetchProducts(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.fetchProducts(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            loadingMessage = "请求中....."
+        }
+    }
 }

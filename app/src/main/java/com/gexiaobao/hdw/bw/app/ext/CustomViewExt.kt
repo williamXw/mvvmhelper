@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.gexiaobao.hdw.bw.R
@@ -15,6 +17,7 @@ import com.gexiaobao.hdw.bw.ui.fragment.account.AccountFragment
 import com.gexiaobao.hdw.bw.ui.fragment.repayment.RePaymentFragment
 import com.gexiaobao.hdw.bw.ui.fragment.loan.LoanFragment
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+import com.yanzhenjie.recyclerview.SwipeRecyclerView
 import me.hgj.mvvmhelper.base.appContext
 
 /**
@@ -92,6 +95,30 @@ fun BottomNavigationViewEx.interceptLongClick(vararg ids:Int) {
         bottomNavigationMenuView.getChildAt(index).findViewById<View>(ids[index]).setOnLongClickListener {
             true
         }
+    }
+}
+
+//绑定SwipeRecyclerView
+fun SwipeRecyclerView.init(
+    layoutManger: RecyclerView.LayoutManager,
+    bindAdapter: RecyclerView.Adapter<*>,
+    isScroll: Boolean = true
+): SwipeRecyclerView {
+    layoutManager = layoutManger
+    setHasFixedSize(true)
+    adapter = bindAdapter
+    isNestedScrollingEnabled = isScroll
+    return this
+}
+
+//初始化 SwipeRefreshLayout
+fun SwipeRefreshLayout.init(onRefreshListener: () -> Unit) {
+    this.run {
+        setOnRefreshListener {
+            onRefreshListener.invoke()
+        }
+        //设置主题颜色
+        setColorSchemeColors(SettingUtil.getColor(appContext))
     }
 }
 

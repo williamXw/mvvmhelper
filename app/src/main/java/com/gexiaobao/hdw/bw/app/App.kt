@@ -10,6 +10,7 @@ import com.gexiaobao.hdw.bw.app.util.CacheUtil
 import com.gexiaobao.hdw.bw.app.util.navigateAction
 import me.hgj.mvvmhelper.base.MvvmHelper
 import me.hgj.mvvmhelper.ext.currentProcessName
+import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 
 /**
  * 作者　: hegaojian
@@ -20,6 +21,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        LogUtils.setLog(true)
         MvvmHelper.init(this, BuildConfig.DEBUG)
         val processName = currentProcessName
         if (currentProcessName == packageName) {
