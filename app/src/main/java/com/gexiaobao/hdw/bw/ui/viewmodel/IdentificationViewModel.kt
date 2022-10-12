@@ -57,8 +57,20 @@ class IdentificationViewModel : BaseViewModel() {
                 iAwaitLiveData?.value = UserRepository.fetchBanks(body).await()
             }
             loadingType = LoadingType.LOADING_DIALOG
-//            loadingMessage = "请求中....."
+            loadingMessage = "请求中....."
             requestCode = NetUrl.CUSTOMER_BANK_FETCH_BANKS
+        }
+    }
+
+    /**认证并绑定银行卡*/
+    fun bindBankCard(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.bindBankCard(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            loadingMessage = "请求中....."
+            requestCode = NetUrl.CUSTOMER_BANK_CUSTOMER_BIND_BANKCARD
         }
     }
 

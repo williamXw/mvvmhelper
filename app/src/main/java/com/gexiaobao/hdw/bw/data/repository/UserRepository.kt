@@ -55,5 +55,11 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**认证并绑定银行卡*/
+    fun bindBankCard(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_BANK_CUSTOMER_BIND_BANKCARD)).setBody(body)
+            .toOkResponse()
+    }
+
 }
 

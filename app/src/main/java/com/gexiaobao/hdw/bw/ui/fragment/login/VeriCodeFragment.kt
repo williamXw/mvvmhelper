@@ -180,6 +180,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
                     val mResponse = parseData2(it)
                     if (mResponse.isNotEmpty()) {
                         LiveDataEvent.loginEvent.value = true //通知登录成功
+                        CacheUtil.setIsLogin(true)
                         KvUtils.encode(Constant.ISLOGIN, true)
                         val loginBean = LoginInfoResponse()
                         val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)

@@ -55,6 +55,66 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/main_fragment" />
 
+        <action
+            android:id="@+id/action_account_to_login"
+            app:destination="@id/login_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_mobile_to_code"
+            app:destination="@+id/verification_code"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/login_fragment" />
+
+        <action
+            android:id="@+id/action_mobile_to_web"
+            app:destination="@+id/notice_to_user"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/login_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/verification_code"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.login.VeriCodeFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_ver_code">
+
+        <action
+            android:id="@+id/action_code_to_web"
+            app:destination="@+id/notice_to_user"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/verification_code" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/notice_to_user"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.login.NoticeToUserFragment"
+        tools:layout="@layout/fragment_notice_to_user">
+
     </fragment>
 
     <fragment
@@ -176,5 +236,13 @@
         tools:layout="@layout/fragment_bankaccount_detail">
 
     </fragment>
+
+    <action
+        android:id="@+id/action_to_loginFragment"
+        app:destination="@id/login_fragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 
 </navigation>

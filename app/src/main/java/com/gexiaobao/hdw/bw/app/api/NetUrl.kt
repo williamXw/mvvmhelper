@@ -33,5 +33,8 @@ object NetUrl {
     /**获取银行列表*/
     const val CUSTOMER_BANK_FETCH_BANKS = "/customer/bank/fetchBanks"
 
+    /**认证并绑定银行卡*/
+    const val CUSTOMER_BANK_CUSTOMER_BIND_BANKCARD = "/customer/bank/customerBindBankCard"
+
 
 }

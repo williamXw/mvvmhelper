@@ -8,6 +8,7 @@ import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.base.BaseActivity
 import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
+import com.gexiaobao.hdw.bw.app.util.CacheUtil
 import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils
 import com.gexiaobao.hdw.bw.app.util.RxToast
@@ -69,6 +70,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                                     KvUtils.encode(Constant.TOKEN, "")
                                     LiveDataEvent.loginEvent.value = false
                                     KvUtils.encode(Constant.ISLOGIN, false)
+                                    CacheUtil.setIsLogin(false)
                                     finish()
                                 } else {
                                     showDialogMessage(msg)

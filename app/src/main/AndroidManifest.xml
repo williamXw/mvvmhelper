@@ -31,9 +31,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.activity.LoginActivity"
-            android:exported="true" />
+<!--        <activity-->
+<!--            android:name=".ui.activity.LoginActivity"-->
+<!--            android:exported="true" />-->
 
         <activity
             android:name=".ui.activity.MainActivity"

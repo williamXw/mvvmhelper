@@ -9,6 +9,7 @@ import com.gexiaobao.hdw.bw.app.util.RxToast
 import com.gexiaobao.hdw.bw.app.util.nav
 import com.gexiaobao.hdw.bw.app.util.setOnclickNoRepeat
 import com.gexiaobao.hdw.bw.comm.RxConstants
+import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.FragmentBankaccountDetailBinding
 import com.gexiaobao.hdw.bw.ui.dialog.BottomSheetListDialog
 import com.gexiaobao.hdw.bw.ui.viewmodel.IdentificationViewModel
@@ -73,8 +74,35 @@ class BankAccountDetailsFragment :
             mViewModel.enterAcNo.get().isEmpty() -> showDialogMessage("please enter Account No")
             mViewModel.reEnterAcNo.get().isEmpty() -> showDialogMessage("please ReEnter Account No")
             mViewModel.enterAcNo.get() != mViewModel.reEnterAcNo.get() -> showDialogMessage("The Account No. does not match.")
+            mViewModel.enterIFSCCode.get().length != 11 -> showDialogMessage("Invalid IFSC code")
+            mViewModel.enterIFSCCode.get().substring(4, 5).toInt() != 0 -> showDialogMessage("Invalid IFSC code")
+            mViewModel.enterAcNo.get().length < 9 -> showDialogMessage("Invalid Account No")
             else -> {
-
+                val a = mViewModel.enterIFSCCode.get().substring(4, 5).toInt()
+                val map = mapOf(
+                    EncryptUtil.encode("appVersion") to appVersion,
+                    EncryptUtil.encode("bankAccount") to mViewModel.reEnterAcNo.get(),
+                    EncryptUtil.encode("bankName") to mViewModel.bankName.get(),
+                    EncryptUtil.encode("bankUserName") to mViewModel.beneficiaryName.get(),
+                    EncryptUtil.encode("customerId") to customerID,
+                    EncryptUtil.encode("ifsc") to mViewModel.enterIFSCCode.get(),
+                    EncryptUtil.encode("marketId") to Constant.MARKET_ID,
+                    EncryptUtil.encode("validateType") to 0
+                )
+                val parmas = EncryptUtil.encode(JSONObject(map).toString())
+                val paramsBody = RequestBody.create(
+                    "application/json; charset=utf-8".toMediaTypeOrNull(),
+                    JSONObject(EncryptUtil.encryptBody(parmas)).toString()
+                )
+                mViewModel.bindBankCard(paramsBody)?.observe(this) {
+                    val mResponse = parseData2(it)
+                    if (!mResponse.isNullOrEmpty()) {
+                        val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
+                        val result = data.getBoolean("041305031A02")
+                        if (result) {
+                        }
+                    }
+                }
             }
         }
     }

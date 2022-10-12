@@ -98,6 +98,7 @@
                         android:id="@+id/et_pan_no"
                         style="@style/identification_text_content_style"
                         android:hint="Enter IFSC code"
+                        android:maxLength="11"
                         android:text="@={viewmodel.enterIFSCCode}" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -119,9 +120,9 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/et_reenter_account_no"
                         style="@style/identification_text_content_style"
-                        android:hint="Re-enter Account No."
                         android:focusable="true"
                         android:focusableInTouchMode="true"
+                        android:hint="Re-enter Account No."
                         android:text="@={viewmodel.reEnterAcNo}" />
 
                     <androidx.appcompat.widget.AppCompatTextView

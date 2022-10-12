@@ -1,9 +1,13 @@
 package com.gexiaobao.hdw.bw.app
 
 import android.app.Application
+import androidx.navigation.NavController
 import com.effective.android.anchors.AnchorsManager
 import com.effective.android.anchors.Project
 import com.gexiaobao.hdw.bw.BuildConfig
+import com.gexiaobao.hdw.bw.R
+import com.gexiaobao.hdw.bw.app.util.CacheUtil
+import com.gexiaobao.hdw.bw.app.util.navigateAction
 import me.hgj.mvvmhelper.base.MvvmHelper
 import me.hgj.mvvmhelper.ext.currentProcessName
 

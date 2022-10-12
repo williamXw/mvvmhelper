@@ -27,6 +27,7 @@ import kotlin.system.exitProcess
  * Describe : 欢迎页
  */
 class WelcomeActivity : AppCompatActivity() {
+
     private var isLogin = false
     private val binding: ActivityWelcomeBinding by lazy {
         ActivityWelcomeBinding.inflate(layoutInflater)
@@ -103,12 +104,13 @@ class WelcomeActivity : AppCompatActivity() {
         //开启倒计时3s
         job = countDownCoroutines(1, {
         }, {
+            startActivity<MainActivity>()
 //          如果登陆过就直接跳转主页面 否则去登录
-            if (!isLogin) {
-                startActivity<LoginActivity>()
-            } else {
-                startActivity<MainActivity>()
-            }
+//            if (!isLogin) {
+//                startActivity<LoginActivity>()
+//            } else {
+//                startActivity<MainActivity>()
+//            }
             finish()
         }, lifecycleScope)
     }
