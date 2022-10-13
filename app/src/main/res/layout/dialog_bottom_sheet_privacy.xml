@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingStart="@dimen/dp.22"
+            android:paddingTop="@dimen/dp.18"
+            android:paddingEnd="@dimen/dp.22"
+            android:paddingBottom="@dimen/dp.18"
+            android:src="@mipmap/icon_black_close" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp.30"
+            android:text="Privacy Policy"
+            android:textColor="@color/colorText_292F36"
+            android:textSize="@dimen/sp_18" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/wv_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dp.20"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp.20"
+        android:layout_marginBottom="@dimen/dp.13"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_privacy"
+            android:layout_width="@dimen/dp.30"
+            android:layout_height="@dimen/dp.30"
+            android:background="@drawable/checkbox_style"
+            android:button="@null"
+            android:checked="false" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp.17"
+            android:lineSpacingExtra="@dimen/dp.3"
+            android:text="I have read and agreed with the terms above"
+            android:textColor="@color/colorText_DF0036"
+            android:textSize="@dimen/sp_11" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/btn_bottom_style"
+        android:layout_marginStart="@dimen/dp.20"
+        android:layout_marginEnd="@dimen/dp.20"
+        android:layout_marginBottom="@dimen/dp.15"
+        android:text="Please check the above box and continue"
+        android:textSize="@dimen/sp_15" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_disagree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp.20"
+        android:layout_marginEnd="@dimen/dp.20"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:background="@drawable/round_12_blue_stroke"
+        android:text="Disagree"
+        android:textAllCaps="false"
+        android:textColor="@color/colorText_008080"
+        android:textSize="@dimen/sp_18" />
+
+</LinearLayout>

@@ -3,10 +3,13 @@ package com.gexiaobao.hdw.bw.app.util
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Point
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
+import android.view.WindowManager
 import java.util.*
+
 
 /**
  * created by :
@@ -220,4 +223,5 @@ object DeviceUtil {
         } else prefix + UUID.nameUUIDFromBytes(id.toByteArray()).toString()
             .replace("-", "")
     }
+
 }

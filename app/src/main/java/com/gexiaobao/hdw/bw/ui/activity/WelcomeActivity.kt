@@ -13,6 +13,7 @@ import com.gexiaobao.hdw.bw.app.util.CacheUtil
 import com.gexiaobao.hdw.bw.app.util.DeviceUtil
 import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils
+import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.ActivityWelcomeBinding
 import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
@@ -37,6 +38,7 @@ import kotlin.system.exitProcess
 class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
 
     private var isLogin = false
+    private var isIntiFirst = false
     private var job: Job? = null
     private var permissionExplainUrl = ""
     private var privacyAgreementBreviaryUrl = ""
@@ -44,6 +46,7 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     private var registerAgreementUrl = ""
 
     override fun initView(savedInstanceState: Bundle?) {
+        isIntiFirst = CacheUtil.isInitFirst()
         initData()
 //        fcmTokenUpRequest()
     }
@@ -75,41 +78,41 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     private fun initData() {
         getPrivacyAgreement()
         getDeviceId()
-        PermissionX.init(this)
-            .permissions(
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_CONTACTS
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            //解释申请权限的用途，不需要则不用写
-//            .explainReasonBeforeRequest()
-            .onExplainRequestReason { scope, deniedList ->
-                //如果权限被拒绝多个  只有相机是必须开启才能进入程序  则需要下面的代码过滤申请
-//                val filteredList = deniedList.filter {
-//                    it == Manifest.permission.CAMERA
+//        PermissionX.init(this)
+//            .permissions(
+//                Manifest.permission.CAMERA,
+//                Manifest.permission.READ_PHONE_STATE,
+//                Manifest.permission.ACCESS_COARSE_LOCATION,
+//                Manifest.permission.READ_CONTACTS
+////                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+////                Manifest.permission.READ_EXTERNAL_STORAGE
+//            )
+//            //解释申请权限的用途，不需要则不用写
+////            .explainReasonBeforeRequest()
+//            .onExplainRequestReason { scope, deniedList ->
+//                //如果权限被拒绝多个  只有相机是必须开启才能进入程序  则需要下面的代码过滤申请
+////                val filteredList = deniedList.filter {
+////                    it == Manifest.permission.CAMERA
+////                }
+//                scope.showRequestReasonDialog(
+//                    deniedList,
+//                    DeviceUtil.getAppName(this) + "需要以下权限才能继续",
+//                    "同意",
+//                    "拒绝"
+//                )
+//            }.onForwardToSettings { scope, deniedList ->
+//                scope.showForwardToSettingsDialog(deniedList, "您需要去应用程序设置当中手动开启权限", "好的")
+//            }
+//            .request { allGranted, _, deniedList ->
+//                if (allGranted) {
+//                    //申请权限之后 初始化bugly
+//                    initBugly()
+////                    startCountDownCoroutines()
+//                } else {
+//                    exitProcess(0)
+//                    Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
 //                }
-                scope.showRequestReasonDialog(
-                    deniedList,
-                    DeviceUtil.getAppName(this) + "需要以下权限才能继续",
-                    "同意",
-                    "拒绝"
-                )
-            }.onForwardToSettings { scope, deniedList ->
-                scope.showForwardToSettingsDialog(deniedList, "您需要去应用程序设置当中手动开启权限", "好的")
-            }
-            .request { allGranted, _, deniedList ->
-                if (allGranted) {
-                    //申请权限之后 初始化bugly
-                    initBugly()
-                    startCountDownCoroutines()
-                } else {
-                    exitProcess(0)
-                    Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
-                }
-            }
+//            }
     }
 
     /**
@@ -129,11 +132,30 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
         mViewModel.fetchAgreement(paramsBody)?.observe(this) {
             val mResponse = parseData(it)
             if (mResponse.isNotEmpty()) {
-                val a1 = JSONObject(mResponse).getString("0613041B1F05051F1918330E061A171F1823041A")
-                val a2 = JSONObject(mResponse).getString("0413111F0502130437110413131B13180223041A")
-                val a3 = JSONObject(mResponse).getString("06041F0017150F37110413131B13180223041A")
-                val a4 = JSONObject(mResponse).getString("06041F0017150F37110413131B131802340413001F17040F23041A")
-                LogUtils.debugInfo("$a1---$a2---$a3---$a4")
+                val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
+                if (data != null) {
+                    permissionExplainUrl =
+                        data.getString("0613041B1F05051F1918330E061A171F1823041A")
+                    registerAgreementUrl =
+                        data.getString("0413111F0502130437110413131B13180223041A")
+                    privacyAgreementUrl = data.getString("06041F0017150F37110413131B13180223041A")
+                    privacyAgreementBreviaryUrl =
+                        data.getString("06041F0017150F37110413131B131802340413001F17040F23041A")
+                }
+                mBind.ivWelcome.postDelayed({
+                    if (isIntiFirst) {
+                        startActivity<PrivacyAgreementActivity>(
+                            "permissionExplainUrl" to permissionExplainUrl,
+                            "registerAgreementUrl" to registerAgreementUrl,
+                            "privacyAgreementUrl" to privacyAgreementUrl,
+                            "privacyAgreementBreviaryUrl" to privacyAgreementBreviaryUrl
+                        )
+                    } else {
+                        startActivity<MainActivity>()
+                    }
+                    finish()
+                }, 800)
+
             }
         }
     }

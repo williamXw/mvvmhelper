@@ -1,13 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp.44">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp.44"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Prominent disclosure"
+            android:textColor="@color/colorText_292F36"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pb_web_base"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="@dimen/dp.26" />
+
+        <WebView
+            android:id="@+id/web_base"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clipToPadding="true"
+            android:fitsSystemWindows="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingStart="@dimen/dp.20"
+            android:paddingEnd="@dimen/dp.20" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginTop="@dimen/dp.8"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:layout_marginBottom="@dimen/dp.13"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox_privacy"
+                android:layout_width="@dimen/dp.30"
+                android:layout_height="@dimen/dp.30"
+                android:background="@drawable/checkbox_style"
+                android:button="@null"
+                android:checked="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_privacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/dp.3"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp.17"
+                android:text=""
+                android:textColor="@color/colorText_DF0036"
+                android:textSize="@dimen/sp_11" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/btn_bottom_style"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:layout_marginBottom="@dimen/dp.15"
+            android:text="Please check the above box and continue"
+            android:textSize="@dimen/sp_15" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_disagree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp.20"
+            android:layout_marginEnd="@dimen/dp.20"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:background="@drawable/round_12_blue_stroke"
+            android:text="Disagree"
+            android:textAllCaps="false"
+            android:textColor="@color/colorText_008080"
+            android:textSize="@dimen/sp_18" />
+
+    </LinearLayout>
 </layout>

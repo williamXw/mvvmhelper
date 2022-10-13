@@ -95,4 +95,15 @@ object CacheUtil {
         KvUtils.encode(Constant.IS_INIT_FIRST, isTrue)
     }
 
+    /**
+     * 是否同意了权限申请
+     */
+    fun isPermission(): Boolean {
+        return KvUtils.decodeBooleanTure(Constant.IS_PERMISSION, true)
+    }
+
+    fun setPermission(isTrue: Boolean) {
+        KvUtils.encode(Constant.IS_PERMISSION, isTrue)
+    }
+
 }
