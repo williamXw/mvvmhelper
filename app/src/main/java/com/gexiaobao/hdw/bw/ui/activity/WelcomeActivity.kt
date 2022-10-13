@@ -22,6 +22,7 @@ import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.Job
 import me.hgj.mvvmhelper.base.appContext
+import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
@@ -44,7 +45,7 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         initData()
-        fcmTokenUpRequest()
+//        fcmTokenUpRequest()
     }
 
     private fun fcmTokenUpRequest() {
@@ -128,7 +129,11 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
         mViewModel.fetchAgreement(paramsBody)?.observe(this) {
             val mResponse = parseData(it)
             if (mResponse.isNotEmpty()) {
-
+                val a1 = JSONObject(mResponse).getString("0613041B1F05051F1918330E061A171F1823041A")
+                val a2 = JSONObject(mResponse).getString("0413111F0502130437110413131B13180223041A")
+                val a3 = JSONObject(mResponse).getString("06041F0017150F37110413131B13180223041A")
+                val a4 = JSONObject(mResponse).getString("06041F0017150F37110413131B131802340413001F17040F23041A")
+                LogUtils.debugInfo("$a1---$a2---$a3---$a4")
             }
         }
     }
@@ -151,11 +156,11 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
         job = countDownCoroutines(1, {
         }, {
             //如果登陆过就直接跳转主页面 否则去登录
-            if (isIntiFirst) {
-                startActivity<PrivacyAgreementActivity>()
-            } else {
-                startActivity<MainActivity>()
-            }
+//            if (isIntiFirst) {
+//                startActivity<PrivacyAgreementActivity>()
+//            } else {
+//                startActivity<MainActivity>()
+//            }
             finish()
         }, lifecycleScope)
     }
