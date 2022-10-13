@@ -56,5 +56,8 @@ object NetUrl {
     /**  更新用户的firebase instance 及 fcm token   */
     const val CUSTOMER_FCMPUSH_CUSTOMER_FCM_TOKEN_UP = "/customer/fcmPush/customerFcmTokenUp"
 
+    /**  获取协议地址   */
+    const val CORE_APP_FETCH_AGREEMENT = "/core/app/fetchAgreement"
+
 
 }

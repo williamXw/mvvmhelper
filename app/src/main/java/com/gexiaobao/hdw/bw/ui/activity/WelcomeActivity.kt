@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.gexiaobao.hdw.bw.app.base.BaseActivity
 import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.ext.countDownCoroutines
+import com.gexiaobao.hdw.bw.app.util.CacheUtil
 import com.gexiaobao.hdw.bw.app.util.DeviceUtil
 import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils
@@ -35,11 +36,11 @@ import kotlin.system.exitProcess
 class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
 
     private var isLogin = false
-//    private val binding: ActivityWelcomeBinding by lazy {
-//        ActivityWelcomeBinding.inflate(layoutInflater)
-//    }
-
     private var job: Job? = null
+    private var permissionExplainUrl = ""
+    private var privacyAgreementBreviaryUrl = ""
+    private var privacyAgreementUrl = ""
+    private var registerAgreementUrl = ""
 
     override fun initView(savedInstanceState: Bundle?) {
         initData()
@@ -64,14 +65,6 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
         }
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(binding.root)
-//        //设置状态栏全透明
-//        StatusBarUtil.setTransparent(this)
-////
-//    }
-
     private fun getDeviceId() {
         isLogin = KvUtils.decodeBoolean(Constant.ISLOGIN)
         var deviceID = DeviceUtil.getAndroidId(appContext)
@@ -79,6 +72,7 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     }
 
     private fun initData() {
+        getPrivacyAgreement()
         getDeviceId()
         PermissionX.init(this)
             .permissions(
@@ -117,6 +111,28 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
             }
     }
 
+    /**
+     * 获取隐私协议地址
+     */
+    private fun getPrivacyAgreement() {
+        val map = mapOf(
+            EncryptUtil.encode("appVersion") to appVersion,
+            EncryptUtil.encode("customerId") to customerID,
+            EncryptUtil.encode("marketId") to Constant.MARKET_ID,
+        )
+        val parmas = EncryptUtil.encode(JSONObject(map).toString())
+        val paramsBody = RequestBody.create(
+            "application/json; charset=utf-8".toMediaTypeOrNull(),
+            JSONObject(EncryptUtil.encryptBody(parmas)).toString()
+        )
+        mViewModel.fetchAgreement(paramsBody)?.observe(this) {
+            val mResponse = parseData(it)
+            if (mResponse.isNotEmpty()) {
+
+            }
+        }
+    }
+
     private fun initBugly() {
         /**
          * 配置Bugly,根据官方提示，最好在获取权限之后初始化bugly，并且最好不要再异步线程
@@ -130,16 +146,16 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     }
 
     private fun startCountDownCoroutines() {
+        val isIntiFirst = CacheUtil.isInitFirst()
         //开启倒计时3s
         job = countDownCoroutines(1, {
         }, {
-            startActivity<MainActivity>()
-//          如果登陆过就直接跳转主页面 否则去登录
-//            if (!isLogin) {
-//                startActivity<LoginActivity>()
-//            } else {
-//                startActivity<MainActivity>()
-//            }
+            //如果登陆过就直接跳转主页面 否则去登录
+            if (isIntiFirst) {
+                startActivity<PrivacyAgreementActivity>()
+            } else {
+                startActivity<MainActivity>()
+            }
             finish()
         }, lifecycleScope)
     }

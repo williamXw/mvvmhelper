@@ -38,4 +38,15 @@ class MainViewModel : BaseViewModel() {
             requestCode = NetUrl.CUSTOMER_FCMPUSH_CUSTOMER_FCM_TOKEN_UP
         }
     }
+
+    /**   获取协议地址   */
+    fun fetchAgreement(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.fetchAgreement(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            requestCode = NetUrl.CORE_APP_FETCH_AGREEMENT
+        }
+    }
 }

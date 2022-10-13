@@ -81,4 +81,18 @@ object CacheUtil {
         KvUtils.encode(Constant.IS_AUTHENTICATION_SUCCEED, isTrue)
     }
 
+    /**
+     * 是否第一次打开
+     */
+    fun isInitFirst(): Boolean {
+        return KvUtils.decodeBooleanTure(Constant.IS_INIT_FIRST, true)
+    }
+
+    /**
+     * 是否认证成功
+     */
+    fun setInitFirst(isTrue: Boolean) {
+        KvUtils.encode(Constant.IS_INIT_FIRST, isTrue)
+    }
+
 }

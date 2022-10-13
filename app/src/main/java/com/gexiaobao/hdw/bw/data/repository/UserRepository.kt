@@ -96,5 +96,11 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**   获取协议地址   */
+    fun fetchAgreement(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_APP_FETCH_AGREEMENT)).setBody(body)
+            .toOkResponse()
+    }
+
 }
 

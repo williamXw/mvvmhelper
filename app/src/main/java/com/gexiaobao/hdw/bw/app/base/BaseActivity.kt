@@ -60,7 +60,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : BaseVBActivi
             val secondKey = JSONObject(firstKey).get(RxConstants.KEY).toString()
             var thirdKey = JSONObject(secondKey).get(RxConstants.KEY).toString()
             val mResponse = EncryptUtil.decode(thirdKey)
-            Log.i("-------------->>>", mResponse)
+            LogUtils.debugInfo(mResponse)
             val msg = JSONObject(mResponse).getString(RxConstants.MSG)
             val code = JSONObject(mResponse).getString(RxConstants.CODE).toInt()
             if (code == NetUrl.SUCCESS_CODE) {
