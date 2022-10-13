@@ -41,5 +41,8 @@ object NetUrl {
     /**获取首页产品列表*/
     const val CORE_PRODUCT_FETCH_PRODUCTS = "/core/product/fetchProducts"
 
+    /**身份证背照ocr*/
+    const val CUSTOMER_KYC_ID_CARD_BACK_OCR = "/customer/kyc/idCardBackOcr"
+
 
 }

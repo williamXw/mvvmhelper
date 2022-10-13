@@ -35,7 +35,7 @@ class LoanFragmentViewModel : BaseViewModel() {
         }
     }
 
-    /**验证码登录*/
+    /**获取首页产品列表*/
     fun fetchProducts(body: RequestBody): MutableLiveData<Response>? {
         return rxHttpRequestCallBack {
             onRequest = {

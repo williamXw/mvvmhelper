@@ -2,18 +2,17 @@ package com.gexiaobao.hdw.bw.app.base
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import androidx.databinding.ViewDataBinding
-import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.ext.hideSoftKeyboard
 import com.gexiaobao.hdw.bw.app.ext.jumpByLogin
-import com.gexiaobao.hdw.bw.app.util.*
-import com.gexiaobao.hdw.bw.app.widget.CustomToolBar
+import com.gexiaobao.hdw.bw.app.ext.jumpByLogin
+import com.gexiaobao.hdw.bw.app.util.DeviceUtil
+import com.gexiaobao.hdw.bw.app.util.EncryptUtil
+import com.gexiaobao.hdw.bw.app.util.KvUtils
+import com.gexiaobao.hdw.bw.app.util.nav
 import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
-import com.gyf.immersionbar.ImmersionBar
 import kotlinx.coroutines.Job
 import me.hgj.mvvmhelper.base.BaseDbFragment
 import me.hgj.mvvmhelper.base.BaseViewModel

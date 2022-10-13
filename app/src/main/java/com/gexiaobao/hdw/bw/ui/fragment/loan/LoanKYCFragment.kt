@@ -1,17 +1,16 @@
 package com.gexiaobao.hdw.bw.ui.fragment.loan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
+import com.gexiaobao.hdw.bw.app.dialog.RxDialogSure
 import com.gexiaobao.hdw.bw.app.dialog.RxLoanDialogSure
 import com.gexiaobao.hdw.bw.app.ext.init
-import com.gexiaobao.hdw.bw.app.util.EncryptUtil
-import com.gexiaobao.hdw.bw.app.util.RxDataTool
-import com.gexiaobao.hdw.bw.app.util.RxToast
-import com.gexiaobao.hdw.bw.app.util.setOnclickNoRepeat
+import com.gexiaobao.hdw.bw.app.util.*
 import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.data.response.ProductsListResponse
@@ -24,6 +23,7 @@ import me.hgj.mvvmhelper.util.decoration.SpaceItemDecoration
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import org.json.JSONObject
 import java.text.DecimalFormat
 
@@ -113,6 +113,27 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
                 productAdapter.setList(productDataList)
             }
         }
+
+    }
+
+    /**
+     * 获取首页产品列表
+     */
+    private fun fetchProductList() {
+        val map = mapOf(
+            EncryptUtil.encode("appVersion") to appVersion,
+            EncryptUtil.encode("customerId") to customerID,
+            EncryptUtil.encode("marketId") to Constant.MARKET_ID
+        )
+        val parmas = EncryptUtil.encode(JSONObject(map).toString())
+        val paramsBody =
+            RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), JSONObject(EncryptUtil.encryptBody(parmas)).toString())
+        mViewModel.fetchProducts(paramsBody)?.observe(this) {
+            val mResponse = parseData2(it)
+            if (mResponse.isNotEmpty()) {
+
+            }
+        }
     }
 
     private fun fetchHomeInfo() {
@@ -180,6 +201,7 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
 //                    timeCountThree()
                 }
                 mBind.tvLoanOrders -> {
+                    fetchProductList()
                 }
             }
         }
