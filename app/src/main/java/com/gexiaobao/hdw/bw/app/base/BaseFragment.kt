@@ -75,7 +75,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseDbFr
         return false
     }
 
-    fun parseData2(it: Response?): String {
+    fun parseData(it: Response?): String {
         if (it!!.code == 200) {
             val dataBody = JSONObject(it.body!!.string())
             val firstKey = JSONObject(dataBody.toString()).get(RxConstants.KEY).toString()

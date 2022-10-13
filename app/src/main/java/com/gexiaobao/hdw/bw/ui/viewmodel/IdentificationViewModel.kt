@@ -74,4 +74,52 @@ class IdentificationViewModel : BaseViewModel() {
         }
     }
 
+    /**身份证背照ocr*/
+    fun kycIDCardBackOrc(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.kycIDCardBackOrc(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            loadingMessage = "请求中....."
+            requestCode = NetUrl.CUSTOMER_KYC_ID_CARD_BACK_OCR
+        }
+    }
+
+    /**身份证前照ocr*/
+    fun kycIDCardFrontOrc(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.kycIDCardFrontOrc(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            loadingMessage = "请求中....."
+            requestCode = NetUrl.CUSTOMER_KYC_ID_CARD_FRONT_OCR
+        }
+    }
+
+    /**pan卡ocr*/
+    fun kycIDCardPanOrc(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.kycIDCardPanOrc(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            loadingMessage = "请求中....."
+            requestCode = NetUrl.CUSTOMER_KYC_PAN_OCR
+        }
+    }
+
+    /**身份证ocr界面-提交客户调整后的基础信息*/
+    fun submitAdJustInfo(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.submitAdJustInfo(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            loadingMessage = "请求中....."
+            requestCode = NetUrl.CUSTOMER_KYC_SUBMIT_ADJUST_INFO
+        }
+    }
+
 }

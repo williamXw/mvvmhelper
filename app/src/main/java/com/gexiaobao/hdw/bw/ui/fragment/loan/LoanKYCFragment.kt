@@ -62,6 +62,9 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
         fetchProducts()
     }
 
+    /**
+     * 获取首页产品列表
+     */
     private fun fetchProducts() {
         LogUtils.debugInfo(EncryptUtil.decode("5915190413590604191203150259101302151E2604191203150205"))
         val map = mapOf(
@@ -77,7 +80,7 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
         )
         mViewModel.fetchProducts(paramsBody)?.observe(this) {
             mBind.swipeRefresh.isRefreshing = false
-            val mResponse = parseData2(it)
+            val mResponse = parseData(it)
             if (mResponse.isNotEmpty()) {
                 productDataList.clear()
                 val dataBean = ProductsListResponse()
@@ -108,32 +111,23 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
                         JSONObject(result).getInt("1A191718371B19031802")
                     dataBean.receiveAmount =
                         JSONObject(result).getInt("041315131F0013371B19031802")
-                    productDataList.addAll(listOf(ProductsListResponse(dataBean.icoUrl , dataBean.id, dataBean.loanAmount, 0.0, dataBean.productName, dataBean.receiveAmount)))
+                    productDataList.addAll(
+                        listOf(
+                            ProductsListResponse(
+                                dataBean.icoUrl,
+                                dataBean.id,
+                                dataBean.loanAmount,
+                                0.0,
+                                dataBean.productName,
+                                dataBean.receiveAmount
+                            )
+                        )
+                    )
                 }
                 productAdapter.setList(productDataList)
             }
         }
 
-    }
-
-    /**
-     * 获取首页产品列表
-     */
-    private fun fetchProductList() {
-        val map = mapOf(
-            EncryptUtil.encode("appVersion") to appVersion,
-            EncryptUtil.encode("customerId") to customerID,
-            EncryptUtil.encode("marketId") to Constant.MARKET_ID
-        )
-        val parmas = EncryptUtil.encode(JSONObject(map).toString())
-        val paramsBody =
-            RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), JSONObject(EncryptUtil.encryptBody(parmas)).toString())
-        mViewModel.fetchProducts(paramsBody)?.observe(this) {
-            val mResponse = parseData2(it)
-            if (mResponse.isNotEmpty()) {
-
-            }
-        }
     }
 
     private fun fetchHomeInfo() {
@@ -148,7 +142,7 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
             JSONObject(EncryptUtil.encryptBody(parmas)).toString()
         )
         mViewModel.fetchHomeInfo(paramsBody)?.observe(this) {
-            val mResponse = parseData2(it)
+            val mResponse = parseData(it)
             if (mResponse.isNotEmpty()) {
                 val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
                 if (data != null) {
@@ -201,7 +195,7 @@ class LoanKYCFragment : BaseFragment<LoanFragmentViewModel, FragmentKycLoanBindi
 //                    timeCountThree()
                 }
                 mBind.tvLoanOrders -> {
-                    fetchProductList()
+
                 }
             }
         }

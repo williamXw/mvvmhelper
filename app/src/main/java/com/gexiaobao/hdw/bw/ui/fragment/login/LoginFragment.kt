@@ -215,7 +215,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             !mBind.checkboxDeal.isChecked -> showDialogMessage("Please selected...")
             else -> {
                 mViewModel.loginCallBack(paramsBody)?.observe(this) {
-                    val mResponse = parseData2(it)
+                    val mResponse = parseData(it)
                     if (mResponse.isNotEmpty()) {
                         LiveDataEvent.loginEvent.value = true //通知登录成功
                         CacheUtil.setIsLogin(true)
@@ -270,7 +270,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             !mViewModel.isChecked.get() -> showDialogMessage("Please selected...")
             else -> {
                 mViewModel.customerOtpCallBack(paramsBody)?.observe(this) {
-                    val mResponse = parseData2(it)
+                    val mResponse = parseData(it)
                     if (mResponse.isNotEmpty()) {
                         when (type) {
                             1 -> {

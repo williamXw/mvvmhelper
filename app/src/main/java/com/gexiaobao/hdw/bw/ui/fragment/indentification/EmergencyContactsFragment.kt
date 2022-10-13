@@ -197,7 +197,7 @@ class EmergencyContactsFragment :
                         JSONObject(EncryptUtil.encryptBody(parmas)).toString()
                     )
                 mViewModel.pushUrgencyContactCallBack(paramsBody)?.observe(this) {
-                    val mResponse = parseData2(it)
+                    val mResponse = parseData(it)
                     if (mResponse.isNotEmpty()) {
                         val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA) as Boolean
                         if (data) {

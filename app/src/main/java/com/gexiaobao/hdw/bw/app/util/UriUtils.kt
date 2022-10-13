@@ -1,21 +1,26 @@
 package com.gexiaobao.hdw.bw.app.util
 
-import android.text.TextUtils
-import kotlin.Throws
-import android.os.Build
-import android.provider.DocumentsContract
-import android.os.Environment
-import android.content.ContentUris
-import android.provider.MediaStore
+import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
-import androidx.annotation.RequiresApi
-import android.provider.OpenableColumns
+import android.os.Build
+import android.os.Environment
 import android.os.FileUtils
+import android.provider.DocumentsContract
+import android.provider.MediaStore
+import android.provider.OpenableColumns
+import android.text.TextUtils
+import androidx.annotation.RequiresApi
 import java.io.*
-import java.lang.Exception
+import java.util.*
+import java.util.zip.GZIPInputStream
+import java.util.zip.GZIPOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 /**
  * 作者　: hegaojian
@@ -23,6 +28,117 @@ import java.lang.Exception
  * 描述　:
  */
 object UriUtils {
+
+    /**
+     * 将字符串压缩后Base64
+     * @param primStr 待加压加密函数
+     * @return
+     */
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun zipString(primStr: String?): String? {
+        if (primStr == null || primStr.isEmpty()) {
+            return primStr
+        }
+        var out: ByteArrayOutputStream? = null
+        var zout: ZipOutputStream? = null
+        return try {
+            out = ByteArrayOutputStream()
+            zout = ZipOutputStream(out)
+            zout.putNextEntry(ZipEntry("0"))
+            zout.write(primStr.toByteArray(charset("gbk")))
+            zout.closeEntry()
+            val encoder = Base64.getEncoder()
+            return encoder.encodeToString(out.toByteArray())
+        } catch (e: IOException) {
+            null
+        } finally {
+            if (zout != null) {
+                try {
+                    zout.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    /**
+     * 字符串的压缩
+     *
+     * @param str
+     * 待压缩的字符串
+     * @return 返回压缩后的字符串
+     * @throws IOException
+     */
+    @Throws(IOException::class)
+    fun compress(str: String?): String? {
+        if (null == str || str.isEmpty()) {
+            return str
+        }
+        // 创建一个新的输出流
+        val out = ByteArrayOutputStream()
+        // 使用默认缓冲区大小创建新的输出流
+        val gzip = GZIPOutputStream(out)
+        // 将字节写入此输出流
+        gzip.write(str.toByteArray(charset("utf-8"))) // 因为后台默认字符集有可能是GBK字符集，所以此处需指定一个字符集
+        gzip.close()
+        // 使用指定的 charsetName，通过解码字节将缓冲区内容转换为字符串
+        return out.toString("ISO-8859-1")
+    }
+
+    /**
+     * 字符串的解压
+     *
+     * @param str
+     * 对字符串解压
+     * @return 返回解压缩后的字符串
+     * @throws IOException
+     */
+    @Throws(IOException::class)
+    fun unCompress(str: String?): String? {
+        if (null == str || str.isEmpty()) {
+            return str
+        }
+        // 创建一个新的输出流
+        val out = ByteArrayOutputStream()
+        // 创建一个 ByteArrayInputStream，使用 buf 作为其缓冲区数组
+        val `in` = ByteArrayInputStream(str.toByteArray(charset("ISO-8859-1")))
+        // 使用默认缓冲区大小创建新的输入流
+        val gzip = GZIPInputStream(`in`)
+        val buffer = ByteArray(256)
+        var n = 0
+
+        // 将未压缩数据读入字节数组
+        while (gzip.read(buffer).also { n = it } >= 0) {
+            out.write(buffer, 0, n)
+        }
+        // 使用指定的 charsetName，通过解码字节将缓冲区内容转换为字符串
+        return out.toString("utf-8")
+    }
+
+    /**
+     * 将图片转成byte数组
+     *
+     * @param bitmap 图片
+     * @return 图片的字节数组
+     */
+    fun bitmap2Byte(bitmap: Bitmap): ByteArray {
+        val outputStream = ByteArrayOutputStream()
+        //把bitmap100%高质量压缩 到 output对象里
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        return outputStream.toByteArray()
+    }
+
+    /**
+     * 将图片转成byte数组
+     *
+     * @param imageByte 图片
+     * @return Base64 String
+     */
+    fun byte2Base64(imageByte: ByteArray?): String? {
+        return if (null == imageByte) null else android.util.Base64.encodeToString(imageByte, android.util.Base64.DEFAULT)
+    }
+
     fun getFilePathFromURI(context: Context, contentUri: Uri?): String? {
         val rootDataDir = context.getExternalFilesDir(null)
         val fileName = getFileName(contentUri)
@@ -98,7 +214,11 @@ object UriUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return getRealFilePath(context, imageUri)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && DocumentsContract.isDocumentUri(context, imageUri)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && DocumentsContract.isDocumentUri(
+                context,
+                imageUri
+            )
+        ) {
             if (isExternalStorageDocument(imageUri)) {
                 val docId = DocumentsContract.getDocumentId(imageUri)
                 val split = docId.split(":").toTypedArray()
@@ -224,6 +344,7 @@ object UriUtils {
      * @param uri
      * @return
      */
+    @SuppressLint("Range")
     private fun getFileFromContentUri(context: Context, uri: Uri?): String? {
         if (uri == null) {
             return null
@@ -255,6 +376,7 @@ object UriUtils {
      * @param uri
      * @return
      */
+    @SuppressLint("Range")
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private fun uriToFileApiQ(context: Context, uri: Uri): String {
         var file: File? = null

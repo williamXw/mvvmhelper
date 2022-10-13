@@ -104,7 +104,7 @@ class BankAccountDetailsFragment :
                     JSONObject(EncryptUtil.encryptBody(parmas)).toString()
                 )
                 mViewModel.bindBankCard(paramsBody)?.observe(this) {
-                    val mResponse = parseData2(it)
+                    val mResponse = parseData(it)
                     if (!mResponse.isNullOrEmpty()) {
                         val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
                         val result = data.getBoolean("041305031A02")
@@ -126,7 +126,7 @@ class BankAccountDetailsFragment :
             JSONObject(EncryptUtil.encryptBody(parmas)).toString()
         )
         mViewModel.fetchBanks(paramsBody)?.observe(this) {
-            val mResponse = parseData2(it)
+            val mResponse = parseData(it)
             if (mResponse.isNotEmpty()) {
                 mList.clear()
                 val data = JSONObject(mResponse).getJSONArray(RxConstants.DATA)

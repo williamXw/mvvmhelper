@@ -44,5 +44,14 @@ object NetUrl {
     /**身份证背照ocr*/
     const val CUSTOMER_KYC_ID_CARD_BACK_OCR = "/customer/kyc/idCardBackOcr"
 
+    /**身份证前照ocr*/
+    const val CUSTOMER_KYC_ID_CARD_FRONT_OCR = "/customer/kyc/idCardFrontOcr"
+
+    /**panocr*/
+    const val CUSTOMER_KYC_PAN_OCR = "/customer/kyc/panOcr"
+
+    /**身份证ocr界面-提交客户调整后的基础信息*/
+    const val CUSTOMER_KYC_SUBMIT_ADJUST_INFO = "/customer/kyc/submitAdjustInfo"
+
 
 }

@@ -17,7 +17,6 @@ import rxhttp.wrapper.param.toResponse
  */
 object UserRepository {
 
-
     /**获取手机验证码*/
     fun customerOtp(body: RequestBody): Await<Response> {
         return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_OTP)).setBody(body)
@@ -64,6 +63,30 @@ object UserRepository {
     /**获取首页产品列表*/
     fun fetchProducts(body: RequestBody): Await<Response> {
         return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_PRODUCT_FETCH_PRODUCTS)).setBody(body)
+            .toOkResponse()
+    }
+
+    /**身份证背照ocr*/
+    fun kycIDCardBackOrc(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_KYC_ID_CARD_BACK_OCR)).setBody(body)
+            .toOkResponse()
+    }
+
+    /**身份证前照ocr*/
+    fun kycIDCardFrontOrc(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_KYC_ID_CARD_FRONT_OCR)).setBody(body)
+            .toOkResponse()
+    }
+
+    /**PanOcr*/
+    fun kycIDCardPanOrc(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_KYC_PAN_OCR)).setBody(body)
+            .toOkResponse()
+    }
+
+    /**身份证ocr界面-提交客户调整后的基础信息*/
+    fun submitAdJustInfo(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_KYC_SUBMIT_ADJUST_INFO)).setBody(body)
             .toOkResponse()
     }
 

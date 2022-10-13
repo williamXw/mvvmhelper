@@ -177,7 +177,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             !mBind.checkboxDeal.isChecked -> showDialogMessage("Please selected...")
             else -> {
                 mViewModel.loginCallBack(paramsBody)?.observe(this) {
-                    val mResponse = parseData2(it)
+                    val mResponse = parseData(it)
                     if (mResponse.isNotEmpty()) {
                         LiveDataEvent.loginEvent.value = true //通知登录成功
                         CacheUtil.setIsLogin(true)
@@ -225,7 +225,7 @@ class VeriCodeFragment : BaseFragment<LoginViewModel, FragmentVerCodeBinding>() 
             )
         mViewModel.customerOtpCallBack(paramsBody)?.observe(this) {
             hideSoftKeyboard(activity)
-            val mResult = parseData2(it)
+            val mResult = parseData(it)
             if (mResult.isNotEmpty()) {
                 val data = JSONObject(mResult).getJSONObject(RxConstants.DATA)
                 val token = JSONObject(data.toString()).getString("1819021322191D1318")

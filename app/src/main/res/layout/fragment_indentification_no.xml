@@ -94,7 +94,7 @@
                         android:layout_marginTop="@dimen/dp.12"
                         android:text="Pan No." />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/et_pan_no"
                         style="@style/identification_text_content_style"
                         android:hint="Abc Def Ger"
@@ -105,7 +105,7 @@
                         android:layout_marginTop="@dimen/dp.12"
                         android:text="Aadhaar No." />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/et_aadhaar_no"
                         style="@style/identification_text_content_style"
                         android:hint="Abc Def Ger"
@@ -116,7 +116,7 @@
                         android:layout_marginTop="@dimen/dp.12"
                         android:text="Date Of Birth" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/et_Date_of_birth"
                         style="@style/identification_text_content_style"
                         android:hint="Abc Def Ger"
@@ -127,7 +127,7 @@
                         android:layout_marginTop="@dimen/dp.12"
                         android:text="Gender" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/et_Gender"
                         style="@style/identification_text_content_style"
                         android:hint="Abc Def Ger"
@@ -138,7 +138,7 @@
                         android:layout_marginTop="@dimen/dp.12"
                         android:text="Pincode" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/et_Pincode"
                         style="@style/identification_text_content_style"
                         android:hint="Abc Def Ger"
@@ -160,7 +160,7 @@
                         android:layout_marginTop="@dimen/dp.12"
                         android:text="ADDRESS" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/et_Address"
                         style="@style/identification_text_content_style"
                         android:hint="address"
