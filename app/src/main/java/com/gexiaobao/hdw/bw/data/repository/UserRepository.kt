@@ -90,5 +90,11 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**   更新用户的firebase instance 及 fcm token   */
+    fun fcmTokenUp(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CUSTOMER_FCMPUSH_CUSTOMER_FCM_TOKEN_UP)).setBody(body)
+            .toOkResponse()
+    }
+
 }
 

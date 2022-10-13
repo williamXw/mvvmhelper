@@ -6,19 +6,25 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.gexiaobao.hdw.bw.app.base.BaseActivity
 import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.ext.countDownCoroutines
 import com.gexiaobao.hdw.bw.app.util.DeviceUtil
+import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.ActivityWelcomeBinding
+import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
 import com.jaeger.library.StatusBarUtil
 import com.permissionx.guolindev.PermissionX
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.Job
 import me.hgj.mvvmhelper.base.appContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
+import org.json.JSONObject
 import kotlin.system.exitProcess
 
 /**
@@ -26,22 +32,45 @@ import kotlin.system.exitProcess
  * @date : 2022/09/06
  * Describe : 欢迎页
  */
-class WelcomeActivity : AppCompatActivity() {
+class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
 
     private var isLogin = false
-    private val binding: ActivityWelcomeBinding by lazy {
-        ActivityWelcomeBinding.inflate(layoutInflater)
-    }
+//    private val binding: ActivityWelcomeBinding by lazy {
+//        ActivityWelcomeBinding.inflate(layoutInflater)
+//    }
 
     private var job: Job? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        //设置状态栏全透明
-        StatusBarUtil.setTransparent(this)
+    override fun initView(savedInstanceState: Bundle?) {
         initData()
+        fcmTokenUpRequest()
     }
+
+    private fun fcmTokenUpRequest() {
+        val map = mapOf(
+            EncryptUtil.encode("appInstanceId") to "",
+            EncryptUtil.encode("appVersion") to DeviceUtil.getVersionCode(this),
+            EncryptUtil.encode("customerId") to KvUtils.decodeInt(Constant.CUSTOMER_ID),
+            EncryptUtil.encode("fcmToken") to "",
+            EncryptUtil.encode("marketId") to Constant.MARKET_ID,
+        )
+        val parmas = EncryptUtil.encode(JSONObject(map).toString())
+        val paramsBody = RequestBody.create(
+            "application/json; charset=utf-8".toMediaTypeOrNull(),
+            JSONObject(EncryptUtil.encryptBody(parmas)).toString()
+        )
+        mViewModel.fcmTokenUp(paramsBody)?.observe(this) {
+            val mResponse = parseData(it)
+        }
+    }
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContentView(binding.root)
+//        //设置状态栏全透明
+//        StatusBarUtil.setTransparent(this)
+////
+//    }
 
     private fun getDeviceId() {
         isLogin = KvUtils.decodeBoolean(Constant.ISLOGIN)

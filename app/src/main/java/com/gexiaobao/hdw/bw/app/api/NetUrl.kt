@@ -53,5 +53,8 @@ object NetUrl {
     /**身份证ocr界面-提交客户调整后的基础信息*/
     const val CUSTOMER_KYC_SUBMIT_ADJUST_INFO = "/customer/kyc/submitAdjustInfo"
 
+    /**  更新用户的firebase instance 及 fcm token   */
+    const val CUSTOMER_FCMPUSH_CUSTOMER_FCM_TOKEN_UP = "/customer/fcmPush/customerFcmTokenUp"
+
 
 }

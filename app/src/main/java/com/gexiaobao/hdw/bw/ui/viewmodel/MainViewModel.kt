@@ -16,7 +16,7 @@ import okhttp3.Response
  */
 class MainViewModel : BaseViewModel() {
 
-    /**退出登录*/
+    /**   退出登录  */
     fun logOutCallBack(body: RequestBody): MutableLiveData<Response>? {
         return rxHttpRequestCallBack {
             onRequest = {
@@ -25,6 +25,17 @@ class MainViewModel : BaseViewModel() {
             loadingType = LoadingType.LOADING_DIALOG
             loadingMessage = "请求中....."
             requestCode = NetUrl.LOGIN_OUT
+        }
+    }
+
+    /**   更新用户的firebase instance 及 fcm token   */
+    fun fcmTokenUp(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.fcmTokenUp(body).await()
+            }
+            loadingType = LoadingType.LOADING_DIALOG
+            requestCode = NetUrl.CUSTOMER_FCMPUSH_CUSTOMER_FCM_TOKEN_UP
         }
     }
 }
