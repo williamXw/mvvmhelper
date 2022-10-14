@@ -49,4 +49,13 @@ class MainViewModel : BaseViewModel() {
             requestCode = NetUrl.CORE_APP_FETCH_AGREEMENT
         }
     }
+
+    /**   判断是否要进行升级   */
+    fun fetchAppVersion(body: RequestBody): MutableLiveData<Response>? {
+        return rxHttpRequestCallBack {
+            onRequest = {
+                iAwaitLiveData?.value = UserRepository.fetchAppVersion(body).await()
+            }
+        }
+    }
 }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp.20"
+        android:layout_marginEnd="@dimen/dp.20"
+        android:background="@drawable/shape_round_white"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp.25"
+        android:paddingTop="@dimen/dp.38"
+        android:paddingBottom="@dimen/dp.23"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progress_bar_up_date_version"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp.20"
+            android:max="100"
+            android:progressDrawable="@drawable/progressbar_color" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_up_date_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp.16"
+            android:text="50%"
+            android:textColor="@color/colorText_FF5A34" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_up_date_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp.20"
+        android:layout_marginRight="@dimen/dp.20"
+        android:background="@drawable/shape_round_white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp.25"
+        android:paddingRight="@dimen/dp.25"
+        android:paddingBottom="@dimen/dp.35">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_up_date_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingTop="@dimen/dp.25"
+            android:paddingBottom="@dimen/dp.17"
+            android:src="@mipmap/icon_black_close" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Version upgrade notice"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_version_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp.13"
+            android:text="Newest version:V4.0"
+            android:textColor="@color/colorText_666666"
+            android:textSize="@dimen/sp_13" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp.30"
+            android:text="Update content:"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_version_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp.13"
+            android:lineSpacingExtra="@dimen/dp.8"
+            android:text="1. Client experience optimization \n
+2. Client experience optimization \n
+3. Newly added service order creatio"
+            android:textColor="@color/colorText_666666"
+            android:textSize="@dimen/sp_13" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_update_now"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp.30"
+            android:background="@drawable/round_btn_12_click"
+            android:text="Update now"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_18" />
+
+    </LinearLayout>
+
+</LinearLayout>

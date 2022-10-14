@@ -102,5 +102,11 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**  判断是否要进行升级   */
+    fun fetchAppVersion(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_APP_FETCH_APP_VERSION_V2)).setBody(body)
+            .toOkResponse()
+    }
+
 }
 

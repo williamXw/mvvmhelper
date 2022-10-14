@@ -59,5 +59,8 @@ object NetUrl {
     /**  获取协议地址   */
     const val CORE_APP_FETCH_AGREEMENT = "/core/app/fetchAgreement"
 
+    /**  判断是否要进行升级   */
+    const val CORE_APP_FETCH_APP_VERSION_V2 = "/core/app/fetchAppVersionV2"
+
 
 }
