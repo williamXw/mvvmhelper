@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
@@ -8,7 +9,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <WebView
+            android:id="@+id/wv_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp.30"
+            tools:ignore="WebViewLayout" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_close"
@@ -18,25 +27,10 @@
             android:paddingStart="@dimen/dp.22"
             android:paddingTop="@dimen/dp.18"
             android:paddingEnd="@dimen/dp.22"
-            android:paddingBottom="@dimen/dp.18"
+            android:paddingBottom="@dimen/dp_10"
             android:src="@mipmap/icon_black_close" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp.30"
-            android:text="Privacy Policy"
-            android:textColor="@color/colorText_292F36"
-            android:textSize="@dimen/sp_18" />
     </RelativeLayout>
-
-    <WebView
-        android:id="@+id/wv_privacy"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"

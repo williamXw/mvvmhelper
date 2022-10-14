@@ -11,7 +11,7 @@ object NetUrl {
 
     // 服务器请求成功的 Code值
     const val SUCCESS_CODE = 0
-
+    // 登录过期的 Code值
     const val LOGIN_OUT_CODE = 1000
 
     @DefaultDomain //设置为默认域名

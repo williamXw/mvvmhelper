@@ -18,4 +18,5 @@ object Constant {
     const val IS_AUTHENTICATION_SUCCEED = "isAuthenticationSucceed"
     const val IS_INIT_FIRST = "is_init_first"
     const val IS_PERMISSION = "is_permission"
+    const val IS_AGREE_PRIVACY = "IS_agree_privacy"
 }

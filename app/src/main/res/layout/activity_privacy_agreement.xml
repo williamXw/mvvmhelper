@@ -21,6 +21,7 @@
             android:layout_height="@dimen/dp.44"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
+            android:visibility="gone"
             android:text="Prominent disclosure"
             android:textColor="@color/colorText_292F36"
             android:textSize="@dimen/sp_18"

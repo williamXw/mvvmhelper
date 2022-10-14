@@ -1,29 +1,25 @@
 package com.gexiaobao.hdw.bw.ui.activity
 
 import android.Manifest
-import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.Toast
-import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.base.BaseActivity
-import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.ext.RxWebViewTool
-import com.gexiaobao.hdw.bw.app.util.*
+import com.gexiaobao.hdw.bw.app.util.CacheUtil
+import com.gexiaobao.hdw.bw.app.util.RxTextTool
+import com.gexiaobao.hdw.bw.app.util.setOnclickNoRepeat
+import com.gexiaobao.hdw.bw.app.util.startActivity
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.ActivityPrivacyAgreementBinding
-import com.gexiaobao.hdw.bw.ui.dialog.BottomSheetListDialog
 import com.gexiaobao.hdw.bw.ui.dialog.BottomSheetPrivacyDialog
 import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
 import com.permissionx.guolindev.PermissionX
 import com.tamsiree.rxkit.interfaces.OnWebViewLoad
 import com.tencent.bugly.crashreport.CrashReport
 import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
-import kotlin.system.exitProcess
 
 /**
  * created by : huxiaowei
@@ -31,21 +27,25 @@ import kotlin.system.exitProcess
  * Describe : 隐私协议
  */
 class PrivacyAgreementActivity : BaseActivity<MainViewModel, ActivityPrivacyAgreementBinding>() {
-
-    private var webPath = "https://www.baidu.com/index.php?tn=monline_3_dg"
+    private var permissionExplainUrl = ""
+    private var registerAgreementUrl = ""
+    private var privacyAgreementUrl = ""
+    private var privacyAgreementBreviaryUrl = ""
 
     override fun initView(savedInstanceState: Bundle?) {
         initSpannableText()
         initData()
-
-        val isInitFirst = CacheUtil.isInitFirst()
-        if (!isInitFirst) {
-            permissionRequest()
+        val isAgreePrivacy = CacheUtil.isAgreePrivacy()//首次进入 默认值 false
+        if (!isAgreePrivacy) {
+            showBottomDialog(registerAgreementUrl, isAgreePrivacy)
         }
     }
 
     private fun initData() {
-//        webPath = intent.extras?.getString("permissionExplainUrl").toString()
+        permissionExplainUrl = intent.extras?.getString("permissionExplainUrl").toString()
+        privacyAgreementBreviaryUrl = intent.extras?.getString("privacyAgreementBreviaryUrl").toString()
+        privacyAgreementUrl = intent.extras?.getString("privacyAgreementUrl").toString()
+        registerAgreementUrl = intent.extras?.getString("registerAgreementUrl").toString()
         //设置加载进度最大值
         mBind.pbWebBase.max = 100
 
@@ -64,11 +64,12 @@ class PrivacyAgreementActivity : BaseActivity<MainViewModel, ActivityPrivacyAgre
                 mBind.pbWebBase.visibility = View.GONE
             }
         })
-        mBind.webBase.loadUrl(webPath)
-        LogUtils.debugInfo("帮助类完整连接", webPath)
+        mBind.webBase.loadUrl(permissionExplainUrl)
+        LogUtils.debugInfo("帮助类完整连接", permissionExplainUrl)
 
         mBind.checkboxPrivacy.setOnCheckedChangeListener { _, b ->
             if (b) {
+                CacheUtil.setInitFirst(false)
                 permissionRequest()
             }
         }
@@ -86,33 +87,33 @@ class PrivacyAgreementActivity : BaseActivity<MainViewModel, ActivityPrivacyAgre
             )
             //解释申请权限的用途，不需要则不用写
 //            .explainReasonBeforeRequest()
-            .onExplainRequestReason { scope, deniedList ->
-                //如果权限被拒绝多个  只有相机是必须开启才能进入程序  则需要下面的代码过滤申请
-//                val filteredList = deniedList.filter {
-//                    it == Manifest.permission.CAMERA
-//                }
-                scope.showRequestReasonDialog(
-                    deniedList,
-                    DeviceUtil.getAppName(this) + "需要以下权限才能继续",
-                    "同意",
-                    "拒绝"
-                )
-            }.onForwardToSettings { scope, deniedList ->
-                scope.showForwardToSettingsDialog(deniedList, "您需要去应用程序设置当中手动开启权限", "好的")
-            }
+            //拒绝后重新弹窗提醒
+//            .onExplainRequestReason { scope, deniedList ->
+//                //如果权限被拒绝多个  只有相机是必须开启才能进入程序  则需要下面的代码过滤申请
+////                val filteredList = deniedList.filter {
+////                    it == Manifest.permission.CAMERA
+////                }
+//                scope.showRequestReasonDialog(
+//                    deniedList,
+//                    DeviceUtil.getAppName(this) + "需要以下权限才能继续",
+//                    "同意",
+//                    "拒绝"
+//                )
+//            }.onForwardToSettings { scope, deniedList ->
+//                scope.showForwardToSettingsDialog(deniedList, "您需要去应用程序设置当中手动开启权限", "好的")
+//            }
             .request { allGranted, _, deniedList ->
                 if (allGranted) {
                     CacheUtil.setPermission(true)//同意了权限 记录
-                    CacheUtil.setInitFirst(false)//同意权限之后 设置状态
-                    startActivity<MainActivity>()
-                    finish()
                     //初始化Bugly
                     initBugly()
                 } else {
                     CacheUtil.setPermission(false)//拒绝了某个权限 记录
-                    exitProcess(0)
-                    Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
+//                    exitProcess(0)
+//                    Toast.makeText(this, "您拒绝了如下权限：$deniedList", Toast.LENGTH_SHORT).show()
                 }
+                startActivity<MainActivity>()
+                finish()
             }
     }
 
@@ -148,8 +149,7 @@ class PrivacyAgreementActivity : BaseActivity<MainViewModel, ActivityPrivacyAgre
         /**Terms点击事件*/
         val clickSpanUser: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                val dialog = BottomSheetPrivacyDialog("")
-                dialog.show(supportFragmentManager, "contact")
+                showBottomDialog(registerAgreementUrl, true)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -160,7 +160,7 @@ class PrivacyAgreementActivity : BaseActivity<MainViewModel, ActivityPrivacyAgre
         /**PrivacyPolicy点击事件*/
         val clickSpanPrivacy: ClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-
+                showBottomDialog(privacyAgreementUrl, true)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -176,5 +176,10 @@ class PrivacyAgreementActivity : BaseActivity<MainViewModel, ActivityPrivacyAgre
             .setUnderline()
             .append(" and to receive notification from SMS and email")
             .into(mBind.tvPrivacy)
+    }
+
+    private fun showBottomDialog(webUrl: String, isInitFirst: Boolean) {
+        val dialog = BottomSheetPrivacyDialog(webUrl, isInitFirst)
+        dialog.show(supportFragmentManager, "contact")
     }
 }

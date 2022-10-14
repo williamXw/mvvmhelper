@@ -1,34 +1,35 @@
 package com.gexiaobao.hdw.bw.ui.dialog
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.Toast
 import com.gexiaobao.hdw.bw.R
-import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
+import com.gexiaobao.hdw.bw.app.ext.RxWebViewTool
 import com.gexiaobao.hdw.bw.app.util.CacheUtil
 import com.gexiaobao.hdw.bw.app.util.DeviceUtil
-import com.gexiaobao.hdw.bw.app.util.RxToast
 import com.gexiaobao.hdw.bw.app.util.startActivity
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.DialogBottomSheetPrivacyBinding
 import com.gexiaobao.hdw.bw.ui.activity.MainActivity
+import com.gexiaobao.hdw.bw.ui.activity.PrivacyAgreementActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.permissionx.guolindev.PermissionX
+import com.tamsiree.rxkit.interfaces.OnWebViewLoad
 import com.tencent.bugly.crashreport.CrashReport
 import me.hgj.mvvmhelper.base.appContext
 import kotlin.system.exitProcess
 
-class BottomSheetPrivacyDialog(val privacyUrl: String) : BottomSheetDialogFragment() {
+class BottomSheetPrivacyDialog(private val privacyUrl: String, private val isInitFirst: Boolean) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBottomSheetPrivacyBinding
 
@@ -49,6 +50,29 @@ class BottomSheetPrivacyDialog(val privacyUrl: String) : BottomSheetDialogFragme
     }
 
     private fun initView() {
+        if (isInitFirst) {
+            binding.ivClose.visibility = View.VISIBLE
+        } else {
+            binding.ivClose.visibility = View.GONE
+        }
+
+        RxWebViewTool.initWebView(context as Activity, binding.wvPrivacy, object : OnWebViewLoad {
+            override fun onPageStarted() {
+
+            }
+
+            override fun onReceivedTitle(title: String) {}
+            override fun onProgressChanged(newProgress: Int) {
+
+            }
+
+            override fun shouldOverrideUrlLoading() {}
+            override fun onPageFinished() {
+
+            }
+        })
+        binding.wvPrivacy.loadUrl(privacyUrl)
+
         binding.ivClose.setOnClickListener {
             dismiss()
         }
@@ -58,53 +82,12 @@ class BottomSheetPrivacyDialog(val privacyUrl: String) : BottomSheetDialogFragme
             activity?.finish()
         }
 
-        binding.checkboxPrivacy.setOnCheckedChangeListener { compoundButton, b ->
+        binding.checkboxPrivacy.setOnCheckedChangeListener { _, b ->
             if (b) {
+                CacheUtil.setIsAgreePrivacy(true)//表示已经点击同意了隐私政策
                 dismiss()
-                permissionRequest()
             }
         }
-    }
-
-    private fun permissionRequest() {
-        PermissionX.init(this)
-            .permissions(
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_CONTACTS
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            //解释申请权限的用途，不需要则不用写
-//            .explainReasonBeforeRequest()
-            .onExplainRequestReason { scope, deniedList ->
-                //如果权限被拒绝多个  只有相机是必须开启才能进入程序  则需要下面的代码过滤申请
-//                val filteredList = deniedList.filter {
-//                    it == Manifest.permission.CAMERA
-//                }
-                scope.showRequestReasonDialog(
-                    deniedList,
-                    DeviceUtil.getAppName(appContext) + "需要以下权限才能继续",
-                    "同意",
-                    "拒绝"
-                )
-            }.onForwardToSettings { scope, deniedList ->
-                scope.showForwardToSettingsDialog(deniedList, "您需要去应用程序设置当中手动开启权限", "好的")
-            }
-            .request { allGranted, _, deniedList ->
-                if (allGranted) {
-                    CacheUtil.setPermission(true)//同意了权限 记录
-                    CacheUtil.setInitFirst(false)//同意权限之后 设置状态
-                    startActivity<MainActivity>()
-                    activity?.finish()
-                    //初始化Bugly
-                    initBugly()
-                } else {
-                    CacheUtil.setPermission(false)//拒绝了某个权限 记录
-                    exitProcess(0)
-                }
-            }
     }
 
     private fun initBugly() {
@@ -135,19 +118,15 @@ class BottomSheetPrivacyDialog(val privacyUrl: String) : BottomSheetDialogFragme
     override fun onStart() {
         super.onStart()
         setupRatio(requireContext(), dialog as BottomSheetDialog, 100)
-//        //拿到系统的 bottom_sheet
-//        val view: FrameLayout = dialog?.findViewById(R.id.design_bottom_sheet)!!
-//        //获取behavior
-//        val behavior = BottomSheetBehavior.from(view)
-//        //设置弹出高度
-//        behavior.peekHeight = 1200
+        val view = view
+        view?.post(Runnable {
+            val behavior = dialog?.let { BottomSheetBehavior.from(it.findViewById(R.id.design_bottom_sheet)) };
+            behavior?.isHideable = false//此处设置表示禁止BottomSheetBehavior的执行\
+        })
     }
 
-    fun setupRatio(context: Context, bottomSheetDialog: BottomSheetDialog, percetage: Int) {
-        //id = com.google.android.material.R.id.design_bottom_sheet for Material Components
-        //id = android.support.design.R.id.design_bottom_sheet for support librares
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
+    private fun setupRatio(context: Context, bottomSheetDialog: BottomSheetDialog, percetage: Int) {
+        val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
         val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from(bottomSheet)
         val layoutParams = bottomSheet.layoutParams
         layoutParams.height = getBottomSheetDialogDefaultHeight(context, percetage)
@@ -160,9 +139,14 @@ class BottomSheetPrivacyDialog(val privacyUrl: String) : BottomSheetDialogFragme
     }
 
     private fun getWindowHeight(context: Context): Int {
-        // Calculate window height for fullscreen use
         val displayMetrics = DisplayMetrics()
         (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels
+    }
+
+    @SuppressLint("RestrictedApi")
+    override fun setupDialog(dialog: Dialog, style: Int) {
+        super.setupDialog(dialog, style)
+        dialog.setCanceledOnTouchOutside(false)
     }
 }

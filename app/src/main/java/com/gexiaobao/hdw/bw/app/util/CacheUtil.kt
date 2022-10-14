@@ -106,4 +106,15 @@ object CacheUtil {
         KvUtils.encode(Constant.IS_PERMISSION, isTrue)
     }
 
+    /**
+     * 是否同意了隐私政策
+     */
+    fun isAgreePrivacy(): Boolean {
+        return KvUtils.decodeBooleanTure(Constant.IS_AGREE_PRIVACY, false)
+    }
+
+    fun setIsAgreePrivacy(isTrue: Boolean) {
+        KvUtils.encode(Constant.IS_AGREE_PRIVACY, isTrue)
+    }
+
 }

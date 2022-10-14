@@ -1,13 +1,8 @@
 package com.gexiaobao.hdw.bw.ui.activity
 
-import android.Manifest
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.gexiaobao.hdw.bw.app.base.BaseActivity
-import com.gexiaobao.hdw.bw.app.ext.LiveDataEvent
 import com.gexiaobao.hdw.bw.app.ext.countDownCoroutines
 import com.gexiaobao.hdw.bw.app.util.CacheUtil
 import com.gexiaobao.hdw.bw.app.util.DeviceUtil
@@ -17,18 +12,13 @@ import com.gexiaobao.hdw.bw.comm.RxConstants
 import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.databinding.ActivityWelcomeBinding
 import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
-import com.jaeger.library.StatusBarUtil
-import com.permissionx.guolindev.PermissionX
 import com.tencent.bugly.crashreport.CrashReport
-import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.Job
 import me.hgj.mvvmhelper.base.appContext
-import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
 import org.json.JSONObject
-import kotlin.system.exitProcess
 
 /**
  * created by : huxiaowei
