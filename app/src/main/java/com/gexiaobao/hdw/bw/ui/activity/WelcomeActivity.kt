@@ -70,9 +70,9 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     }
 
     private fun showNewVersionDialog() {
-        rxDialog.btnUpdateNow.setOnClickListener {
-            downloadApk()
-        }
+//        rxDialog.btnUpdateNow.setOnClickListener {
+//            downloadApk()
+//        }
         rxDialog.setProgressBar(progressNum)
         rxDialog.ivClose.setOnClickListener {
             rxDialog.dismiss()

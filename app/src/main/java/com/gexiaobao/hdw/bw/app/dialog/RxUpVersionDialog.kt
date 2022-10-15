@@ -3,6 +3,10 @@ package com.gexiaobao.hdw.bw.app.dialog
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
@@ -10,6 +14,12 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.gexiaobao.hdw.bw.R
+import com.gexiaobao.hdw.bw.app.util.DownloadUtil
+import com.liulishuo.filedownloader.BaseDownloadTask
+import com.liulishuo.filedownloader.FileDownloadListener
+import com.liulishuo.filedownloader.FileDownloader
+import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
+import java.io.File
 
 /**
  * @author tamsiree
@@ -30,6 +40,8 @@ class RxUpVersionDialog : RxDialog {
         private set
     lateinit var tvUpDateProgressNum: AppCompatTextView
         private set
+
+    val URLStr = "https://cdn.weizhiyou.top/down/wzy.apk" //apk地址
 
     constructor(context: Context?, themeResId: Int) : super(context!!, themeResId) {
         initView()
@@ -76,6 +88,14 @@ class RxUpVersionDialog : RxDialog {
         progressBar = dialogView.findViewById(R.id.progress_bar_up_date_version)
         tvUpDateProgressNum = dialogView.findViewById(R.id.tv_up_date_num)
 
+        btnUpdateNow.setOnClickListener {
+            downloadApk()
+        }
         setContentView(dialogView)
     }
+
+    private fun downloadApk() {
+    }
+
+
 }

@@ -82,73 +82,75 @@ dependencies {
     implementation "com.github.liujingxing.rxhttp:rxhttp:2.9.3"
     ksp "com.github.liujingxing.rxhttp:rxhttp-compiler:2.9.3"
 
-    /**navigation*/
+    /**  navigation  */
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    /**微信开源项目，替代SP*/
+    /**  微信开源项目，替代SP  */
     implementation 'com.tencent:mmkv:1.2.14'
 
-    /** 今日头条适配-升级版()*/
+    /** 今日头条适配-升级版()  */
     implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
 
-    /** 其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如4.0.3*/
+    /**  其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如4.0.3  */
     implementation 'com.tencent.bugly:crashreport:latest.release'
 
-    /** Anko*/
+    /** Anko  */
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
 //    implementation "org.jetbrains.anko:anko:0.10.2"
 
-    /** 流水头*/
+    /** 流水头  */
 //    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
 
-    //防崩溃
+    /**  防崩溃  */
     implementation 'cat.ereza:customactivityoncrash:2.3.0'
 
-    /** 倒计时*/
+    /** 倒计时  */
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
     /**lifecycleScope*/
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
-    /** 权限 郭霖大神的一套权限申请的框架 简介好用*/
+    /**  权限 郭霖大神的一套权限申请的框架 简介好用  */
     implementation 'com.guolindev.permissionx:permissionx:1.6.4'
 
-    /**glide*/
+    /**  glide  */
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
-    /**添加StatusBarUtil的依赖*/
+    /**  添加StatusBarUtil的依赖  */
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
 
-    /**zxing二维码 https://github.com/yuzhiqiang1993/zxing*/
+    /**  zxing二维码 https://github.com/yuzhiqiang1993/zxing  */
     implementation 'com.github.yuzhiqiang1993:zxing:2.2.4'
 
     implementation "io.reactivex.rxjava3:rxjava:3.1.2"
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
 //    implementation 'com.github.liujingxing.rxlife:rxlife-rxjava3:2.2.1' //管理RxJava3生命周期，页面销毁，关闭请求
 
-    /**底部bottomBar*/
+    /**  底部bottomBar  */
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
 
-    /**util*/
+    /**  util  */
     implementation 'com.blankj:utilcodex:1.30.0'
 
-    /**图片选择控件*/
+    /**  图片选择控件  */
 //    implementation 'io.github.lucksiege:pictureselector:v2.7.2'
 
-    /**PictureSelector*/
+    /**  PictureSelector  */
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.8'
-//    /**Gson*/
+    /**  Gson  */
     implementation 'com.google.code.gson:gson:2.7'
-    /**RoundedImageView*/
+    /**  RoundedImageView  */
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-    /** 日期工具框架 */
+    /** 日期工具框架  */
     implementation 'net.danlew:android.joda:2.9.5'
 
-    /**下拉刷新*/
+    /**  下拉刷新  */
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    /**第三方recyclerview*/
+    /**  第三方recyclerview  */
     implementation 'com.yanzhenjie.recyclerview:x:1.3.2'
+    /**  downloader  */
+    implementation 'com.liulishuo.filedownloader:library:1.7.4'
 }
