@@ -64,7 +64,6 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/main_fragment" />
 
-
     </fragment>
 
     <fragment
@@ -121,7 +120,17 @@
         android:id="@+id/fragment_repayment_detail"
         android:name="com.gexiaobao.hdw.bw.ui.fragment.repayment.RepaymentDetailsFragment"
         android:label="fragment_repayment_detail"
-        tools:layout="@layout/fragment_repayment_detail"></fragment>
+        tools:layout="@layout/fragment_repayment_detail">
+
+        <action
+            android:id="@+id/action_account_to_Extend"
+            app:destination="@id/fragment_extend"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_repayment_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_about_us"
@@ -235,14 +244,22 @@
         android:label="fragment_bank_account_detail"
         tools:layout="@layout/fragment_bankaccount_detail">
 
-<!--        <action-->
-<!--            android:id="@+id/action_bank_account_to_loan_kyc"-->
-<!--            app:destination="@id/fragment_about_us"-->
-<!--            app:enterAnim="@anim/slide_in_right"-->
-<!--            app:exitAnim="@anim/slide_out_left"-->
-<!--            app:popEnterAnim="@anim/slide_in_left"-->
-<!--            app:popExitAnim="@anim/slide_out_right"-->
-<!--            app:popUpTo="@id/emergency_contacts_fragment" />-->
+        <!--        <action-->
+        <!--            android:id="@+id/action_bank_account_to_loan_kyc"-->
+        <!--            app:destination="@id/fragment_about_us"-->
+        <!--            app:enterAnim="@anim/slide_in_right"-->
+        <!--            app:exitAnim="@anim/slide_out_left"-->
+        <!--            app:popEnterAnim="@anim/slide_in_left"-->
+        <!--            app:popExitAnim="@anim/slide_out_right"-->
+        <!--            app:popUpTo="@id/emergency_contacts_fragment" />-->
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_extend"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.repayment.ExtendFragment"
+        android:label="fragment_extend"
+        tools:layout="@layout/fragment_extend">
 
     </fragment>
 

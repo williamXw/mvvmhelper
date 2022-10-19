@@ -11,6 +11,7 @@ object NetUrl {
 
     // 服务器请求成功的 Code值
     const val SUCCESS_CODE = 0
+
     // 登录过期的 Code值
     const val LOGIN_OUT_CODE = 1000
 
@@ -62,5 +63,13 @@ object NetUrl {
     /**  判断是否要进行升级   */
     const val CORE_APP_FETCH_APP_VERSION_V2 = "/core/app/fetchAppVersionV2"
 
+    /**  获取还款详情信息   */
+    const val CORE_PAY_GET_REPAY_BY_BORROWID = "/core/pay/getRepayByBorrowId"
+
+    /**   获取延期还款的付款信息   */
+    const val CORE_PAY_FETCH_ROLL_REPAY_INFO = "/core/pay/fetchRollRePayInfo"
+
+    /**   发起线上还款   */
+    const val CORE_PAY_FETCH_REPAY_LINK = "/core/pay/fetchRepayLink"
 
 }

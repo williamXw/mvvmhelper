@@ -108,5 +108,23 @@ object UserRepository {
             .toOkResponse()
     }
 
+    /**  获取还款详情信息   */
+    fun getRepayByBorrow(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_PAY_GET_REPAY_BY_BORROWID)).setBody(body)
+            .toOkResponse()
+    }
+
+    /**  获取延期还款的付款信息   */
+    fun fetchRollRepayInfo(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_PAY_FETCH_ROLL_REPAY_INFO)).setBody(body)
+            .toOkResponse()
+    }
+
+    /**  发起线上还款   */
+    fun fetchRepayLink(body: RequestBody): Await<Response> {
+        return RxHttp.postBody(EncryptUtil.encode(NetUrl.CORE_PAY_FETCH_REPAY_LINK)).setBody(body)
+            .toOkResponse()
+    }
+
 }
 

@@ -13,6 +13,7 @@
     <string name="main_me">我的</string>
     <string name="main_match">比赛</string>
     <string name="main_market">商城</string>
+    <string name="currency_symbol">₹ </string>
 
 
 </resources>
