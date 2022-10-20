@@ -1,7 +1,9 @@
 package com.gexiaobao.hdw.bw.ui.fragment.repayment
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.gexiaobao.hdw.bw.app.base.BaseFragment
+import com.gexiaobao.hdw.bw.app.ext.countDownCoroutines
 import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.nav
 import com.gexiaobao.hdw.bw.app.util.setOnclickNoRepeat
@@ -21,7 +23,14 @@ class ExtendFragment : BaseFragment<RepaymentFragmentViewModel, FragmentExtendBi
 
     override fun initView(savedInstanceState: Bundle?) {
         mBind.viewmodel = mViewModel
-        fetchRollRepayInfo()
+    }
+
+    override fun initData() {
+        super.initData()
+        job = countDownCoroutines(1, {
+        }, {
+            fetchRollRepayInfo()
+        }, lifecycleScope)
     }
 
     private fun fetchRollRepayInfo() {

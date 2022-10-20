@@ -1,5 +1,7 @@
 package com.gexiaobao.hdw.bw.ui.viewmodel
 
+import android.view.View
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.data.repository.UserRepository
@@ -27,6 +29,18 @@ class RepaymentFragmentViewModel : BaseViewModel() {
     val dueTimeAfterExtension = StringObservableField()
     val overdueAmount = StringObservableField()
     val extendRepaymentFee = StringObservableField()
+
+    val utrNo = StringObservableField()
+
+    var utrVisible = object : ObservableInt(utrNo) {
+        override fun get(): Int {
+            return if (utrNo.get().isNotEmpty()) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+        }
+    }
 
     /**   获取还款详情信息   */
     fun getRepayByBorrow(body: RequestBody): MutableLiveData<Response>? {

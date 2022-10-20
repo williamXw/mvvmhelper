@@ -11,7 +11,7 @@ fun countDownCoroutines(total:Int,onTick:(Int)->Unit,onFinish:()->Unit,
     return flow{
         for (i in total downTo 0){
             emit(i)
-            delay(1000)
+            delay(300)
         }
     }.flowOn(Dispatchers.Default)
         .onCompletion { onFinish.invoke() }

@@ -130,7 +130,27 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/fragment_repayment_detail" />
+
+        <action
+            android:id="@+id/action_account_to_utr"
+            app:destination="@id/fragment_input_otr"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_repayment_detail" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_input_otr"
+        android:name="com.gexiaobao.hdw.bw.ui.fragment.repayment.InputUtrFragment"
+        android:label="fragment_input_utr"
+        tools:layout="@layout/fragment_input_utr">
+
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/fragment_about_us"

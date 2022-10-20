@@ -21,6 +21,8 @@
     <color name="colorText_666666">#666666</color>
     <color name="colorText_DF0036">#DF0036</color>
     <color name="colorText_FF5A34">#FF5A34</color>
+    <color name="colorText_A5A5A5">#A5A5A5</color>
+    <color name="colorText_D50000">#D50000</color>
 
     <color name="colorGreen">#62B75D</color>
     <color name="colorBottomNavDefault">#505050</color>

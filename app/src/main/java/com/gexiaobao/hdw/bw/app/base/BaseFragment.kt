@@ -6,7 +6,6 @@ import androidx.databinding.ViewDataBinding
 import com.gexiaobao.hdw.bw.app.api.NetUrl
 import com.gexiaobao.hdw.bw.app.ext.hideSoftKeyboard
 import com.gexiaobao.hdw.bw.app.ext.jumpByLogin
-import com.gexiaobao.hdw.bw.app.ext.jumpByLogin
 import com.gexiaobao.hdw.bw.app.util.DeviceUtil
 import com.gexiaobao.hdw.bw.app.util.EncryptUtil
 import com.gexiaobao.hdw.bw.app.util.KvUtils

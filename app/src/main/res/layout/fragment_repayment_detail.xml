@@ -253,6 +253,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_repayment" />
 
                 <LinearLayout
+                    android:id="@+id/ll_input_utr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp.20"
