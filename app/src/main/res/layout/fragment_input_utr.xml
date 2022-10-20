@@ -111,7 +111,6 @@
             android:layout_height="@dimen/dp.80"
             android:layout_marginStart="@dimen/dp.20"
             android:layout_marginTop="@dimen/dp.9"
-            android:background="@drawable/round_white_12"
             android:paddingStart="@dimen/dp.27"
             android:paddingTop="@dimen/dp.12"
             android:paddingEnd="@dimen/dp.27"
