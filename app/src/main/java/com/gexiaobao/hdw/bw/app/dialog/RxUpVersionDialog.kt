@@ -1,24 +1,28 @@
 package com.gexiaobao.hdw.bw.app.dialog
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DownloadManager
 import android.content.Context
 import android.content.DialogInterface
-import android.opengl.Visibility
+import android.content.pm.PackageManager
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.ActivityCompat
 import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.data.downloadmanager.DownLoadApkListener
 import com.gexiaobao.hdw.bw.data.downloadmanager.DownloadManagerUtils
+import com.luck.picture.lib.permissions.PermissionChecker.requestPermissions
 import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
-import org.jetbrains.anko.find
 import kotlin.system.exitProcess
 
 /**
@@ -95,11 +99,12 @@ class RxUpVersionDialog : RxDialog, DownLoadApkListener {
         llProgress = dialogView.findViewById(R.id.ll_progress)
         llUpdate = dialogView.findViewById(R.id.ll_up_date_describe)
 
-        btnUpdateNow.setOnClickListener {
-            llUpdate.visibility = View.GONE
-            llProgress.visibility = View.VISIBLE
-            DownloadManagerUtils().downLoad("", "", "https://downpack.baidu.com/baidumap_AndroidPhone_1012337a.apk")
-        }
+//        btnUpdateNow.setOnClickListener {
+//            requestPermission()
+//            llUpdate.visibility = View.GONE
+//            llProgress.visibility = View.VISIBLE
+//            DownloadManagerUtils().updateDownLoad( "https://downpack.baidu.com/baidumap_AndroidPhone_1012337a.apk")
+//        }
         setContentView(dialogView)
     }
 

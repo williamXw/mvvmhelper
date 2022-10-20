@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.util.Log
 import androidx.core.content.FileProvider
 import com.gexiaobao.hdw.bw.app.util.SPUtils
@@ -17,7 +19,6 @@ import me.hgj.mvvmhelper.base.appContext
 import java.io.File
 import java.text.DecimalFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**
@@ -34,6 +35,8 @@ class DownloadManagerUtils {
     var url = ""
     var mHandler = Handler(Looper.getMainLooper())
     var timer: Timer? = null
+    var directory = ""
+    lateinit var file: File
 
     companion object {
         private var listenerList = ArrayList<DownLoadApkListener>()
@@ -83,28 +86,41 @@ class DownloadManagerUtils {
 
     }
 
-    fun downLoad(title: String, description: String, downLoadHtmlUrl: String) {
-        this.url = downLoadHtmlUrl
+    fun updateDownLoad(downLoadHtmlUrl: String) {
+        val apkFile: File = checkLocalUpdate("Taurus") as File
+        if (apkFile != null) {
+            // 本地存在新版本，直接安装
+            installApk(apkFile)
+            return
+        }
 
+        val index = downLoadHtmlUrl.lastIndexOf("/")
+        val apkName: String = downLoadHtmlUrl.substring(index + 1, downLoadHtmlUrl.length)
+        this.url = downLoadHtmlUrl
         var uri = Uri.parse(downLoadHtmlUrl)
         val request = DownloadManager.Request(uri)
         //设置漫游条件下是否可以下载
         request.setAllowedOverRoaming(false)
+        // 自定义的下载目录,注意这是涉及到android Q的存储权限，建议不要用getExternalStorageDirectory（）
+        request.setDestinationInExternalFilesDir(appContext, "Taurus", appContext.packageName + ".apk")
+        deleteApkFile(
+            Objects.requireNonNull<File>(
+                appContext.getExternalFilesDir(
+                    "Taurus" + File.separator + appContext.packageName + ".apk"
+                )
+            )
+        )
         //在通知栏中显示，默认就是显示的
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
         //设置通知标题
-        request.setTitle(title)
+//        request.setTitle(title)
         //设置通知标题message
-        request.setDescription(description)
+//        request.setDescription(description)
         request.setVisibleInDownloadsUi(true)
         request.allowScanningByMediaScanner()
-        val index = downLoadHtmlUrl.lastIndexOf("/")
-        val apkName: String = downLoadHtmlUrl.substring(index + 1, downLoadHtmlUrl.length)
         //设置文件存放路径
-        val directory = getDiskCacheDir(appContext)
-
-        val file = File(directory, "/download/$apkName")
-
+        directory = getDiskCacheDir(appContext)
+        file = File(directory, "/download/$apkName")
         request.setDestinationUri(Uri.fromFile(file))
 
         if (downloadManager == null)
@@ -136,7 +152,7 @@ class DownloadManagerUtils {
         }
     }
 
-    private fun getDiskCacheDir(context: Context): String? {
+    private fun getDiskCacheDir(context: Context): String {
         var cachePath: String? = null
         cachePath =
             if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState() || !Environment.isExternalStorageRemovable()) {
@@ -171,7 +187,6 @@ class DownloadManagerUtils {
                 }
                 DownloadManager.STATUS_PENDING -> {
                     Log.e("tag", "STATUS_PENDING +" + DownloadManager.STATUS_PENDING)
-
                     startTimer()
                 }
                 DownloadManager.STATUS_RUNNING -> {
@@ -232,6 +247,74 @@ class DownloadManagerUtils {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             appContext.startActivity(intent)
         }
+    }
+
+    /**
+     * 下载前清空本地缓存的文件
+     */
+    private fun deleteApkFile(destFileDir: File) {
+        if (!destFileDir.exists()) {
+            return
+        }
+        if (destFileDir.isDirectory) {
+            val files = destFileDir.listFiles()
+            if (files != null) {
+                for (f in files) {
+                    deleteApkFile(f)
+                }
+            }
+        }
+        destFileDir.delete()
+    }
+
+    /**
+     * 检查本地是否有已经下载的最新apk文件
+     *
+     * @param filePath 文件相对路劲
+     */
+    private fun checkLocalUpdate(filePath: String): File? {
+        try {
+            val apkFile: File?
+            apkFile = if (TextUtils.isEmpty(filePath)) {
+                appContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS + File.separator + appContext.packageName + ".apk")
+            } else {
+                appContext.getExternalFilesDir(filePath + File.separator + appContext.packageName + ".apk")
+            }
+            // 注意系统的getExternalFilesDir（）方法如果找不到文件会默认当成目录创建
+            if (apkFile != null && apkFile.isFile) {
+                val packageManager = appContext.packageManager
+                val packageInfo = packageManager.getPackageArchiveInfo(apkFile.absolutePath, PackageManager.GET_ACTIVITIES)
+                if (packageInfo != null) {
+                    val apkVersionCode =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode else packageInfo.versionCode.toLong()
+                    if (apkVersionCode > getAppCode()) {
+                        return apkFile
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("----", "checkLocalUpdate:本地目录没有已经下载的新版本")
+        }
+        return null
+    }
+
+    /**
+     * 获取应用的版本号
+     *
+     * @return 应用版本号
+     */
+    private fun getAppCode(): Long {
+        try {
+            //获取包管理器
+            val pm = appContext.packageManager
+            //获取包信息
+            val packageInfo = pm.getPackageInfo(appContext.packageName, 0)
+            //返回版本号
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode else packageInfo.versionCode.toLong()
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return 0
     }
 
 }
