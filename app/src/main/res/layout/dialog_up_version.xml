@@ -13,9 +13,10 @@
         android:background="@drawable/shape_round_white"
         android:orientation="vertical"
         android:paddingStart="@dimen/dp.25"
+        android:paddingEnd="@dimen/dp.25"
         android:paddingTop="@dimen/dp.38"
         android:paddingBottom="@dimen/dp.23"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ProgressBar
             android:id="@+id/progress_bar_up_date_version"
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp.16"
-            android:text="50%"
+            android:text=""
             android:textColor="@color/colorText_FF5A34" />
 
     </LinearLayout>
@@ -47,7 +48,8 @@
         android:orientation="vertical"
         android:paddingStart="@dimen/dp.25"
         android:paddingRight="@dimen/dp.25"
-        android:paddingBottom="@dimen/dp.35">
+        android:paddingBottom="@dimen/dp.35"
+        android:visibility="visible">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_up_date_close"

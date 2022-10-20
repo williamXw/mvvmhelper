@@ -2,8 +2,8 @@ package com.gexiaobao.hdw.bw.ui.activity
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.gexiaobao.hdw.bw.R
 import com.gexiaobao.hdw.bw.app.base.BaseActivity
-import com.gexiaobao.hdw.bw.app.dialog.RxDialogSure
 import com.gexiaobao.hdw.bw.app.dialog.RxUpVersionDialog
 import com.gexiaobao.hdw.bw.app.ext.countDownCoroutines
 import com.gexiaobao.hdw.bw.app.util.*
@@ -14,12 +14,10 @@ import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
 import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.coroutines.Job
 import me.hgj.mvvmhelper.base.appContext
-import me.hgj.mvvmhelper.net.interception.logging.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
 import org.json.JSONObject
-import java.io.File
 
 /**
  * created by : huxiaowei
@@ -36,8 +34,8 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     private var privacyAgreementBreviaryUrl = ""
     private var privacyAgreementUrl = ""
     private var registerAgreementUrl = ""
-    val URLStr = "https://cdn.weizhiyou.top/down/wzy.apk" //apk地址
     private var progressNum = 0
+    private var isNeedUpDate = false
 
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -62,17 +60,14 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
         mViewModel.fetchAppVersion(paramsBody)?.observe(this) {
             val mResponse = parseData(it)
             if (mResponse.isNotEmpty()) {
+//                val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
                 showNewVersionDialog()
 //                getPrivacyAgreement()
-//                val data = JSONObject(mResponse).getJSONObject(RxConstants.DATA)
             }
         }
     }
 
     private fun showNewVersionDialog() {
-//        rxDialog.btnUpdateNow.setOnClickListener {
-//            downloadApk()
-//        }
         rxDialog.setProgressBar(progressNum)
         rxDialog.ivClose.setOnClickListener {
             rxDialog.dismiss()
@@ -81,24 +76,6 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
         }
         rxDialog.setFullScreenWidth()
         rxDialog.show()
-    }
-
-    private fun downloadApk() {
-        DownloadUtil.get().download(URLStr, "download", object : DownloadUtil.OnDownloadListener {
-            override fun onDownloadSuccess(str: File?) {
-
-            }
-
-            override fun onDownloading(progress: Int) {
-                progressNum = progress
-                LogUtils.debugInfo("-------" + progressNum)
-            }
-
-            override fun onDownloadFailed() {
-
-            }
-
-        })
     }
 
     private fun fcmTokenUpRequest() {
