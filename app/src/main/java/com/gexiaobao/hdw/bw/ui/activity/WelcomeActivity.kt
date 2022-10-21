@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +20,7 @@ import com.gexiaobao.hdw.bw.data.commom.Constant
 import com.gexiaobao.hdw.bw.data.downloadmanager.DownloadManagerUtils
 import com.gexiaobao.hdw.bw.databinding.ActivityWelcomeBinding
 import com.gexiaobao.hdw.bw.ui.viewmodel.MainViewModel
+import com.permissionx.guolindev.PermissionX
 import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.coroutines.Job
 import me.hgj.mvvmhelper.base.appContext
@@ -49,17 +49,6 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     private var registerAgreementUrl = ""
     private var progressNum = 0
     private var isNeedUpDate = false
-
-    /**
-     * 8.0未知应用授权请求码
-     */
-    private val INSTALL_PACKAGES_REQUESTCODE = 1112
-
-    /**
-     * 用户跳转未知应用安装的界面请求码
-     */
-    private val GET_UNKNOWN_APP_SOURCES = 1113
-
 
     override fun initView(savedInstanceState: Bundle?) {
         isIntiFirst = CacheUtil.isInitFirst()
@@ -95,8 +84,6 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
         rxDialog.setProgressBar(progressNum)
         rxDialog.btnUpdateNow.setOnClickListener {
             requestPermission()
-            rxDialog.llUpdate.visibility = View.GONE
-            rxDialog.llProgress.visibility = View.VISIBLE
         }
         rxDialog.ivClose.setOnClickListener {
             rxDialog.dismiss()
@@ -109,19 +96,31 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
     }
 
     private fun requestPermission() {
-        //权限判断是否有访问外部存储空间权限
-        //权限判断是否有访问外部存储空间权限
-        val flag = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (flag != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // 用户拒绝过这个权限了，应该提示用户，为什么需要这个权限。
-                RxToast.showToast("请授权访问存储空间权限")
+        PermissionX.init(this)
+            .permissions(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            //拒绝后重新弹窗提醒
+            .onExplainRequestReason { scope, deniedList ->
+                scope.showRequestReasonDialog(
+                    deniedList,
+                    DeviceUtil.getAppName(this) + "需要以下权限才能继续",
+                    "同意",
+                    "拒绝"
+                )
+            }.onForwardToSettings { scope, deniedList ->
+                scope.showForwardToSettingsDialog(deniedList, "您需要去应用程序设置当中手动开启权限", "好的")
             }
-            // 申请授权
-            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
-        } else {
-            DownloadManagerUtils().updateDownLoad("https://downpack.baidu.com/baidumap_AndroidPhone_1012337a.apk")
-        }
+            .request { allGranted, _, _ ->
+                if (allGranted) {
+                    DownloadManagerUtils().updateDownLoad("https://downpack.baidu.com/baidumap_AndroidPhone_1012337a.apk")
+                    rxDialog.llUpdate.visibility = View.GONE
+                    rxDialog.llProgress.visibility = View.VISIBLE
+                } else {
+                    CacheUtil.setPermission(false)//拒绝了某个权限 记录
+                    exitProcess(0)
+                }
+            }
     }
 
     private fun fcmTokenUpRequest() {
@@ -144,7 +143,7 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
 
     private fun getDeviceId() {
         isLogin = KvUtils.decodeBoolean(Constant.ISLOGIN)
-        var deviceID = DeviceUtil.getAndroidId(appContext)
+        val deviceID = DeviceUtil.getAndroidId(appContext)
         KvUtils.encode(Constant.DEVICE_ID, deviceID)
     }
 
@@ -222,45 +221,6 @@ class WelcomeActivity : BaseActivity<MainViewModel, ActivityWelcomeBinding>() {
 //            }
             finish()
         }, lifecycleScope)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        //8.0应用设置界面未知安装开源返回时候
-        if (requestCode == GET_UNKNOWN_APP_SOURCES && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val allowInstall: Boolean = Objects.requireNonNull(this).packageManager.canRequestPackageInstalls()
-            if (allowInstall) {
-                rxDialog.dismiss()
-            } else {
-                exitProcess(0)
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //6.0 存储权限授权结果回调
-                DownloadManagerUtils().updateDownLoad("https://downpack.baidu.com/baidumap_AndroidPhone_1012337a.apk")
-            } else {
-                rxDialog.dismiss()
-                exitProcess(0)
-            }
-        } else if (requestCode == INSTALL_PACKAGES_REQUESTCODE) {
-            // 8.0的权限请求结果回调,授权成功
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                DownloadManagerUtils().updateDownLoad("https://downpack.baidu.com/baidumap_AndroidPhone_1012337a.apk")
-            } else {
-                // 授权失败，引导用户去未知应用安装的界面
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    //注意这个是8.0新API
-                    val packageUri = Uri.parse("package:" + this.packageName)
-                    val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageUri)
-                    startActivityForResult(intent, GET_UNKNOWN_APP_SOURCES)
-                }
-            }
-        }
     }
 
     override fun onDestroy() {

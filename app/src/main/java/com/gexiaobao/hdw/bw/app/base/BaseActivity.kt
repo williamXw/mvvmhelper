@@ -66,7 +66,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : BaseVBActivi
             if (code == NetUrl.SUCCESS_CODE) {
                 return mResponse
             } else {
-                showDialogMessage(msg)
+//                showDialogMessage(msg)
                 if (code != NetUrl.SUCCESS_CODE) {
                     throw ParseException(code.toString(), msg, it)
                 }

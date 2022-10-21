@@ -87,7 +87,7 @@ class DownloadManagerUtils {
     }
 
     fun updateDownLoad(downLoadHtmlUrl: String) {
-        val apkFile: File = checkLocalUpdate("Taurus") as File
+        val apkFile = checkLocalUpdate("Taurus")
         if (apkFile != null) {
             // 本地存在新版本，直接安装
             installApk(apkFile)
@@ -101,8 +101,7 @@ class DownloadManagerUtils {
         val request = DownloadManager.Request(uri)
         //设置漫游条件下是否可以下载
         request.setAllowedOverRoaming(false)
-        // 自定义的下载目录,注意这是涉及到android Q的存储权限，建议不要用getExternalStorageDirectory（）
-        request.setDestinationInExternalFilesDir(appContext, "Taurus", appContext.packageName + ".apk")
+
         deleteApkFile(
             Objects.requireNonNull<File>(
                 appContext.getExternalFilesDir(
@@ -110,6 +109,8 @@ class DownloadManagerUtils {
                 )
             )
         )
+        // 自定义的下载目录,注意这是涉及到android Q的存储权限，建议不要用getExternalStorageDirectory（）
+        request.setDestinationInExternalFilesDir(appContext, "Taurus", appContext.packageName + ".apk")
         //在通知栏中显示，默认就是显示的
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
         //设置通知标题
@@ -119,9 +120,9 @@ class DownloadManagerUtils {
         request.setVisibleInDownloadsUi(true)
         request.allowScanningByMediaScanner()
         //设置文件存放路径
-        directory = getDiskCacheDir(appContext)
-        file = File(directory, "/download/$apkName")
-        request.setDestinationUri(Uri.fromFile(file))
+//        directory = getDiskCacheDir(appContext)
+//        file = File(directory, "/download/$apkName")
+//        request.setDestinationUri(Uri.fromFile(file))
 
         if (downloadManager == null)
             downloadManager = appContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -281,7 +282,7 @@ class DownloadManagerUtils {
                 appContext.getExternalFilesDir(filePath + File.separator + appContext.packageName + ".apk")
             }
             // 注意系统的getExternalFilesDir（）方法如果找不到文件会默认当成目录创建
-            if (apkFile != null && apkFile.isFile) {
+            if (apkFile != null && apkFile!!.isFile) {
                 val packageManager = appContext.packageManager
                 val packageInfo = packageManager.getPackageArchiveInfo(apkFile.absolutePath, PackageManager.GET_ACTIVITIES)
                 if (packageInfo != null) {
