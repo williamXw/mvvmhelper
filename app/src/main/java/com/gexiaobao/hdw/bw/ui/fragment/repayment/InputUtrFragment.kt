@@ -28,12 +28,11 @@ class InputUtrFragment : BaseFragment<RepaymentFragmentViewModel, FragmentInputU
 
     override fun initView(savedInstanceState: Bundle?) {
         mBind.viewmodel = mViewModel
-        mBind.ivAddPicture.scaleType = ImageView.ScaleType.CENTER_CROP
     }
 
     override fun onBindViewClick() {
         super.onBindViewClick()
-        setOnclickNoRepeat(mBind.ivBack, mBind.btnSubmitUtr, mBind.ivAddPicture) {
+        setOnclickNoRepeat(mBind.ivBack, mBind.btnSubmitUtr, mBind.ivAddPictureNormal) {
             when (it) {
                 mBind.ivBack -> {
                     nav().navigateUp()
@@ -41,7 +40,7 @@ class InputUtrFragment : BaseFragment<RepaymentFragmentViewModel, FragmentInputU
                 mBind.btnSubmitUtr -> {
                     submitData()
                 }
-                mBind.ivAddPicture -> {
+                mBind.ivAddPictureNormal -> {
                     selectedPicture()
                 }
             }
@@ -57,10 +56,10 @@ class InputUtrFragment : BaseFragment<RepaymentFragmentViewModel, FragmentInputU
             mBind.tvPleaseEnterUtr.visibility = View.GONE
         }
         if (bitmap == null) {
-            mBind.ivAddPicture.background = resources.getDrawable(R.drawable.round_red_12)
+            mBind.ivAddPictureNormal.background = resources.getDrawable(R.drawable.round_red_12)
             mBind.tvUploadUtrScreenshot.visibility = View.VISIBLE
         } else {
-            mBind.ivAddPicture.background = resources.getDrawable(R.drawable.round_white_12)
+            mBind.ivAddPictureNormal.background = resources.getDrawable(R.drawable.round_white_12)
             mBind.tvUploadUtrScreenshot.visibility = View.GONE
         }
 
@@ -77,8 +76,11 @@ class InputUtrFragment : BaseFragment<RepaymentFragmentViewModel, FragmentInputU
             .forResult(object : OnResultCallbackListener<LocalMedia> {
                 override fun onResult(result: MutableList<LocalMedia>?) {
                     if (result != null) {
+                        mBind.ivAddPictureNormal.visibility = View.GONE
+                        mBind.ivAddPicture.visibility = View.VISIBLE
                         bitmap = BitmapFactory.decodeFile(result[0].compressPath)
                         mBind.ivAddPicture.setImageBitmap(bitmap)
+                        mBind.ivAddPicture.scaleType = ImageView.ScaleType.CENTER_CROP
                     }
                 }
 
